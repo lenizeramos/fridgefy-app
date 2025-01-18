@@ -1,9 +1,13 @@
-function Landing () {
-    return (
-        <>
-        <h1>HIHIHI</h1>
-        </>
-    )
+import "./Landing.scss";
+
+function Landing() {
+  return (
+    <>
+      <div className="loading">
+        <span className="loader"></span>
+      </div>
+    </>
+  );
 }
 
-export default Landing
+export default Landing;
