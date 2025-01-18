@@ -1,27 +1,10 @@
-import express from "express";
+import { app } from "./app";
 import "dotenv/config";
-import { clerkClient, getAuth, requireAuth } from "@clerk/express";
+import { HOST, PORT } from "./env";
+import { createServer } from "http";
 
-const app = express();
-const PORT = 3000;
+const server = createServer(app);
 
-app.get("/protected", requireAuth(), async (req, res) => {
-  const { userId } = getAuth(req);
-  console.log(userId)
-
-  if (!userId) {
-    res.status(401).json({ error: "Unauthorized" });
-    return;
-  }
-
-  const user = await clerkClient.users.getUser(userId);
-  res.json({ user });
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello, TypeScript!");
-});
-
-app.listen(PORT, () => {
-  console.log(`Server is runing at http://localhost:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`[server]: Listening at http://${HOST}:${PORT}`);
 });
