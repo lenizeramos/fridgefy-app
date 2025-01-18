@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.navContainer {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: #faebd7;
+  color: #535351;
+  .logoContainer {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 4rem;
+      height: auto;
+    }
+    h1 {
+      font-family: "Tangerine", serif;
+      font-weight: 400;
+      font-size: 3rem;
+    }
+  }
+  .linksContainer {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 1.5rem;
+      .active {
+        text-decoration: none;
+        color: #4d2f0a;
+        font-family: "Shadows Into Light", serif;
+        border-bottom: 1px solid #4d2f0a;
+        font-weight: bolder;
+      }
+      .noActive {
+        text-decoration: none;
+        color: #535351;
+        font-family: "Shadows Into Light", serif;
+      }
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 1rem;
+      background-color: transparent;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      border: 1px solid #4d2f0a;
+      .button {
+        text-decoration: none;
+        color: #4d2f0a;
+      }
+    }
+    button:hover {
+      background-color: #ead5c1;
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      .button {
+        color: #393737;
+      }
+    }
+  }
+}
