@@ -10,15 +10,15 @@ function App() {
   return (
     <>
       <h1>hello</h1>
-      <button>LOGIN</button>
 
+      {/* will be deleted soon*/}
       <SignedOut>
         <SignInButton />
       </SignedOut>
       <SignedIn>
         <UserButton />
       </SignedIn>
-
+      {/* will be deleted soon*/}
     </>
   );
 }

@@ -1,11 +1,12 @@
 import { createRoot } from "react-dom/client";
 import "./index.scss";
-import Layout from "./Layout.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./components/Landing/Landing.tsx";
 import { StrictMode } from "react";
+import Layout from "./layout/Layout.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { SignIn, SignUp, ClerkProvider} from "@clerk/clerk-react";
+import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
+import Register from "./components/Register.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -25,17 +26,20 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <SignIn />,
+        element: (
+          <SignIn path="/login" routing="path" redirectUrl="/register" />
+        ),
       },
       {
         path: "signup",
         element: <SignUp />,
       },
       {
-        path: "dashboard",
+        path: "register",
         element: (
           <ProtectedRoute>
             <Landing />
+            <Register />
           </ProtectedRoute>
         ),
       },
@@ -44,9 +48,12 @@ const router = createBrowserRouter([
 ]);
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} signInUrl="/login"
-  signUpUrl="/signup"
-  afterSignOutUrl="/">
+    <ClerkProvider
+      publishableKey={PUBLISHABLE_KEY}
+      signInUrl="/login"
+      signUpUrl="/signup"
+      afterSignOutUrl="/"
+    >
       <RouterProvider router={router} />
     </ClerkProvider>
   </StrictMode>
