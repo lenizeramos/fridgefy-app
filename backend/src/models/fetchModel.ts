@@ -1,4 +1,4 @@
-interface IRecipies {
+interface IRecipes {
   id: number;
   name: string;
   ingredients: string[];
@@ -17,18 +17,18 @@ interface IRecipies {
   mealType: string[];
 }
 
-const fetchRecipies = async () => {
+const fetchRecipes = async () => {
   try {
     const response = await fetch("https://dummyjson.com/recipes");
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
-    const data: { recipes: IRecipies[] } = await response.json();
+    const data: { recipes: IRecipes[] } = await response.json();
     return data.recipes;
   } catch (error) {
-    console.error("Error in fetchRecipies:", error);
+    console.error("Error in fetchRecipes:", error);
     throw new Error("Error fetching API");
   }
 };
 
-export { fetchRecipies, IRecipies };
+export { fetchRecipes, IRecipes };

@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getRecipies } from "../controllers/fetchController";
+import { getRecipes } from "../controllers/fetchController";
 
 const router = Router();
 
-router.get("/", getRecipies )
+router.get("/", getRecipes )
 
 export default router;

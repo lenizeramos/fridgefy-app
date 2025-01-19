@@ -1,9 +1,9 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
-import { fetchRecipies } from "../models/fetchModel";
+import { fetchRecipes } from "../models/fetchModel";
 
-const getRecipies = async (req: Request, res: Response) => {
+const getRecipes = async (req: Request, res: Response) => {
   try {
-    const data = await fetchRecipies();
+    const data = await fetchRecipes();
     console.log(data)
     res.json(
       {
@@ -12,9 +12,9 @@ const getRecipies = async (req: Request, res: Response) => {
       }
     );
   } catch (error) {
-    console.log(`Error in getRecipies: ${error}`);
+    console.log(`Error in getRecipes: ${error}`);
     res.status(500).send("Error fetching data");
   }
 };
 
-export { getRecipies }
+export { getRecipes }
