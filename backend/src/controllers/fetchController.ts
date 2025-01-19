@@ -4,7 +4,13 @@ import { fetchRecipies } from "../models/fetchModel";
 const getRecipies = async (req: Request, res: Response) => {
   try {
     const data = await fetchRecipies();
-    res.json(data);
+    console.log(data)
+    res.json(
+      {
+        message: 'Ok',
+        response: data
+      }
+    );
   } catch (error) {
     console.log(`Error in getRecipies: ${error}`);
     res.status(500).send("Error fetching data");
