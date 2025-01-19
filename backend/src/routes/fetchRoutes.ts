@@ -3,6 +3,6 @@ import { getRecipies } from "../controllers/fetchController";
 
 const router = Router();
 
-router.get('/fetch', getRecipies )
+router.get("/", getRecipies )
 
 export default router;
