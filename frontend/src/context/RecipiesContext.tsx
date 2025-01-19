@@ -75,7 +75,11 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       if (!response.ok) {
         throw new Error("Error fetching data");
       }
-      const data: Recipes[] = await response.json();
+      const result = await response.json();
+      const data: Recipes[] = result.data;
+      if (!Array.isArray(data)) {
+        throw new Error("Unexpected response format");
+      }
       dispatch({ type: "setRecipes", payload: data });
     } catch (error) {
       throw new Error("Error fetching data");

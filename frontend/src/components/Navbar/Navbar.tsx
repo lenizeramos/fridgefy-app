@@ -25,7 +25,7 @@ function Navbar() {
               </li>
               <li>
                 <NavLink
-                  to="/recipies"
+                  to="/recipes"
                   className={({ isActive }) =>
                     isActive ? "active" : "noActive"
                   }
@@ -41,8 +41,7 @@ function Navbar() {
                   isActive ? "buttonActive" : "button"
                 }
               >
-                {" "}
-                <button>Sign in</button>{" "}
+                <button>Sign in</button>
               </NavLink>
             </div>
           </div>

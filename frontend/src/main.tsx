@@ -8,6 +8,7 @@ import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
 import Register from "./components/Register/Register.tsx";
 import Dashboard from "./components/Dashboard/Dashboard.tsx";
+import RecipesList from "./components/RecipesList/RecipesList.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
             <Register />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "recipes",
+        element: <RecipesList />,
       },
     ],
   },

@@ -1,13 +1,16 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import "./Layout.scss";
+import { RecipesProvider } from "../context/RecipiesContext";
 
 function Layout() {
   return (
     <>
       <Navbar />
       <main>
-        <Outlet />
+        <RecipesProvider>
+          <Outlet />
+        </RecipesProvider>
       </main>
     </>
   );
