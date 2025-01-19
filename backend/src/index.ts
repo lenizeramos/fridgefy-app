@@ -1,12 +1,10 @@
-import express from 'express';
+import { app } from "./app";
+import "dotenv/config";
+import { HOST, PORT } from "./env";
+import { createServer } from "http";
 
-const app = express();
-const PORT = 3000;
+const server = createServer(app);
 
-app.get('/', (req, res) => {
-  res.send('Hello, TypeScript!');
-});
-
-app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`[server]: Listening at http://${HOST}:${PORT}`);
 });

@@ -35,7 +35,7 @@ function Navbar() {
               </li>
             </ul>
             <button>
-              <NavLink to="/logIn" className={'button'}>Sign in</NavLink>
+              <NavLink to="/login" className={'button'}>Sign in</NavLink>
             </button>
           </div>
         </div>
