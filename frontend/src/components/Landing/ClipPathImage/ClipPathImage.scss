@@ -1,0 +1,14 @@
+.clipped-image {
+  // transition: clip-path 2s ease-in-out;
+  transition: transform 0.5s ease, clip-path 0.5s ease, box-shadow 0.5s ease;
+  transform-origin: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: scale(1.05);
+    clip-path: url(#hover-shape);
+    // clip-path: url(#hover-shape);
+    // transform: rotateX(10deg) rotateY(10deg) scale(1.05); /* 3D rotation and scaling */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.5);
+  }
+}

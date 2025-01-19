@@ -29,6 +29,12 @@
       animation-delay: 0.4s;
     }
   }
+  .image {
+    position: relative;
+    perspective: 1000px;
+    width: fit-content;
+
+  }
 }
 
 @keyframes rotate {

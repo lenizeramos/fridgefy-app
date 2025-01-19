@@ -9,7 +9,6 @@ function Layout() {
       <main>
         <Outlet />
       </main>
-      <h1>Hello</h1>
     </>
   );
 }
