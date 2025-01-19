@@ -34,9 +34,17 @@ function Navbar() {
                 </NavLink>
               </li>
             </ul>
-            <button>
-              <NavLink to="/login" className={'buttonActive'}>Sign in</NavLink>
-            </button>
+            <div className="buttonContainer">
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive ? "buttonActive" : "button"
+                }
+              >
+                {" "}
+                <button>Sign in</button>{" "}
+              </NavLink>
+            </div>
           </div>
         </div>
       </nav>

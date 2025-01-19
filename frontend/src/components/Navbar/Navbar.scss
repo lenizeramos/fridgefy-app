@@ -45,26 +45,44 @@
         font-family: "Shadows Into Light", serif;
       }
     }
-    button {
-      padding: 0.5rem 1rem;
-      border-radius: 1rem;
-      background-color: transparent;
-      cursor: pointer;
-      outline: none;
-      transition: all 0.3s ease;
-      border: 1px solid #4d2f0a;
-      .buttonActive {
+    .buttonContainer {
+      .button {
         text-decoration: none;
         color: #4d2f0a;
         font-family: "Shadows Into Light", serif;
         font-weight: bolder;
-      }
-      &:hover {
-        background-color: #ead5c1;
-        transform: scale(1.05);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        .button {
+        button {
+          padding: 0.5rem 1rem;
+          border-radius: 1rem;
+          background-color: transparent;
+          cursor: pointer;
+          outline: none;
+          transition: all 0.3s ease;
+          border: 1px solid #4d2f0a;
+        }
+        &:hover {
           color: #393737;
+          button {
+            background-color: #dac1aa;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          }
+        }
+      }
+      .buttonActive {
+        text-decoration: none;
+        color: #393737;
+        font-family: "Shadows Into Light", serif;
+        font-weight: bolder;
+        button {
+          padding: 0.5rem 1rem;
+          border-radius: 1rem;
+          background-color: #dac1aa;
+          transform: scale(1.05);
+          cursor: pointer;
+          border: 1px solid #4d2f0a;
+          outline: none;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
       }
     }
