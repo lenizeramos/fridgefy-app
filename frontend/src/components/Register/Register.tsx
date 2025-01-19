@@ -12,7 +12,7 @@ const Register = () => {
         });
 
         if (response.ok) {
-          navigate("/");
+          navigate("/dashboard");
         } else {
           console.error("Failed to fetch user");
         }

@@ -5,7 +5,7 @@ export const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     <>
       <SignedIn>{children}</SignedIn>
       <SignedOut>
-        <RedirectToSignIn redirectUrl="/login"/>
+        <RedirectToSignIn/>
       </SignedOut>
     </>
   );

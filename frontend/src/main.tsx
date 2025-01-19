@@ -4,9 +4,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./components/Landing/Landing.tsx";
 import { StrictMode } from "react";
 import Layout from "./layout/Layout.tsx";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.tsx";
 import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
-import Register from "./components/Register.tsx";
+import Register from "./components/Register/Register.tsx";
+import Dashboard from "./components/Dashboard/Dashboard.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -35,10 +36,17 @@ const router = createBrowserRouter([
         element: <SignUp />,
       },
       {
+        path: "dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: "register",
         element: (
           <ProtectedRoute>
-            <Landing />
             <Register />
           </ProtectedRoute>
         ),
