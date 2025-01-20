@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import logo from "../../../public/logo.png";
+import { SignedOut, SignedIn, SignOutButton } from "@clerk/clerk-react";
 import "./Navbar.scss";
 
 function Navbar() {
@@ -35,14 +36,19 @@ function Navbar() {
               </li>
             </ul>
             <div className="buttonContainer">
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? "buttonActive" : "button"
-                }
-              >
-                <button>Sign in</button>
-              </NavLink>
+            <SignedOut>
+                <NavLink to="/login" className="button">
+                  <button>Sign in</button>
+                </NavLink>
+              </SignedOut>
+
+              <SignedIn>
+                <SignOutButton>
+                  <NavLink to="#" className="button">
+                    <button>Logout</button>
+                  </NavLink>
+                </SignOutButton>
+              </SignedIn>
             </div>
           </div>
         </div>
