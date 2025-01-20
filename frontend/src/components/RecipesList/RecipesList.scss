@@ -1,10 +1,21 @@
 .mainContainer {
-  margin: 2rem 10%;
-  .recipeContainer {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    gap: 2rem;
-    padding: 2rem;
-    width: 100%;
+  display: flex;
+  .fridge {
+    width: 15%;
+  }
+  .recipes {
+    margin: 2rem 0;
+    width: 70%;
+
+    .recipeContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      width: 100%;
+    }
+  }
+  .wishList {
+    width: 15%;
   }
 }

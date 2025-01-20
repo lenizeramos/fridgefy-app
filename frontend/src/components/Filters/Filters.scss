@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.topContainer {
+  width: 100%;
+  padding: 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  #searchRecipes {
+    width: 100%;
+    padding: 0.5rem 4rem;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid saddlebrown;
+    color: #642f09;
+    font-family: "Shadows Into Light", serif;
+  }
+  i {
+    position: absolute;
+    font-size: 1.5rem;
+    top: 1.5rem;
+    padding-left: 1rem;
+    color: saddlebrown;
+  }
+  .filters {
+    display: flex;
+    gap: 5rem;
+
+    h4 {
+      font-family: "Shadows Into Light", serif;
+      color: saddlebrown;
+      margin-bottom: 1rem;
+    }
+    select {
+        width: 10rem;
+        color: #642f09;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.5rem;
+        border: 1px solid #642f09;
+    }
+  }
+}

@@ -22,11 +22,13 @@ export type Recipes = {
 type RecipesState = {
   recipes: Recipes[];
   selectedRecipe: Recipes | null;
+  tags: string[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
-  | { type: "findRecipes"; payload: number };
+  | { type: "findRecipes"; payload: number }
+  | { type: "tagsArray"; payload: { tags: string | string[] }[] };
 
 interface IRecipesContext {
   state: RecipesState;
@@ -37,6 +39,7 @@ interface IRecipesContext {
 const initialState: RecipesState = {
   recipes: [],
   selectedRecipe: null,
+  tags: [],
 };
 
 const RecipesReducer = (
@@ -56,6 +59,21 @@ const RecipesReducer = (
       return {
         ...state,
         selectedRecipe: selectedRecipe || null,
+      };
+    case "tagsArray":
+      const uniqueTags = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.tags)) {
+            cur.tags.forEach((tag) => acc.add(tag));
+          } else if (typeof cur.tags === "string") {
+            acc.add(cur.tags);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        tags: uniqueTags,
       };
     default:
       return state;
