@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useRecipesContext } from "../../context/RecipiesContext";
 import "./RecipesList.scss";
+import Recipe from "../Recipe/Recipe";
 
 function RecipesList() {
   const { state, fetchData } = useRecipesContext();
@@ -13,7 +14,7 @@ function RecipesList() {
       <div className="mainContainer">
         <div className="recipeContainer">
           {state.recipes.map((recipe) => {
-            return (<h1 key={recipe.id}>{recipe.name}</h1>);
+            return <Recipe key={recipe.id} recipe={recipe} />;
           })}
         </div>
       </div>

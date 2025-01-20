@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.recipeBox {
+  background-color: #ffe5c4;
+  border-radius: 1rem;
+  .recipeImg {
+    height: 15rem;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    img {
+      position: absolute;
+      top: -4rem;
+    }
+  }
+  .recipeName {
+    padding: 2rem;
+    h3 {
+      font-family: "Shadows Into Light", serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #535351;
+      text-shadow: -1px -1px 2px #faead7, 2px 2px 4px #2b2b2a;
+      text-align: center;
+    }
+    .buttonContainer {
+      border-radius: 1rem;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2em;
+      .details,
+      .icon {
+        padding: 1rem 2rem;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        transition: all 0.5s ease-in-out;
+      }
+      .details {
+        font-family: "Mystery Quest", serif;
+        width: 18rem;
+        text-align: center;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        background-color: #eddbc3;
+        color: #2b2b2a;
+        &:hover {
+          color: #a94d3c;
+          background-color: #fff5e1;
+        }
+      }
+      .icon {
+        background-color: #fff5e1;
+        font-size: 1.2rem;
+        border-left: 1px solid #8b5e3c;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        color: #a94d3c;
+        &:hover {
+          background-color: #eddbc3;
+          color: #2b2b2a;
+        }
+      }
+    }
+  }
+}

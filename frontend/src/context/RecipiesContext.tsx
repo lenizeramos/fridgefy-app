@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 
-type Recipes = {
+export type Recipes = {
   id: number;
   name: string;
   ingredients: string[];

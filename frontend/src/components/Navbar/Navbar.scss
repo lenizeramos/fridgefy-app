@@ -6,6 +6,7 @@
   justify-content: space-between;
   background-color: #faebd7;
   color: #535351;
+  flex-wrap: wrap;
   .logoContainer {
     display: flex;
     gap: 1rem;
@@ -27,6 +28,7 @@
     display: flex;
     align-items: center;
     gap: 5rem;
+    flex-wrap: wrap;
     ul {
       display: flex;
       gap: 2rem;
