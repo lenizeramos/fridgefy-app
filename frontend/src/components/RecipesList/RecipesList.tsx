@@ -2,6 +2,8 @@ import { useRecipesContext } from "../../context/RecipiesContext";
 import "./RecipesList.scss";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
+import Fridge from "../Fridge/Fridge";
+import { SignedIn } from "@clerk/clerk-react";
 
 function RecipesList() {
   const { state } = useRecipesContext();
@@ -9,7 +11,11 @@ function RecipesList() {
     <>
       <div className="mainContainer">
         <section className="fridge">
-          <div></div>
+          <SignedIn>
+            <div>
+              <Fridge />
+            </div>
+          </SignedIn>
         </section>
         <section className="recipes">
           <Filters />

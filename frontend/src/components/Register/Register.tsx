@@ -12,7 +12,7 @@ const Register = () => {
         });
 
         if (response.ok) {
-          navigate("/dashboard");
+          navigate("/recipes");
         } else {
           console.error("Failed to fetch user");
         }
