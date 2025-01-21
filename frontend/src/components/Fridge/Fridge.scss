@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.topContainerFridge {
+  width: 100%;
+  padding: 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  .searchFridgeContainer {
+    position: relative;
+    #searchFridge {
+      width: 100%;
+      padding: 0.5rem 4rem;
+      border-radius: 1rem;
+      outline: none;
+      border: 1px solid saddlebrown;
+      color: #642f09;
+      font-family: "Shadows Into Light", serif;
+    }
+
+    .search-icon {
+      position: absolute;
+      font-size: 1.5rem;
+      top: 20%;
+      left: 1rem;
+      color: saddlebrown;
+    }
+  }
+
+  .ingredients {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+
+.addToFridgeBtn {
+  padding: 1rem 2rem;
+  cursor: pointer;
+  border: none;
+  font-family: "Mystery Quest", serif;
+  width: 100%;
+  text-align: center;
+  border-radius: 1rem;
+  background-color: #eddbc3;
+  color: #2b2b2a;
+  &:hover {
+    color: #a94d3c;
+    background-color: #fff5e1;
+  }
+}

@@ -22,12 +22,14 @@ export type Recipes = {
 type RecipesState = {
   recipes: Recipes[];
   selectedRecipe: Recipes | null;
+  ingredients: string[];
   tags: string[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "findRecipes"; payload: number }
+  | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
   | { type: "tagsArray"; payload: { tags: string | string[] }[] };
 
 interface IRecipesContext {
@@ -39,6 +41,7 @@ interface IRecipesContext {
 const initialState: RecipesState = {
   recipes: [],
   selectedRecipe: null,
+  ingredients: [],
   tags: [],
 };
 
@@ -47,12 +50,13 @@ const RecipesReducer = (
   action: RecipesAction
 ): RecipesState => {
   switch (action.type) {
-    case "setRecipes":
+    case "setRecipes": {
       return {
         ...state,
         recipes: action.payload,
       };
-    case "findRecipes":
+    }
+    case "findRecipes": {
       const selectedRecipe = state.recipes.find(
         (recipe) => recipe.id === action.payload
       );
@@ -60,7 +64,24 @@ const RecipesReducer = (
         ...state,
         selectedRecipe: selectedRecipe || null,
       };
-    case "tagsArray":
+    }
+    case "ingredientsArray": {
+      const uniqueIngredients = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.ingredients)) {
+            cur.ingredients.forEach((ingredient) => acc.add(ingredient));
+          } else if (typeof cur.ingredients === "string") {
+            acc.add(cur.ingredients);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        ingredients: uniqueIngredients,
+      };
+    }
+    case "tagsArray": {
       const uniqueTags = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.tags)) {
@@ -75,6 +96,7 @@ const RecipesReducer = (
         ...state,
         tags: uniqueTags,
       };
+    }
     default:
       return state;
   }
@@ -99,7 +121,10 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Unexpected response format");
       }
       dispatch({ type: "setRecipes", payload: data });
+      dispatch({ type: "ingredientsArray", payload: data });
+      dispatch({ type: "tagsArray", payload: data });
     } catch (error) {
+      console.error("Error fetching recipes:", error);
       throw new Error("Error fetching data");
     }
   };
