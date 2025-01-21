@@ -51,7 +51,7 @@ function Navbar() {
             </ul>
             <div className="buttonContainer">
               <SignedOut>
-                <NavLink to="/login" className="button">
+                <NavLink to="/signin" className="button">
                   <button>Sign in</button>
                 </NavLink>
               </SignedOut>

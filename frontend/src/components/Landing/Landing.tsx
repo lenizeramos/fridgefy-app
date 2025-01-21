@@ -19,7 +19,7 @@ function Landing() {
             to your kitchen!
           </p>
           <button>
-            <NavLink to="/login" className={'button'}>Let's Cook !</NavLink>
+            <NavLink to="/signin" className={'button'}>Let's Cook !</NavLink>
           </button>
         </div>
         <div className="image">

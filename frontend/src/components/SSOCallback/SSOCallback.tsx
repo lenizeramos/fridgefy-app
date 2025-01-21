@@ -9,7 +9,7 @@ const SSOCallback = () => {
   useEffect(() => {
     const handleSSOCallback = async () => {
       if (!signInLoaded) return;
-      navigate("/login");
+      navigate("/signin");
     };
     handleSSOCallback();
   });
