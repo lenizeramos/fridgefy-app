@@ -22,15 +22,21 @@ export type Recipes = {
 type RecipesState = {
   recipes: Recipes[];
   selectedRecipe: Recipes | null;
+  names: string[];
   ingredients: string[];
   tags: string[];
+  mealsType: string[];
+  cuisines: string[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "findRecipes"; payload: number }
+  | { type: "namesArray"; payload: { name: string | string[] }[] }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
-  | { type: "tagsArray"; payload: { tags: string | string[] }[] };
+  | { type: "tagsArray"; payload: { tags: string | string[] }[] }
+  | { type: "mealsTypeArray"; payload: { mealType: string | string[] }[] }
+  | { type: "cousinesArray"; payload: { cuisine: string | string[] }[] };
 
 interface IRecipesContext {
   state: RecipesState;
@@ -41,8 +47,11 @@ interface IRecipesContext {
 const initialState: RecipesState = {
   recipes: [],
   selectedRecipe: null,
+  names: [],
   ingredients: [],
   tags: [],
+  mealsType: [],
+  cuisines: [],
 };
 
 const RecipesReducer = (
@@ -63,11 +72,26 @@ const RecipesReducer = (
         ...state,
         selectedRecipe: selectedRecipe || null,
       };
+    case "namesArray":
+      const uniqueNames = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.name)) {
+            cur.name.forEach((item) => acc.add(item));
+          } else if (typeof cur.name === "string") {
+            acc.add(cur.name);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        names: uniqueNames,
+      };
     case "ingredientsArray":
       const uniqueIngredients = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.ingredients)) {
-            cur.ingredients.forEach((ingredient) => acc.add(ingredient));
+            cur.ingredients.forEach((item) => acc.add(item));
           } else if (typeof cur.ingredients === "string") {
             acc.add(cur.ingredients);
           }
@@ -82,7 +106,7 @@ const RecipesReducer = (
       const uniqueTags = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.tags)) {
-            cur.tags.forEach((tag) => acc.add(tag));
+            cur.tags.forEach((item) => acc.add(item));
           } else if (typeof cur.tags === "string") {
             acc.add(cur.tags);
           }
@@ -92,6 +116,36 @@ const RecipesReducer = (
       return {
         ...state,
         tags: uniqueTags,
+      };
+    case "mealsTypeArray":
+      const uniqueMealsType = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.mealType)) {
+            cur.mealType.forEach((item) => acc.add(item));
+          } else if (typeof cur.mealType === "string") {
+            acc.add(cur.mealType);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        mealsType: uniqueMealsType,
+      };
+    case "cousinesArray":
+      const uniqueCousines = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.cuisine)) {
+            cur.cuisine.forEach((item) => acc.add(item));
+          } else if (typeof cur.cuisine === "string") {
+            acc.add(cur.cuisine);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        cuisines: uniqueCousines,
       };
     default:
       return state;
@@ -117,8 +171,11 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Unexpected response format");
       }
       dispatch({ type: "setRecipes", payload: data });
+      dispatch({ type: "namesArray", payload: data });
       dispatch({ type: "ingredientsArray", payload: data });
       dispatch({ type: "tagsArray", payload: data });
+      dispatch({ type: "mealsTypeArray", payload: data });
+      dispatch({ type: "cousinesArray", payload: data });
     } catch (error) {
       throw new Error("Error fetching data");
     }
