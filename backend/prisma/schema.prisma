@@ -17,4 +17,15 @@ model user {
   clerkId   String   @id @map("_id")
   email     String
   createdAt DateTime @default(now())
+  fridge        fridge[]
+}
+
+model fridge {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  user          user     @relation(fields: [userId], references: [clerkId])
+  userId        String   
+  ingredientName String
+  quantity      Float
+  createdAt     DateTime @default(now())
+  expirationDate DateTime
 }

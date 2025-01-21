@@ -12,9 +12,7 @@ function RecipesList() {
       <div className="mainContainer">
         <section className="fridge">
           <SignedIn>
-            <div>
-              <Fridge />
-            </div>
+            <Fridge />
           </SignedIn>
         </section>
         <section className="recipes">

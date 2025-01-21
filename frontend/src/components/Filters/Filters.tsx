@@ -6,9 +6,9 @@ function Filters() {
   const { state } = useRecipesContext();
   const [size, setSize] = useState(1);
 
-  const handleSize = () => {
+  /* const handleSize = () => {
     setSize((prevSize) => (prevSize === 1 ? 5 : 1));
-  };
+  }; */
   const handleBlur = () => {
     setSize(1);
   };

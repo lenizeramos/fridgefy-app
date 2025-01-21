@@ -4,7 +4,7 @@ import { findUserByClerkId, createUser } from "../models/userModel";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
-  console.log(userId);
+  //console.log(userId);
 
   if (!userId) {
     res.status(401).json({ error: "Unauthorized" });
@@ -16,7 +16,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const existingUser = await findUserByClerkId(userId);
 
     if (!existingUser) {
-      await createUser(userId, user.emailAddresses[0].emailAddress);
+      console.log(await createUser(userId, user.emailAddresses[0].emailAddress));
     }
 
     res.json({ message: "User saved in the database", user });

@@ -19,3 +19,14 @@
     width: 15%;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    .fridge {
+      margin: 2rem 0;
+      width: 70%;
+    }
+  }
+}
