@@ -40,9 +40,15 @@
       border: 1px solid #642f09;
       cursor: pointer;
       position: absolute;
-      overflow-y: auto;
-      max-height: 150px;
       z-index: 1;
+      option:hover {
+        background-color: #faead7;
+        color: #642f09;
+      }
+      option:checked {
+        background-color: saddlebrown;
+        color: white;
+      }
     }
     .tags,
     .types,

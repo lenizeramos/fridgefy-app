@@ -4,14 +4,19 @@ import "./Filters.scss";
 
 function Filters() {
   const { state } = useRecipesContext();
-  const [size, setSize] = useState(1);
+  const [tagSize, setTagSize] = useState(1);
+  const [mealTypeSize, setMealTypeSize] = useState(1);
+  const [cuisineSize, setCuisineSize] = useState(1);
   const [searchRecipe, setSearchRecipes] = useState("");
 
-  const handleSize = () => {
-    setSize((prevSize) => (prevSize === 1 ? 5 : 1));
+  const handleSize = (setSizeFn: React.Dispatch<React.SetStateAction<number>>) => {
+    setSizeFn((prevSize) => (prevSize === 1 ? 5 : 1));
   };
+
   const handleBlur = () => {
-    setSize(1);
+    setTagSize(1);
+    setCuisineSize(1);
+    setMealTypeSize(1);
   };
 
   const searchRecipes = () => {};
@@ -32,8 +37,8 @@ function Filters() {
             <select
               name="tags"
               id="tags-select"
-              size={size}
-              onClick={handleSize}
+              size={tagSize}
+              onClick={()=>handleSize(setTagSize)}
               onBlur={handleBlur}
             >
               <option value="0">All Tags</option>
@@ -48,7 +53,13 @@ function Filters() {
           </div>
           <div className="types">
             <h4>Meal Types</h4>
-            <select name="types" id="types-select">
+            <select
+              name="types"
+              id="types-select"
+              size={mealTypeSize}
+              onClick={()=>handleSize(setMealTypeSize)}
+              onBlur={handleBlur}
+            >
               <option value="0">All Meal Types</option>
               {state.mealsType.map((type) => {
                 return (
@@ -61,7 +72,13 @@ function Filters() {
           </div>
           <div className="cuisine">
             <h4>Cuisines</h4>
-            <select name="cuisines" id="cuisines-select">
+            <select
+              name="cuisines"
+              id="cuisines-select"
+              size={cuisineSize}
+              onClick={()=>handleSize(setCuisineSize)}
+              onBlur={handleBlur}
+            >
               <option value="0">All Cuisines</option>
               {state.cuisines.map((cuisine) => {
                 return (
