@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import logo from "../../../public/logo.png";
+import logo from "/logo.png";
 import { SignedOut, SignedIn, SignOutButton } from "@clerk/clerk-react";
 import "./Navbar.scss";
 
@@ -32,6 +32,16 @@ function Navbar() {
                   }
                 >
                   Recipies
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/shopping-list"
+                  className={({ isActive }) =>
+                    isActive ? "active" : "noActive"
+                  }
+                >
+                  Shopping List
                 </NavLink>
               </li>
             </ul>

@@ -1,4 +1,5 @@
 import { createRoot } from "react-dom/client";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import "./index.scss";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Landing from "./components/Landing/Landing.tsx";
@@ -9,7 +10,7 @@ import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
 import Register from "./components/Register/Register.tsx";
 import Dashboard from "./components/Dashboard/Dashboard.tsx";
 import RecipesList from "./components/RecipesList/RecipesList.tsx";
-
+import ShoppingList from "./components/ShoppingList/ShoppingList.tsx";
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 if (!PUBLISHABLE_KEY) {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
       {
         path: "recipes",
         element: <RecipesList />,
+      },
+      {
+        path: "shopping-list",
+        element: (
+          <ProtectedRoute>
+            <ShoppingList />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

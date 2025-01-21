@@ -104,10 +104,6 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
   return (
     <RecipesContext.Provider value={{ state, dispatch, fetchData }}>
       {children}

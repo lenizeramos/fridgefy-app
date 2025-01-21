@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.shopping-list-container {
+  font-family: "Shadows Into Light", serif;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  padding: 20px;
+
+  h3 {
+    font-family: "Shadows Into Light", serif;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #535351;
+    text-shadow: -1px -1px 2px #faead7, 2px 2px 4px #2b2b2a;
+    text-align: center;
+  }
+
+  .fridge-container {
+    flex: 3;
+  }
+
+  .recipe-container {
+    flex: 6;
+    text-align: center;
+  }
+
+  .items-container {
+    flex: 3;
+    width: 100%;
+    padding: 0.5rem 0.5rem;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid saddlebrown;
+    color: #642f09;
+    font-family: "Shadows Into Light", serif;
+    background-color: #fff;
+
+    .items-list-container {
+      text-align: center;
+      border-top-left-radius: 1rem;
+      border-bottom-left-radius: 1rem;
+
+      .items-list-title {
+        font-family: "Shadows Into Light", serif;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: #535351;
+        text-align: center;
+      }
+    }
+  }
+
+  .recipe-container {
+    .recipe-title {
+      font-family: "Shadows Into Light", serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #535351;
+      text-align: center;
+    }
+  }
+}
+

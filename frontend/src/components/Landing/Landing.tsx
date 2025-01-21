@@ -1,5 +1,5 @@
 import "./Landing.scss";
-import ingredients from "../../../public/ingredients.jpg";
+import ingredients from "/ingredients.jpg";
 import ClipPathImage from "./ClipPathImage/ClipPathImage";
 import { NavLink } from "react-router-dom";
 
