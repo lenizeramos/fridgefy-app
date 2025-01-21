@@ -14,16 +14,18 @@ function Navbar() {
           </div>
           <div className="linksContainer">
             <ul>
-              <li>
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive ? "active" : "noActive"
-                  }
-                >
-                  Home
-                </NavLink>
-              </li>
+              <SignedOut>
+                <li>
+                  <NavLink
+                    to="/"
+                    className={({ isActive }) =>
+                      isActive ? "active" : "noActive"
+                    }
+                  >
+                    Home
+                  </NavLink>
+                </li>
+              </SignedOut>
               <li>
                 <NavLink
                   to="/recipes"
@@ -34,10 +36,22 @@ function Navbar() {
                   Recipies
                 </NavLink>
               </li>
+              <SignedIn>
+                <li>
+                  <NavLink
+                    to="/wish_list"
+                    className={({ isActive }) =>
+                      isActive ? "active" : "noActive"
+                    }
+                  >
+                    Wish List
+                  </NavLink>
+                </li>
+              </SignedIn>
             </ul>
             <div className="buttonContainer">
-            <SignedOut>
-                <NavLink to="/login" className="button">
+              <SignedOut>
+                <NavLink to="/signin" className="button">
                   <button>Sign in</button>
                 </NavLink>
               </SignedOut>

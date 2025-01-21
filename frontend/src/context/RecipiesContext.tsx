@@ -50,12 +50,13 @@ const RecipesReducer = (
   action: RecipesAction
 ): RecipesState => {
   switch (action.type) {
-    case "setRecipes":
+    case "setRecipes": {
       return {
         ...state,
         recipes: action.payload,
       };
-    case "findRecipes":
+    }
+    case "findRecipes": {
       const selectedRecipe = state.recipes.find(
         (recipe) => recipe.id === action.payload
       );
@@ -63,7 +64,8 @@ const RecipesReducer = (
         ...state,
         selectedRecipe: selectedRecipe || null,
       };
-    case "ingredientsArray":
+    }
+    case "ingredientsArray": {
       const uniqueIngredients = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.ingredients)) {
@@ -78,7 +80,8 @@ const RecipesReducer = (
         ...state,
         ingredients: uniqueIngredients,
       };
-    case "tagsArray":
+    }
+    case "tagsArray": {
       const uniqueTags = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.tags)) {
@@ -93,6 +96,7 @@ const RecipesReducer = (
         ...state,
         tags: uniqueTags,
       };
+    }
     default:
       return state;
   }
@@ -120,6 +124,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: "ingredientsArray", payload: data });
       dispatch({ type: "tagsArray", payload: data });
     } catch (error) {
+      console.error("Error fetching recipes:", error);
       throw new Error("Error fetching data");
     }
   };
