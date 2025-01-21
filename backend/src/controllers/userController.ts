@@ -16,7 +16,7 @@ export const registerUser = async (req: Request, res: Response) => {
     const existingUser = await findUserByClerkId(userId);
 
     if (!existingUser) {
-      console.log(await createUser(userId, user.emailAddresses[0].emailAddress));
+      await createUser(userId, user.emailAddresses[0].emailAddress);
     }
 
     res.json({ message: "User saved in the database", user });

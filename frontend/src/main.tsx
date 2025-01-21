@@ -11,6 +11,7 @@ import RecipesList from "./components/RecipesList/RecipesList.tsx";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails.tsx";
 import { RecipesProvider } from "./context/RecipiesContext.tsx";
 import WishList from "./components/WishList/WishList.tsx";
+import SSOCallback from "./components/SSOCallback/SSOCallback.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -31,12 +32,16 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <SignIn path="/login" routing="path" redirectUrl="/register" />
+          <SignIn path="/login" routing="path" forceRedirectUrl="/register" />
         ),
       },
       {
+        path: "login/sso-callback",
+        element: <SSOCallback />,
+      },
+      {
         path: "signup",
-        element: <SignUp />,
+        element: <SignUp forceRedirectUrl="/register" />,
       },
       {
         path: "wish_list",
