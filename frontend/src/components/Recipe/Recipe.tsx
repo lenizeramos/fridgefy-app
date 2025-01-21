@@ -1,8 +1,18 @@
-import { Recipes, useRecipesContext } from "../../context/RecipiesContext";
+import { useState } from "react";
+import { Recipes } from "../../context/RecipiesContext";
+import { RecipeModal } from "../RecipeModal/RecipeModal";
 import "./Recipe.scss";
 
 function Recipe({ recipe }: { recipe: Recipes }) {
-  //   const { state, dispatch } = useRecipesContext();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <>
@@ -13,13 +23,20 @@ function Recipe({ recipe }: { recipe: Recipes }) {
         <div className="recipeName">
           <h3>{recipe.name}</h3>
           <div className="buttonContainer">
-            <button className="details">DETAILS</button>
-            <button className="icon">
+            <button className="details" onClick={handleOpenModal}>
+              DETAILS
+            </button>
+            <button className="icon" aria-label="Add to wishlist">
               <i className="bx bx-plus"></i>
             </button>
           </div>
         </div>
       </div>
+      <RecipeModal 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        recipe={recipe}
+      />
     </>
   );
 }
