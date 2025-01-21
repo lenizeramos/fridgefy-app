@@ -1,15 +1,10 @@
-import { useEffect } from "react";
 import { useRecipesContext } from "../../context/RecipiesContext";
 import "./RecipesList.scss";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
 
 function RecipesList() {
-  const { state, fetchData } = useRecipesContext();
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
-
+  const { state } = useRecipesContext();
   return (
     <>
       <div className="mainContainer">

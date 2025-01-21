@@ -33,11 +33,22 @@
       margin-bottom: 1rem;
     }
     select {
-        width: 10rem;
-        color: #642f09;
-        padding: 0.2rem 0.5rem;
-        border-radius: 0.5rem;
-        border: 1px solid #642f09;
+      width: 10rem;
+      color: #642f09;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid #642f09;
     }
+    .tags {
+      position: relative;
+      width: 10rem;
+
+    #tags-select {
+      position: absolute;
+      overflow-y: auto;
+      max-height: 150px;
+      // z-index: 1;
+    }
+    } 
   }
 }

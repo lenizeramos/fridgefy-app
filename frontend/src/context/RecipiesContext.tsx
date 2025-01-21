@@ -22,12 +22,14 @@ export type Recipes = {
 type RecipesState = {
   recipes: Recipes[];
   selectedRecipe: Recipes | null;
+  ingredients: string[];
   tags: string[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "findRecipes"; payload: number }
+  | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
   | { type: "tagsArray"; payload: { tags: string | string[] }[] };
 
 interface IRecipesContext {
@@ -39,6 +41,7 @@ interface IRecipesContext {
 const initialState: RecipesState = {
   recipes: [],
   selectedRecipe: null,
+  ingredients: [],
   tags: [],
 };
 
@@ -59,6 +62,21 @@ const RecipesReducer = (
       return {
         ...state,
         selectedRecipe: selectedRecipe || null,
+      };
+    case "ingredientsArray":
+      const uniqueIngredients = Array.from(
+        action.payload.reduce((acc, cur) => {
+          if (Array.isArray(cur.ingredients)) {
+            cur.ingredients.forEach((ingredient) => acc.add(ingredient));
+          } else if (typeof cur.ingredients === "string") {
+            acc.add(cur.ingredients);
+          }
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        ingredients: uniqueIngredients,
       };
     case "tagsArray":
       const uniqueTags = Array.from(
@@ -99,6 +117,8 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         throw new Error("Unexpected response format");
       }
       dispatch({ type: "setRecipes", payload: data });
+      dispatch({ type: "ingredientsArray", payload: data });
+      dispatch({ type: "tagsArray", payload: data });
     } catch (error) {
       throw new Error("Error fetching data");
     }
