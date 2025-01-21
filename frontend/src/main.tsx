@@ -9,6 +9,8 @@ import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
 import Register from "./components/Register/Register.tsx";
 import Dashboard from "./components/Dashboard/Dashboard.tsx";
 import RecipesList from "./components/RecipesList/RecipesList.tsx";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails.tsx";
+import { RecipesProvider } from "./context/RecipiesContext.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -54,7 +56,19 @@ const router = createBrowserRouter([
       },
       {
         path: "recipes",
-        element: <RecipesList />,
+        element: (
+          <RecipesProvider>
+            <RecipesList />
+          </RecipesProvider>
+        ),
+      },
+      {
+        path: "recipe/:id",
+        element: (
+          <RecipesProvider>
+            <RecipeDetails />
+          </RecipesProvider>
+        ),
       },
     ],
   },
