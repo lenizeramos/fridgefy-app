@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useRecipesContext } from "../../context/RecipiesContext";
+import { useAuth } from "@clerk/clerk-react";
 
 const AddToFridge = () => {
+  const { getToken } = useAuth();
   const { state } = useRecipesContext();
   const ingredientsList = state.ingredients;
   const [ingredient, setIngredient] = useState<string>("");
@@ -28,9 +30,26 @@ const AddToFridge = () => {
     setExpiryDate(e.target.value);
   };
 
+  const today = new Date().toISOString();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+
+    if (!ingredient) {
+      setError("Ingredient is required.");
+      return;
+    }
+
+    if (!expiryDate) {
+      setError("Expiry date is required.");
+      return;
+    }
+
+    if (expiryDate < today) {
+      setError("The date cannot be in the past.");
+      return;
+    }
 
     const payload = {
       ingredient,
@@ -38,10 +57,13 @@ const AddToFridge = () => {
     };
 
     try {
+      const token = await getToken();
+
       const response = await fetch("http://localhost:3000/fridge", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
@@ -54,9 +76,10 @@ const AddToFridge = () => {
 
       const result = await response.json();
       console.log("Successfully added:", result);
-      alert("Ingredient successfully added to the fridge!");
+      //alert("Ingredient successfully added to the fridge!");
       setIngredient("");
       setExpiryDate("");
+      setError(null);
     } catch (err) {
       console.error((err as Error).message);
       setError((err as Error).message);
@@ -107,6 +130,7 @@ const AddToFridge = () => {
               className="form-control"
               value={expiryDate}
               onChange={handleExpiryDateChange}
+              min={today}
             />
           </div>
 
