@@ -1,4 +1,4 @@
-import AddToFridge from "./AddToFridge";
+import AddToFridge from "../AddToFridge/AddToFridge";
 import "./Fridge.scss";
 
 const Fridge = () => {
