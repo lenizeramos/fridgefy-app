@@ -5,6 +5,7 @@ import "dotenv/config";
 import { apiRouter } from "./routes";
 import cors from "cors";
 import { agentRouter } from "./routes/agentRoutes";
+import { shoppingListRouter } from "./routes/shoppingListRoutes";
 
 export const app = express();
 
@@ -23,5 +24,5 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/agent", agentRouter);
-
+app.use("/shopping-list", shoppingListRouter);
 app.use(apiRouter);

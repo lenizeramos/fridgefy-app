@@ -4,22 +4,22 @@ import { addIngredient } from "../models/fridgeModel";
 
 export const addIngredientToFridge = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
-  const { ingredient, expiryDate } = req.body;
+  const { ingredient, expiryDate, quantity } = req.body;
 
   if (!userId) {
     res.status(401).json({ error: "Unauthorized" });
     return;
   }
 
-  if (!ingredient || !expiryDate) {
+  if (!ingredient || !expiryDate || !quantity) {
     res
       .status(400)
-      .json({ error: "Both ingredient and expiry date are required." });
+      .json({ error: "Both ingredient, expiry date and quantity are required." });
     return;
   }
 
   try {
-    await addIngredient(userId, ingredient, expiryDate);
+    await addIngredient(userId, ingredient, expiryDate, quantity);
 
     res
       .status(200)

@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Accordion } from "react-bootstrap";
 import "./RecipeDetail.scss";
 import { useShoppingListContext } from "../../../context/ShoppingListContext";
+import { SHOPPING_LIST_ACTIONS } from "../../../interfaces/ShoppingListInterface";
 
 function RecipeDetail() {
   const { state, fetchData } = useRecipesContext();
@@ -20,11 +21,11 @@ function RecipeDetail() {
     loadData();
   }, []); 
 
-  const handleAddToShoppingList = (recipeId: number) => {
+  const handleAddToShoppingList = async (recipeId: number) => {
     const recipe = state.recipes.find((recipe) => recipe.id === recipeId);
     if (recipe) {
       recipe.ingredients.forEach((ingredient) => {
-        shoppingListDispatch({ type: "addItem", payload: { id: ingredient, name: ingredient, quantity: 1 } });
+        shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.ADD_ITEM, payload: { id: ingredient, name: ingredient, quantity: 1 } });
       });
     }
   };

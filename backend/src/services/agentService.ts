@@ -11,7 +11,7 @@ export class AgentService {
   constructor() {
     this.llm = new ChatOpenAI({
       modelName: "gpt-3.5-turbo",
-      temperature: 0.7,
+      temperature: 0,  
     });
   }
 
@@ -19,19 +19,23 @@ export class AgentService {
     const tools = [
       new DynamicTool({
         name: "AddToShoppingList",
-        description: "Add an item to the shopping list",
+        description: "Add an item to the shopping list. Input format: ingredientName,quantity,userId",
         func: async (input: string) => {
-          const [ingredientName, quantity, userId] = input.split(",").map(s => s.trim());
-          
-          const item = await prisma.shoppingList.create({
-            data: {
-              userId,
-              ingredientName,
-              quantity: parseFloat(quantity),
-            },
-          });
-          
-          return `Added ${quantity} ${ingredientName}(s) to shopping list`;
+          try {
+            const [ingredientName, quantity, userId] = input.split(",").map(s => s.trim());
+            
+            const item = await prisma.shoppingList.create({
+              data: {
+                userId,
+                ingredientName,
+                quantity: parseFloat(quantity),
+              },
+            });
+            
+            return `Successfully added ${quantity} ${ingredientName}(s) to shopping list`;
+          } catch (error) {
+            return `Failed to add item to shopping list: ${error}`;
+          }
         },
       }),
       new DynamicTool({
@@ -47,6 +51,7 @@ export class AgentService {
     const executor = await initializeAgentExecutorWithOptions(tools, this.llm, {
       agentType: "chat-conversational-react-description",
       verbose: true,
+      handleParsingErrors: true,
     });
 
     return executor;

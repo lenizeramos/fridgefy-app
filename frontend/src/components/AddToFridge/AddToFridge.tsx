@@ -10,6 +10,7 @@ const AddToFridge = () => {
   const [expiryDate, setExpiryDate] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
