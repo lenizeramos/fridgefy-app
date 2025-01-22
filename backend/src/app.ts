@@ -4,6 +4,7 @@ import { clerkMiddleware } from "@clerk/express";
 import "dotenv/config";
 import { apiRouter } from "./routes";
 import cors from "cors";
+import { agentRouter } from "./routes/agentRoutes";
 
 export const app = express();
 
@@ -21,5 +22,6 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/agent", agentRouter);
 
 app.use(apiRouter);
