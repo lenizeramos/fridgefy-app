@@ -21,7 +21,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "langchain": "^0.3.12"
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.2",
