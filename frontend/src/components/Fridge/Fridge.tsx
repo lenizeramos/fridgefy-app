@@ -20,12 +20,9 @@ const Fridge = () => {
             />
             <i className="bx bx-search-alt search-icon"></i>
           </div>
-          <div className="mb-3">
-            <i className="bx bxs-file-plus fs-4"></i>
+          <div>
+            <AddToFridge />
           </div>
-        </div>
-        <div>
-          <AddToFridge />
         </div>
         <FridgeIngredients />
       </div>

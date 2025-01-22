@@ -40,6 +40,16 @@
   }
 }
 
+.addToFridgeIcon {
+  transition: color 0.3s ease;
+  background-color: #fff5e1;
+  border-radius: 30%;
+
+  &:hover {
+    color: #a94d3c;
+    background-color: #fff5e1;
+  }
+}
 .addToFridgeBtn {
   padding: 1rem 2rem;
   cursor: pointer;
