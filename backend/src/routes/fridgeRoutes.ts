@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { addIngredientToFridge } from "../controllers/fridgeController";
+import { addIngredientToFridge, getFridge } from "../controllers/fridgeController";
 
 const router = Router();
 
-router.post("/", addIngredientToFridge);
+router.post("/ingredient/add", addIngredientToFridge);
+router.get("/ingredients", getFridge)
 
 export default router;

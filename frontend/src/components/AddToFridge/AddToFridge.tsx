@@ -1,15 +1,21 @@
 import { useState } from "react";
 import { useRecipesContext } from "../../context/RecipiesContext";
+import {
+  addIngredientToFridge,
+  useFridgeContext,
+} from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
 
 const AddToFridge = () => {
-  const { getToken } = useAuth();
   const { state } = useRecipesContext();
   const ingredientsList = state.ingredients;
   const [ingredient, setIngredient] = useState<string>("");
-  const [expiryDate, setExpiryDate] = useState<string>("");
+  const [expirationDate, setExpirationDate] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const { dispatch: fridgeDispatch } = useFridgeContext();
+  const { getToken } = useAuth();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
@@ -26,8 +32,10 @@ const AddToFridge = () => {
     setSearchResults([]);
   };
 
-  const handleExpiryDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setExpiryDate(e.target.value);
+  const handleExpirationDateChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setExpirationDate(e.target.value);
   };
 
   const today = new Date().toISOString();
@@ -41,49 +49,22 @@ const AddToFridge = () => {
       return;
     }
 
-    if (!expiryDate) {
+    if (!expirationDate) {
       setError("Expiry date is required.");
       return;
     }
 
-    if (expiryDate < today) {
+    if (expirationDate <= today) {
       setError("The date cannot be in the past.");
       return;
     }
 
     const payload = {
-      ingredient,
-      expiryDate,
+      ingredientName: ingredient,
+      expirationDate,
     };
 
-    try {
-      const token = await getToken();
-
-      const response = await fetch("http://localhost:3000/fridge", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(payload),
-      });
-
-      if (!response.ok) {
-        throw new Error(
-          "Failed to add ingredient to fridge. Please try again."
-        );
-      }
-
-      const result = await response.json();
-      console.log("Successfully added:", result);
-      //alert("Ingredient successfully added to the fridge!");
-      setIngredient("");
-      setExpiryDate("");
-      setError(null);
-    } catch (err) {
-      console.error((err as Error).message);
-      setError((err as Error).message);
-    }
+    addIngredientToFridge(payload, fridgeDispatch, await getToken());
   };
 
   return (
@@ -121,15 +102,15 @@ const AddToFridge = () => {
           </div>
 
           <div className="mb-3">
-            <label htmlFor="expiryDate" className="form-label">
+            <label htmlFor="expirationDate" className="form-label">
               Expiry Date:
             </label>
             <input
               type="date"
-              id="expiryDate"
+              id="expirationDate"
               className="form-control"
-              value={expiryDate}
-              onChange={handleExpiryDateChange}
+              value={expirationDate}
+              onChange={handleExpirationDateChange}
               min={today}
             />
           </div>

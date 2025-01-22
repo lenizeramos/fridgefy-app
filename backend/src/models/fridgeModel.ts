@@ -14,4 +14,20 @@ export const addIngredient = async (
   });
 };
 
+export const getIngredients = async (userId: string) => {
+  try {
+    const ingredients = await prisma.fridge.findMany({
+      where: {
+        userId: userId,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
 
+    return ingredients;
+  } catch (error) {
+    console.error("Error fetching ingredients:", error);
+    throw new Error("Failed to fetch ingredients.");
+  }
+};
