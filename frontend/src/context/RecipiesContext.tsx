@@ -30,7 +30,8 @@ type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "findRecipes"; payload: number }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
-  | { type: "tagsArray"; payload: { tags: string | string[] }[] };
+  | { type: "tagsArray"; payload: { tags: string | string[] }[] }
+  | { type: "addWishList"; payload: Recipes };
 
 interface IRecipesContext {
   state: RecipesState;
@@ -95,6 +96,45 @@ const RecipesReducer = (
       return {
         ...state,
         tags: uniqueTags,
+      };
+    }
+    case "addWishList": {
+      async () => {
+        try {
+          const response = await fetch("http://localhost:3000/fetch/wishlist", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: action.payload.id,
+              name: action.payload.name,
+              ingredients: action.payload.ingredients,
+              instructions: action.payload.instructions,
+              prepTimeMinutes: action.payload.prepTimeMinutes,
+              cookTimeMinutes: action.payload.cookTimeMinutes,
+              servings: action.payload.servings,
+              difficulty: action.payload.difficulty,
+              cuisine: action.payload.cuisine,
+              tags: action.payload.tags,
+              image: action.payload.image,
+              mealType: action.payload.mealType
+
+            }),
+          });
+          if (!response.ok) {
+            throw new Error(
+              `Failed to add to wishlist: ${response.statusText}`
+            );
+          }
+          const data = await response.json();
+          console.log("Success:", data);
+        } catch (error) {
+          throw new Error("Error fetching data");
+        }
+      };
+      return {
+        ...state,
       };
     }
     default:

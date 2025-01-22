@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.myRecipesContainer {
+  margin-top: 2rem;
+  h1 {
+    border-top: 1px solid saddlebrown;
+    border-bottom: 1px solid saddlebrown;
+    font-family: "Tangerine", serif;
+    text-align: center;
+    font-weight: bold;
+    color: saddlebrown;
+  }
+  ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    li {
+      width: 100%;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid #f9d3b8;
+      text-align: center;
+      font-family: "Shadows Into Light", serif;
+      font-size: 1.2rem;
+      &:hover {
+        background-color: #f9d3b8;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,9 +1,21 @@
+import { useRecipesContext } from "../../context/RecipiesContext";
+import "./WishList.scss";
+
 const WishList = () => {
-    return (
-      <>
-        <h1>WishList</h1>
-      </>
-    );
-  };
-  
-  export default WishList;
+
+  return (
+    <>
+      <div className="myRecipesContainer">
+        <h1>My Recipes</h1>
+        <ul>
+          <li>
+            <img src="" alt="" />
+            <p></p>
+          </li>
+        </ul>
+      </div>
+    </>
+  );
+};
+
+export default WishList;
