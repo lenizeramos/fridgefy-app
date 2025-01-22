@@ -1,12 +1,10 @@
-import { useFridgeContext } from "../../context/FridgeContext";
+//import { useFridgeContext } from "../../context/FridgeContext";
 import AddToFridge from "../AddToFridge/AddToFridge";
 import FridgeIngredients from "../FridgeIngredients/FridgeIngredients";
 import "./Fridge.scss";
 
 const Fridge = () => {
-  const { state } = useFridgeContext();
-  console.log(state.ingredients);
-
+  //const { state } = useFridgeContext();
 
   return (
     <>
@@ -29,7 +27,7 @@ const Fridge = () => {
         <div>
           <AddToFridge />
         </div>
-        <FridgeIngredients/>
+        <FridgeIngredients />
       </div>
     </>
   );

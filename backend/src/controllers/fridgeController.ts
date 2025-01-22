@@ -4,10 +4,7 @@ import { addIngredient, getIngredients } from "../models/fridgeModel";
 
 export const addIngredientToFridge = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
-  console.log(req.body);
   const { ingredientName, expirationDate } = req.body;
-
-  console.log(req.body);
 
   if (!userId) {
     res.status(401).json({ error: "Unauthorized" });
@@ -39,8 +36,6 @@ export const addIngredientToFridge = async (req: Request, res: Response) => {
 
 export const getFridge = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
-
-  console.log(userId, "userId -gfridge");
 
   if (!userId) {
     res.status(401).json({ error: "Unauthorized" });

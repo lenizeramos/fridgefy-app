@@ -55,16 +55,17 @@ const addIngredientToFridge = async (
   token: string | null
 ) => {
   try {
-    console.log("contect token", ingredient);
-
-    const response = await fetch("http://localhost:3000/fridge/ingredient/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(ingredient),
-    });
+    const response = await fetch(
+      "http://localhost:3000/fridge/ingredient/add",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(ingredient),
+      }
+    );
 
     if (!response.ok) {
       const errorData = await response.json();
@@ -75,7 +76,6 @@ const addIngredientToFridge = async (
 
     const result = await response.json();
     dispatch({ type: "addIngredient", payload: result.response });
-    console.log("Successfully added:", result);
   } catch (err) {
     console.error((err as Error).message);
   }

@@ -5,21 +5,22 @@ import { useAuth } from "@clerk/clerk-react";
 const FridgeIngredients = () => {
   const { state, dispatch } = useFridgeContext();
   const { getToken } = useAuth();
-  console.log(state.ingredients, "ingredientes");
 
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
         const token = await getToken();
 
-        console.log(token, "token");
-        const response = await fetch("http://localhost:3000/fridge/ingredients", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "http://localhost:3000/fridge/ingredients",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (!response.ok) {
           const errorData = await response.json();
