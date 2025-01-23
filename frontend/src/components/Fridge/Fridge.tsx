@@ -1,30 +1,35 @@
-//import { useFridgeContext } from "../../context/FridgeContext";
+import { useState } from "react";
 import AddToFridge from "../AddToFridge/AddToFridge";
 import FridgeIngredients from "../FridgeIngredients/FridgeIngredients";
 import "./Fridge.scss";
 
 const Fridge = () => {
-  //const { state } = useFridgeContext();
+  const [searchWord, setSearchWord] = useState<string>("");
 
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchWord(e.target.value);
+  };
   return (
     <>
-      <div className="topContainerFridge">
+      <div className="fridge-container">
         <h1 className="mb-3">My Fridge</h1>
         <div className="d-flex align-items-center justify-content-between">
-          <div className="searchFridgeContainer">
+          <div className="fridge-search-container">
             <input
               type="text"
-              name=""
+              aria-label="Search Fridge"
               id="searchFridge"
+              onChange={handleSearchChange}
               placeholder="Search Fridge"
+              autoComplete="off"
             />
-            <i className="bx bx-search-alt search-icon"></i>
+            <i className="bx bx-search-alt fridge-search-icon"></i>
           </div>
           <div>
             <AddToFridge />
           </div>
         </div>
-        <FridgeIngredients />
+        <FridgeIngredients searchWord={searchWord} />
       </div>
     </>
   );

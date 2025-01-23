@@ -5,7 +5,13 @@ import {
 } from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
 
-const FridgeIngredients = () => {
+interface FridgeIngredientsProps {
+  searchWord: string;
+}
+
+const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
+  searchWord,
+}) => {
   const { state, dispatch } = useFridgeContext();
   const { getToken } = useAuth();
 
@@ -44,27 +50,45 @@ const FridgeIngredients = () => {
   }, [dispatch, getToken]);
 
   const handleDelete = async (id: string) => {
-    removeIngredientFromFridge(id, dispatch, await getToken());
+    if (!id) {
+      console.error("Ingredient ID is missing.");
+      return;
+    }
+    try {
+      await removeIngredientFromFridge(id, dispatch, await getToken());
+    } catch (err) {
+      console.error("Failed to delete ingredient:", (err as Error).message);
+    }
   };
+
+  const ingredientsToDisplay = searchWord
+    ? state.ingredients.filter((ingredient) =>
+        ingredient.ingredientName.toLowerCase().includes(searchWord.toLowerCase())
+      )
+    : state.ingredients;
 
   return (
     <div className="ingredients">
-      <ul className="list-unstyled">
-        {state.ingredients.map((ingredient) => (
-          <li
-            key={ingredient.id}
-            className="d-flex justify-content-between align-items-center"
-          >
-            <span className="me-2">{ingredient.ingredientName}</span>
-            <button
-              className="btn btn-sm"
-              onClick={() => handleDelete(ingredient.id ?? "")}
+      {ingredientsToDisplay.length > 0 ? (
+        <ul className="list-unstyled">
+          {ingredientsToDisplay.map((ingredient) => (
+            <li
+              key={ingredient.id}
+              className="d-flex justify-content-between align-items-center"
             >
-              <i className="bx bx-trash"></i>
-            </button>
-          </li>
-        ))}
-      </ul>
+              <span className="me-2">{ingredient.ingredientName}</span>
+              <button
+                className="btn btn-sm"
+                onClick={() => handleDelete(ingredient.id ?? "")}
+              >
+                <i className="bx bx-trash"></i>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>No ingredient in the fridge</div>
+      )}
     </div>
   );
 };
