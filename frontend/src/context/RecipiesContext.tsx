@@ -21,14 +21,12 @@ export type Recipes = {
 
 type RecipesState = {
   recipes: Recipes[];
-  selectedRecipe: Recipes | null;
   ingredients: string[];
   tags: string[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
-  | { type: "findRecipes"; payload: number }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
   | { type: "tagsArray"; payload: { tags: string | string[] }[] }
   | { type: "addWishList"; payload: Recipes };
@@ -41,7 +39,6 @@ interface IRecipesContext {
 
 const initialState: RecipesState = {
   recipes: [],
-  selectedRecipe: null,
   ingredients: [],
   tags: [],
 };
@@ -55,15 +52,6 @@ const RecipesReducer = (
       return {
         ...state,
         recipes: action.payload,
-      };
-    }
-    case "findRecipes": {
-      const selectedRecipe = state.recipes.find(
-        (recipe) => recipe.id === action.payload
-      );
-      return {
-        ...state,
-        selectedRecipe: selectedRecipe || null,
       };
     }
     case "ingredientsArray": {
@@ -99,8 +87,9 @@ const RecipesReducer = (
       };
     }
     case "addWishList": {
-      async () => {
+      const addFunction = async () => {
         try {
+          // const token = await getToken()
           const response = await fetch("http://localhost:3000/fetch/wishlist", {
             method: "POST",
             headers: {
@@ -118,8 +107,7 @@ const RecipesReducer = (
               cuisine: action.payload.cuisine,
               tags: action.payload.tags,
               image: action.payload.image,
-              mealType: action.payload.mealType
-
+              mealType: action.payload.mealType,
             }),
           });
           if (!response.ok) {
@@ -133,6 +121,7 @@ const RecipesReducer = (
           throw new Error("Error fetching data");
         }
       };
+      addFunction();
       return {
         ...state,
       };
