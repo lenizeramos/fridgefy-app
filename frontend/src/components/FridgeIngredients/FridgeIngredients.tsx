@@ -4,7 +4,7 @@ import {
   useFridgeContext,
 } from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
-import "../FridgeIngredients/FridgeIngredients.scss"
+import "../FridgeIngredients/FridgeIngredients.scss";
 
 interface FridgeIngredientsProps {
   searchWord: string;
@@ -15,6 +15,8 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
 }) => {
   const { state, dispatch } = useFridgeContext();
   const { getToken } = useAuth();
+
+  console.log(state, "State");
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -40,7 +42,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
         }
 
         const result = await response.json();
-        //expired product
+
         dispatch({ type: "setIngredients", payload: result });
       } catch (err) {
         console.error((err as Error).message);
@@ -61,10 +63,17 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
       console.error("Failed to delete ingredient:", (err as Error).message);
     }
   };
+  const isExpired = (expirationDateStr: string) => {
+    const expirationDate = new Date(expirationDateStr);
+    const currentDate = new Date();
+    return currentDate > expirationDate;
+  };
 
   const ingredientsToDisplay = searchWord
     ? state.ingredients.filter((ingredient) =>
-        ingredient.ingredientName.toLowerCase().includes(searchWord.toLowerCase())
+        ingredient.ingredientName
+          .toLowerCase()
+          .includes(searchWord.toLowerCase())
       )
     : state.ingredients;
 
@@ -77,7 +86,13 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
               key={ingredient.id}
               className="d-flex justify-content-between align-items-center"
             >
-              <span className="me-2">{ingredient.ingredientName}</span>
+              <span
+                className={`me-2 ${
+                  isExpired(ingredient.expirationDate) ? "text-danger" : ""
+                }`}
+              >
+                {ingredient.ingredientName}
+              </span>
               <button
                 className="btn btn-sm"
                 onClick={() => handleDelete(ingredient.id ?? "")}
