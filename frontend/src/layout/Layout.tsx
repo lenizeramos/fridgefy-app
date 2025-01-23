@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar/Navbar";
 import "./Layout.scss";
 import { RecipesProvider } from "../context/RecipiesContext";
+import { Toaster } from "react-hot-toast";
 
 function Layout() {
   return (
@@ -9,6 +10,7 @@ function Layout() {
       <Navbar />
       <main>
         <RecipesProvider>
+          <Toaster />
           <Outlet />
         </RecipesProvider>
       </main>

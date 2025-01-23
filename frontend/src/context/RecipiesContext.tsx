@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import toast from "react-hot-toast";
 
 export type Recipes = {
   id: number;
@@ -142,10 +143,14 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         }),
       });
       if (!response.ok) {
-        // console.log(response)
+        toast.error(`${recipe.name} is already in your wish list`,{
+          position: "bottom-right",
+        })
+      } else {
+        toast.success(`Yeiii!!! ${recipe.name} has beed added to your wish list`,{
+          position: "bottom-right",
+        })
       }
-      const data = await response.json();
-      console.log("Success:", data);
     } catch (error) {
       throw new Error("Error fetching data");
     }
