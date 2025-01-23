@@ -8,13 +8,16 @@ function RecipesList() {
   const { state } = useRecipesContext();
   const [filteredRecipes, setFilteredRecipes] = useState(state.recipes);
 
-  console.log(filteredRecipes);
-  const filterRecipes = (searchTerm: string) => {
+  const searchRecipes = (search: string) => {
     const filtered = state.recipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
+      recipe.name.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredRecipes(filtered);
   };
+
+  // const filterhRecipes = (value: string, filter: string) => {
+    
+  // }
 
   return (
     <>
@@ -23,7 +26,7 @@ function RecipesList() {
           <div></div>
         </section>
         <section className="recipes">
-          <Filters onFilter={filterRecipes} />
+          <Filters onFilter={searchRecipes} />
           <div className="recipeContainer">
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe) => {

@@ -1,8 +1,7 @@
-import { Recipes, useRecipesContext } from "../../context/RecipiesContext";
+import { Recipes } from "../../context/RecipiesContext";
 import "./Recipe.scss";
 
 function Recipe({ recipe }: { recipe: Recipes }) {
-  //   const { state, dispatch } = useRecipesContext();
 
   return (
     <>
