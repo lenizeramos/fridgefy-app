@@ -2,7 +2,7 @@ import { FridgeState, Ingredient} from "../types/FridgeTypes";
 
 type FridgeAction =
   | { type: "addIngredient"; payload: Ingredient }
-  | { type: "removeIngredient"; payload: number }
+  | { type: "removeIngredient"; payload: string }
   | { type: "setIngredients"; payload: Ingredient[] };
 
 interface IFridgeContext {

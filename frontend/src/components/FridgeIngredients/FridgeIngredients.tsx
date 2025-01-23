@@ -1,5 +1,8 @@
 import { useEffect } from "react";
-import { useFridgeContext } from "../../context/FridgeContext";
+import {
+  removeIngredientFromFridge,
+  useFridgeContext,
+} from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
 
 const FridgeIngredients = () => {
@@ -40,17 +43,23 @@ const FridgeIngredients = () => {
     fetchIngredients();
   }, [dispatch, getToken]);
 
-  const handleDelete = () => {
-    console.log("DELETE")
+  const handleDelete = async (id: string) => {
+    removeIngredientFromFridge(id, dispatch, await getToken());
   };
 
   return (
     <div className="ingredients">
       <ul className="list-unstyled">
         {state.ingredients.map((ingredient) => (
-          <li key={ingredient.id} className="d-flex justify-content-between align-items-center">
+          <li
+            key={ingredient.id}
+            className="d-flex justify-content-between align-items-center"
+          >
             <span className="me-2">{ingredient.ingredientName}</span>
-            <button className="btn btn-sm" onClick={() => handleDelete()}>
+            <button
+              className="btn btn-sm"
+              onClick={() => handleDelete(ingredient.id ?? "")}
+            >
               <i className="bx bx-trash"></i>
             </button>
           </li>
