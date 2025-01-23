@@ -70,6 +70,9 @@ const AddToFridge = () => {
     };
 
     addIngredientToFridge(payload, fridgeDispatch, await getToken());
+    setIngredient("");
+    setExpirationDate("");
+    setShowModal(false);
   };
 
   return (
@@ -85,7 +88,7 @@ const AddToFridge = () => {
             tabIndex={-1}
             role="dialog"
             aria-labelledby="modal"
-            aria-hidden="true"
+            aria-hidden="false"
           >
             <div className="modal-dialog modal-dialog-centered" role="document">
               <div className="modal-content">
@@ -150,7 +153,9 @@ const AddToFridge = () => {
                       <button type="submit" className="addToFridgeBtn">
                         Add To Fridge
                       </button>
-                      {error && <p className="text-danger mt-3">{error}</p>}
+                      <div>
+                        {error && <p className="text-danger mt-3">{error}</p>}
+                      </div>
                     </div>
                   </form>
                 </div>

@@ -39,11 +39,20 @@ const FridgeIngredients = () => {
     fetchIngredients();
   }, [dispatch, getToken]);
 
+  const handleDelete = () => {
+    console.log("DELETE")
+  };
+
   return (
     <div className="ingredients">
       <ul className="list-unstyled">
         {state.ingredients.map((ingredient) => (
-          <li key={ingredient.id}>{ingredient.ingredientName}</li>
+          <li key={ingredient.id} className="d-flex justify-content-between align-items-center">
+            <span className="me-2">{ingredient.ingredientName}</span>
+            <button className="btn btn-sm" onClick={() => handleDelete()}>
+              <i className="bx bx-trash"></i>
+            </button>
+          </li>
         ))}
       </ul>
     </div>

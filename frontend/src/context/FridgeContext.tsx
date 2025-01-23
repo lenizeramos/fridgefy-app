@@ -12,7 +12,7 @@ const FridgeReducer = (
 ): FridgeState => {
   switch (action.type) {
     case "addIngredient": {
-      return { ...state, ingredients: [...state.ingredients, action.payload] };
+      return { ...state, ingredients: [action.payload, ...state.ingredients] };
     }
     case "removeIngredient": {
       return {
@@ -75,6 +75,7 @@ const addIngredientToFridge = async (
     }
 
     const result = await response.json();
+    //alert("Ingredient successfully added to the fridge!");
     dispatch({ type: "addIngredient", payload: result.response });
   } catch (err) {
     console.error((err as Error).message);

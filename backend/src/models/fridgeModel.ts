@@ -21,7 +21,7 @@ export const getIngredients = async (userId: string) => {
         userId: userId,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 
