@@ -1,12 +1,19 @@
 import "./RecipesList.scss";
-import { useState } from "react";
-import { useRecipesContext } from "../../context/RecipiesContext";
+import { useEffect, useState } from "react";
+import { useRecipesContext, Recipes } from "../../context/RecipiesContext";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
 
 function RecipesList() {
-  const { state } = useRecipesContext();
-  const [filteredRecipes, setFilteredRecipes] = useState(state.recipes);
+  const { state, fetchData } = useRecipesContext();
+
+  // console.log("state from recipe list=>", state.recipes);
+
+  const [filteredRecipes, setFilteredRecipes] = useState<Recipes[]>(
+    state.recipes
+  );
+
+  // console.log("filter", filteredRecipes);
 
   const searchRecipes = (search: string) => {
     const filtered = state.recipes.filter((recipe) =>
@@ -15,8 +22,16 @@ function RecipesList() {
     setFilteredRecipes(filtered);
   };
 
+  useEffect(() => {
+    if (state.recipes && state.recipes.length > 0) {
+      setFilteredRecipes(state.recipes);
+      console.clear();
+      console.log("filteredRecipes", filteredRecipes);
+    }
+  }, [state.recipes]);
+
   // const filterhRecipes = (value: string, filter: string) => {
-    
+
   // }
 
   return (

@@ -143,6 +143,7 @@ const RecipesReducer = (
           return acc;
         }, new Set<string>())
       );
+      console.log('action=>',action.payload)
       return {
         ...state,
         cuisines: uniqueCousines,
@@ -167,6 +168,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       }
       const result = await response.json();
       const data: Recipes[] = result.data;
+      console.log('data=> ',data);
       if (!Array.isArray(data)) {
         throw new Error("Unexpected response format");
       }
@@ -176,6 +178,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: "tagsArray", payload: data });
       dispatch({ type: "mealsTypeArray", payload: data });
       dispatch({ type: "cousinesArray", payload: data });
+
     } catch (error) {
       throw new Error("Error fetching data");
     }
