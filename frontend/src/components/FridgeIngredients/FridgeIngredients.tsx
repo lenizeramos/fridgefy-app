@@ -4,6 +4,7 @@ import {
   useFridgeContext,
 } from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
+import "../FridgeIngredients/FridgeIngredients.scss"
 
 interface FridgeIngredientsProps {
   searchWord: string;
@@ -81,7 +82,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
                 className="btn btn-sm"
                 onClick={() => handleDelete(ingredient.id ?? "")}
               >
-                <i className="bx bx-trash"></i>
+                <i className="bx bx-trash fridge-ingredients-trash"></i>
               </button>
             </li>
           ))}

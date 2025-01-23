@@ -50,17 +50,17 @@ const AddToFridge = () => {
     setError(null);
 
     if (!ingredient) {
-      setError("Ingredient is required.");
+      setError("Ingredient is required!");
       return;
     }
 
     if (!expirationDate) {
-      setError("Expiry date is required.");
+      setError("Expiry date is required!");
       return;
     }
 
-    if (expirationDate <= today) {
-      setError("The date cannot be in the past.");
+    if (expirationDate < today) {
+      setError("The date cannot be today or in the past!");
       return;
     }
 
@@ -153,9 +153,11 @@ const AddToFridge = () => {
                       <button type="submit" className="addToFridgeBtn">
                         Add To Fridge
                       </button>
-                      <div>
-                        {error && <p className="text-danger mt-3">{error}</p>}
-                      </div>
+                      {error && (
+                        <div className="addToFridgeError text-center">
+                          <p className="text-danger mt-3">{error}</p>
+                        </div>
+                      )}
                     </div>
                   </form>
                 </div>
