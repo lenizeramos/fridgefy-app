@@ -28,13 +28,13 @@ type RecipesState = {
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
-  | { type: "tagsArray"; payload: { tags: string | string[] }[] }
-  | { type: "addWishList"; payload: Recipes };
+  | { type: "tagsArray"; payload: { tags: string | string[] }[] };
 
 interface IRecipesContext {
   state: RecipesState;
   dispatch: React.Dispatch<RecipesAction>;
   fetchData: () => Promise<void>;
+  addFunction: (recipe: Recipes, token: string | null) => Promise<void>;
 }
 
 const initialState: RecipesState = {
@@ -86,46 +86,6 @@ const RecipesReducer = (
         tags: uniqueTags,
       };
     }
-    case "addWishList": {
-      const addFunction = async () => {
-        try {
-          // const token = await getToken()
-          const response = await fetch("http://localhost:3000/fetch/wishlist", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: action.payload.id,
-              name: action.payload.name,
-              ingredients: action.payload.ingredients,
-              instructions: action.payload.instructions,
-              prepTimeMinutes: action.payload.prepTimeMinutes,
-              cookTimeMinutes: action.payload.cookTimeMinutes,
-              servings: action.payload.servings,
-              difficulty: action.payload.difficulty,
-              cuisine: action.payload.cuisine,
-              tags: action.payload.tags,
-              image: action.payload.image,
-              mealType: action.payload.mealType,
-            }),
-          });
-          if (!response.ok) {
-            throw new Error(
-              `Failed to add to wishlist: ${response.statusText}`
-            );
-          }
-          const data = await response.json();
-          console.log("Success:", data);
-        } catch (error) {
-          throw new Error("Error fetching data");
-        }
-      };
-      addFunction();
-      return {
-        ...state,
-      };
-    }
     default:
       return state;
   }
@@ -158,12 +118,47 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
+  const addFunction = async (recipe: Recipes, token: string | null) => {
+    try {
+      const response = await fetch("http://localhost:3000/fetch/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: recipe.id,
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions,
+          prepTimeMinutes: recipe.prepTimeMinutes,
+          cookTimeMinutes: recipe.cookTimeMinutes,
+          servings: recipe.servings,
+          difficulty: recipe.difficulty,
+          cuisine: recipe.cuisine,
+          tags: recipe.tags,
+          image: recipe.image,
+          mealType: recipe.mealType,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error(`Failed to add to wishlist: ${response.statusText}`);
+      }
+      const data = await response.json();
+      console.log("Success:", data);
+    } catch (error) {
+      throw new Error("Error fetching data");
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
-    <RecipesContext.Provider value={{ state, dispatch, fetchData }}>
+    <RecipesContext.Provider
+      value={{ state, dispatch, fetchData, addFunction }}
+    >
       {children}
     </RecipesContext.Provider>
   );
