@@ -30,6 +30,7 @@ const FridgeIngredients = () => {
         }
 
         const result = await response.json();
+        //expired product
         dispatch({ type: "setIngredients", payload: result });
       } catch (err) {
         console.error((err as Error).message);

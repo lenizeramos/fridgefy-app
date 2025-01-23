@@ -31,3 +31,20 @@ export const getIngredients = async (userId: string) => {
     throw new Error("Failed to fetch ingredients.");
   }
 };
+
+export const removeIngredient = async (id: string, userId: string) => {
+  try {
+    const deletedIngredient = await prisma.fridge.delete({
+      where: {
+        id,
+        userId
+      },
+    });
+    return deletedIngredient;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw new Error("Failed to delete ingredients.");
+  } finally {
+    await prisma.$disconnect();
+  }
+};
