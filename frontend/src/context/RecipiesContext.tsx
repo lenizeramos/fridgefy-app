@@ -142,7 +142,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         }),
       });
       if (!response.ok) {
-        throw new Error(`Failed to add to wishlist: ${response.statusText}`);
+        // console.log(response)
       }
       const data = await response.json();
       console.log("Success:", data);

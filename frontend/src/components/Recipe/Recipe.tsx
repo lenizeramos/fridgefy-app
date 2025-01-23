@@ -6,7 +6,7 @@ import { SignedOut, useAuth, SignedIn } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 function Recipe({ recipe }: { recipe: Recipes }) {
-  const { state, dispatch, addFunction } = useRecipesContext();
+  const { state, addFunction } = useRecipesContext();
   const [selectedRecipe, setSelectedRecipe] = useState<Recipes>();
   const { getToken } = useAuth();
 
@@ -29,9 +29,7 @@ function Recipe({ recipe }: { recipe: Recipes }) {
       const fetchRecipe = async () => {
         try {
           const token = await getToken();
-          console.log(token);
           addFunction(selectedRecipe, token);
-          console.log(selectedRecipe);
         } catch (error) {
           console.error((error as Error).message);
         }
