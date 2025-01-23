@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getRecipes } from "../controllers/fetchController";
+import { addRecipes, getRecipes } from "../controllers/fetchController";
 
 const router = Router();
 
-router.get("/", getRecipes )
+router.get("/", getRecipes);
+router.post("/wishlist", addRecipes);
 
 export default router;
