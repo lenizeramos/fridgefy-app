@@ -6,13 +6,6 @@ export interface ShoppingListState {
   error: string | null;
 }
 
-// Add some utility types
-export interface ApiResponse {
-  success: boolean;
-  message?: string;
-  data?: any;
-}
-
 export interface AddItemRequest {
   userId: string;
   ingredient: string;

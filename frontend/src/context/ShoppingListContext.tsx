@@ -6,6 +6,7 @@ import {
   SHOPPING_LIST_ACTIONS 
 } from "../interfaces/ShoppingListInterface";
 import { shoppingListService } from "../services/shoppingListServices";
+import { useAuthService } from "../services/userAuthService";
 
 const initialState: ShoppingListState = {
   items: [],
@@ -70,13 +71,15 @@ const ShoppingListContext = createContext<IShoppingListContext | undefined>(unde
 
 const ShoppingListProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [state, baseDispatch] = useReducer(ShoppingListReducer, initialState);
+  const auth = useAuthService();
 
   const fetchItems = async () => {
     try {
       baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_LOADING, payload: true });
       baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_ERROR, payload: null });
 
-      const response = await shoppingListService.getItems({ userId: "user_2ryFjzChZAt3sR0XgDOfAYLEA4w" });
+      const userId = auth.getUserId();
+      const response = await shoppingListService.getItems({ userId: userId ? userId : "user not logged in" });
       
       const items = Array.isArray(response) ? response.map(item => ({
         id: item.id,
