@@ -29,8 +29,8 @@ model Fridge {
   user           User     @relation(fields: [userId], references: [clerkId])
   userId         String
   ingredientName String
-  quantity       Float
-  createdAt      DateTime @default(now())
+  quantity      Float?
+  createdAt     DateTime @default(now())
   expirationDate DateTime
 
   @@map("fridge")
@@ -41,8 +41,8 @@ model ShoppingList {
   user           User     @relation(fields: [userId], references: [clerkId])
   userId         String
   ingredientName String
-  quantity       Float
-  addedAt        DateTime @default(now())
+  quantity      Float?
+  addedAt       DateTime @default(now())
 
   @@map("shopping_list")
 }
