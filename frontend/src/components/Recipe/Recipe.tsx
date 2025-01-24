@@ -62,11 +62,13 @@ function Recipe({ recipe }: { recipe: Recipes }) {
           </div>
         </div>
       </div>
-      <RecipeModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        recipe={recipe}
-      />
+      <SignedIn>
+        <RecipeModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          recipe={recipe}
+        />
+      </SignedIn>
     </>
   );
 }

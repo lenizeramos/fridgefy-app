@@ -14,6 +14,7 @@ import WishList from "./components/WishList/WishList.tsx";
 import SSOCallback from "./components/SSOCallback/SSOCallback.tsx";
 import SignInPage from "./components/Auth/SignInPage/SignInPage.tsx";
 import SignUpPage from "./components/Auth/SignUpPage/SignUpPage.tsx";
+import ErrorPage from "./components/ErrorPage/ErrorPage.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <h1>404 Not Found</h1>,
+    errorElement: <ErrorPage/>,
     children: [
       {
         index: true,
