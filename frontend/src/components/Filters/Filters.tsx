@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRecipesContext } from "../../context/RecipiesContext";
+import { useRecipesContext } from "../../context/RecipesContext";
 import "./Filters.scss";
 
 function Filters() {

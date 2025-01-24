@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Recipes, useRecipesContext } from "../../context/RecipiesContext";
+import { Recipes, useRecipesContext } from "../../context/RecipesContext";
 import { RecipeModal } from "../RecipeModal/RecipeModal";
 import "./Recipe.scss";
 import { SignedOut, useAuth, SignedIn } from "@clerk/clerk-react";

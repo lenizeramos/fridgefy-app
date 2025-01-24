@@ -1,4 +1,4 @@
-import { useRecipesContext } from "../../context/RecipiesContext";
+import { useRecipesContext } from "../../context/RecipesContext";
 import { useAuth } from "@clerk/clerk-react";
 import "./WishList.scss";
 import { useEffect } from "react";

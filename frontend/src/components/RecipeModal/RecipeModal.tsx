@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Recipes } from '../../context/RecipiesContext';
+import { Recipes } from '../../context/RecipesContext';
 import './RecipeModal.scss';
 
 interface RecipeModalProps {

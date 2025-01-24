@@ -9,7 +9,7 @@ import { ClerkProvider } from "@clerk/clerk-react";
 import Register from "./components/Register/Register.tsx";
 import RecipesList from "./components/RecipesList/RecipesList.tsx";
 import RecipeDetails from "./components/RecipeDetails/RecipeDetails.tsx";
-import { RecipesProvider } from "./context/RecipiesContext.tsx";
+import { RecipesProvider } from "./context/RecipesContext.tsx";
 import WishList from "./components/WishList/WishList.tsx";
 import SSOCallback from "./components/SSOCallback/SSOCallback.tsx";
 import SignInPage from "./components/Auth/SignInPage/SignInPage.tsx";

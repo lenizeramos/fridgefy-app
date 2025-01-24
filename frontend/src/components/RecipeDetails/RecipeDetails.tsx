@@ -1,6 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useRecipesContext } from '../../context/RecipiesContext';
+import { useRecipesContext } from '../../context/RecipesContext';
 import './RecipeDetails.scss';
 
 const RecipeDetails: FC = () => {

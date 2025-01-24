@@ -33,7 +33,7 @@ function Navbar() {
                     isActive ? "active" : "noActive"
                   }
                 >
-                  Recipies
+                  Recipes
                 </NavLink>
               </li>
               <SignedIn>

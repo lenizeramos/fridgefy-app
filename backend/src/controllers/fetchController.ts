@@ -36,14 +36,14 @@ const addRecipes = async (req: Request, res: Response) => {
     const existingUser = await findUserByClerkId(user);
     const existingRecipe = await prisma.recipe.findUnique({
       where: {
-        userId: user,
-        recipeId: id,
+        userId_recipeId: {
+          userId: existingUser?.clerkId as string,
+          recipeId: id,
+        },
       },
     });
 
-    if (!existingUser || existingRecipe) {
-      res.status(400).json({ message: "Recipe already saved in the databe" });
-    } else {
+    if (existingUser && !existingRecipe) {
       await prisma.recipe.create({
         data: {
           userId: userId!,
@@ -61,7 +61,21 @@ const addRecipes = async (req: Request, res: Response) => {
           recipeMealType: mealType,
         },
       });
+
+      // const userWithRecipes = await prisma.user.findUnique({
+      //   where: { clerkId: userId as string},
+      //   include: { recipes: true },
+      // });
+      // if (userWithRecipes) {
+      //   await prisma.user.update({
+      //     where: { clerkId: userId as string},
+      //     data: { recipes: userWithRecipes.recipes},
+      //   });
+      // }
+
       res.status(200).json({ message: "Recipe saved in the database" });
+    } else {
+      res.status(400).json({ message: "Recipe already saved in the databe" });
     }
   } catch (error) {
     console.log("Error saving recipe to database: ", error);

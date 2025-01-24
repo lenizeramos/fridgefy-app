@@ -1,4 +1,4 @@
-import { useRecipesContext } from "../../context/RecipiesContext";
+import { useRecipesContext } from "../../context/RecipesContext";
 import "./RecipesList.scss";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
