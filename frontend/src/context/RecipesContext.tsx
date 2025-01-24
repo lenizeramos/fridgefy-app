@@ -39,7 +39,7 @@ interface IRecipesContext {
   dispatch: React.Dispatch<RecipesAction>;
   fetchData: () => Promise<void>;
   addFunction: (recipe: Recipes) => Promise<void>;
-  getRecipeUser: () => Promise<void>;
+  fetchRecipesUser: () => Promise<void>;
 }
 
 const initialState: RecipesState = {
@@ -181,7 +181,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const getRecipeUser = async () => {
+  const fetchRecipesUser = async () => {
     try {
       const token = await auth.getToken();
       const response = await fetch("http://localhost:3000/fetch/wishlist", {
@@ -206,7 +206,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         const token = await auth.getToken();
         // console.log(token)
         if (token) {
-          await getRecipeUser();
+          await fetchRecipesUser();
           fetchData();
         } else {
           fetchData();
@@ -221,7 +221,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <RecipesContext.Provider
-      value={{ state, dispatch, fetchData, addFunction, getRecipeUser }}
+      value={{ state, dispatch, fetchData, addFunction, fetchRecipesUser }}
     >
       {children}
     </RecipesContext.Provider>
