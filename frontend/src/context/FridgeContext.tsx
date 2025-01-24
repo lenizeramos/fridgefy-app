@@ -78,7 +78,7 @@ const addIngredientToFridge = async (
     }
 
     const result = await response.json();
-    //alert("Ingredient successfully added to the fridge!");
+
     dispatch({ type: "addIngredient", payload: result.response });
   } catch (err) {
     console.error((err as Error).message);
@@ -108,12 +108,12 @@ const removeIngredientFromFridge = async (
         errorData.error || "An error occurred. Please try again.";
       throw new Error(errorMessage);
     }
-    //alert("Ingredient successfully removed from the fridge!");
     dispatch({ type: "removeIngredient", payload: id });
   } catch (err) {
     console.error((err as Error).message);
   }
 };
+
 export {
   FridgeProvider,
   useFridgeContext,

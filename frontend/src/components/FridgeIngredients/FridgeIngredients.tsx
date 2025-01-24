@@ -5,6 +5,7 @@ import {
 } from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
 import "../FridgeIngredients/FridgeIngredients.scss";
+import toast from "react-hot-toast";
 
 interface FridgeIngredientsProps {
   searchWord: string;
@@ -57,8 +58,9 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
     }
     try {
       await removeIngredientFromFridge(id, dispatch, await getToken());
+      toast.success("Ingredient removed from your fridge!");
     } catch (err) {
-      console.error("Failed to delete ingredient:", (err as Error).message);
+      toast.error(`Failed to delete ingredient: ${(err as Error).message}`);
     }
   };
   const isExpired = (expirationDateStr: string): boolean => {
