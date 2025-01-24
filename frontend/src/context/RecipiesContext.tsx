@@ -36,6 +36,7 @@ interface IRecipesContext {
   dispatch: React.Dispatch<RecipesAction>;
   fetchData: () => Promise<void>;
   addFunction: (recipe: Recipes, token: string | null) => Promise<void>;
+  getRecipeUser: (token: string | null) => Promise<void>;
 }
 
 const initialState: RecipesState = {
@@ -143,26 +144,46 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         }),
       });
       if (!response.ok) {
-        toast.error(`${recipe.name} is already in your wish list`,{
+        toast.error(`${recipe.name} is already in your wish list`, {
           position: "bottom-right",
-        })
+        });
       } else {
-        toast.success(`Yeiii!!! ${recipe.name} has beed added to your wish list`,{
-          position: "bottom-right",
-        })
+        toast.success(
+          `Yeiii!!! ${recipe.name} has beed added to your wish list`,
+          {
+            position: "bottom-right",
+          }
+        );
       }
     } catch (error) {
       throw new Error("Error fetching data");
     }
   };
 
+  const getRecipeUser = async (token: string | null) => {
+    try {
+      const response = await fetch("http://localhost:3000/fetch/wishlist", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        console.log("Error fetching data");
+      }
+      const result = await response.json();
+      console.log(result);
+    } catch (error) {
+      throw new Error("Error fetching data");
+    }
+  };
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <RecipesContext.Provider
-      value={{ state, dispatch, fetchData, addFunction }}
+      value={{ state, dispatch, fetchData, addFunction, getRecipeUser }}
     >
       {children}
     </RecipesContext.Provider>

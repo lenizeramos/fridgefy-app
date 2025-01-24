@@ -36,6 +36,7 @@ const addRecipes = async (req: Request, res: Response) => {
     const existingUser = await findUserByClerkId(user);
     const existingRecipe = await prisma.recipe.findUnique({
       where: {
+        userId: user,
         recipeId: id,
       },
     });
@@ -68,4 +69,23 @@ const addRecipes = async (req: Request, res: Response) => {
   }
 };
 
-export { getRecipes, addRecipes };
+const getUser = async (req: Request, res: Response) => {
+  const { userId } = getAuth(req);
+
+  try {
+    if (userId) {
+      const recipes = await prisma.recipe.findMany({
+        where: {
+          userId,
+        },
+      });
+      res.json(recipes);
+    } else {
+      res.status(400).json({ error: "User ID not found" });
+    }
+  } catch (error) {
+    console.error("Error fetching recipes:", error);
+  }
+};
+
+export { getRecipes, addRecipes, getUser };

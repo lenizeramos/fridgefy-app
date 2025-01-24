@@ -1,8 +1,23 @@
 import { useRecipesContext } from "../../context/RecipiesContext";
+import { useAuth } from "@clerk/clerk-react";
 import "./WishList.scss";
+import { useEffect } from "react";
 
 const WishList = () => {
+  const { state, getRecipeUser } = useRecipesContext();
+  const { getToken } = useAuth();
 
+  useEffect(() => {
+    const getRecipes = async () => {
+      try {
+        const token = await getToken();
+        getRecipeUser(token);
+      } catch (error) {
+        console.error((error as Error).message);
+      }
+    };
+    getRecipes();
+  },[]);
   return (
     <>
       <div className="myRecipesContainer">
