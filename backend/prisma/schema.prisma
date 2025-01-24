@@ -29,8 +29,8 @@ model Fridge {
   user           User     @relation(fields: [userId], references: [clerkId])
   userId         String
   ingredientName String
-  quantity      Float?
-  createdAt     DateTime @default(now())
+  quantity       Float?
+  createdAt      DateTime @default(now())
   expirationDate DateTime
 
   @@map("fridge")
@@ -41,8 +41,8 @@ model ShoppingList {
   user           User     @relation(fields: [userId], references: [clerkId])
   userId         String
   ingredientName String
-  quantity      Float?
-  addedAt       DateTime @default(now())
+  quantity       Float?
+  addedAt        DateTime @default(now())
 
   @@map("shopping_list")
 }
@@ -51,7 +51,7 @@ model Recipe {
   id                    String   @id @default(auto()) @map("_id") @db.ObjectId
   user                  User     @relation(fields: [userId], references: [clerkId])
   userId                String
-  recipeId              Int      
+  recipeId              Int
   recipeName            String
   recipeIngredients     String[]
   recipeInstructions    String[]
@@ -65,6 +65,6 @@ model Recipe {
   recipeMealType        String[]
   savedAt               DateTime @default(now())
 
-  @@map("recipe")
   @@unique([userId, recipeId])
+  @@map("recipe")
 }

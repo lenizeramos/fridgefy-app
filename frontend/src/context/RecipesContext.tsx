@@ -212,7 +212,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
           fetchData();
         }
       } catch (error) {
-        throw new Error("Error fetching data");
+        throw new Error(`Error fetching data: ${error}`);
       }
     };
 
