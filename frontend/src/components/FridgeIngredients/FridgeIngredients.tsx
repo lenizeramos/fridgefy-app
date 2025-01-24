@@ -16,8 +16,6 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
   const { state, dispatch } = useFridgeContext();
   const { getToken } = useAuth();
 
-  console.log(state, "State");
-
   useEffect(() => {
     const fetchIngredients = async () => {
       try {
@@ -64,11 +62,11 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
     }
   };
   const isExpired = (expirationDateStr: string): boolean => {
-    const expirationDate = new Date(expirationDateStr); 
+    const expirationDate = new Date(expirationDateStr);
     const currentDate = new Date();
     const currentDateOnly = new Date(currentDate.setHours(0, 0, 0, 0));
     const expirationDateOnly = new Date(expirationDate.setHours(0, 0, 0, 0));
-  
+
     return currentDateOnly > expirationDateOnly;
   };
 
