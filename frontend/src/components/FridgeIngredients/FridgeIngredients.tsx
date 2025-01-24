@@ -1,8 +1,18 @@
 import { useEffect } from "react";
-import { useFridgeContext } from "../../context/FridgeContext";
+import {
+  removeIngredientFromFridge,
+  useFridgeContext,
+} from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
+import "../FridgeIngredients/FridgeIngredients.scss";
 
-const FridgeIngredients = () => {
+interface FridgeIngredientsProps {
+  searchWord: string;
+}
+
+const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
+  searchWord,
+}) => {
   const { state, dispatch } = useFridgeContext();
   const { getToken } = useAuth();
 
@@ -30,6 +40,7 @@ const FridgeIngredients = () => {
         }
 
         const result = await response.json();
+
         dispatch({ type: "setIngredients", payload: result });
       } catch (err) {
         console.error((err as Error).message);
@@ -39,13 +50,62 @@ const FridgeIngredients = () => {
     fetchIngredients();
   }, [dispatch, getToken]);
 
+  const handleDelete = async (id: string) => {
+    if (!id) {
+      console.error("Ingredient ID is missing.");
+      return;
+    }
+    try {
+      await removeIngredientFromFridge(id, dispatch, await getToken());
+    } catch (err) {
+      console.error("Failed to delete ingredient:", (err as Error).message);
+    }
+  };
+  const isExpired = (expirationDateStr: string): boolean => {
+    const expirationDate = new Date(expirationDateStr);
+    const currentDate = new Date();
+    const currentDateOnly = new Date(currentDate.setHours(0, 0, 0, 0));
+    const expirationDateOnly = new Date(expirationDate.setHours(0, 0, 0, 0));
+
+    return currentDateOnly > expirationDateOnly;
+  };
+
+  const ingredientsToDisplay = searchWord
+    ? state.ingredients.filter((ingredient) =>
+        ingredient.ingredientName
+          .toLowerCase()
+          .includes(searchWord.toLowerCase())
+      )
+    : state.ingredients;
+
   return (
     <div className="ingredients">
-      <ul className="list-unstyled">
-        {state.ingredients.map((ingredient) => (
-          <li key={ingredient.id}>{ingredient.ingredientName}</li>
-        ))}
-      </ul>
+      {ingredientsToDisplay.length > 0 ? (
+        <ul className="list-unstyled">
+          {ingredientsToDisplay.map((ingredient) => (
+            <li
+              key={ingredient.id}
+              className="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2"
+            >
+              <span
+                className={`me-2 ${
+                  isExpired(ingredient.expirationDate) ? "text-danger" : ""
+                }`}
+              >
+                {ingredient.ingredientName}
+              </span>
+              <button
+                className="btn btn-sm"
+                onClick={() => handleDelete(ingredient.id ?? "")}
+              >
+                <i className="bx bx-trash fridge-ingredients-trash"></i>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <div>No ingredient in the fridge</div>
+      )}
     </div>
   );
 };

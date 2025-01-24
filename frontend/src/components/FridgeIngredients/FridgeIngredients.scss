@@ -1,0 +1,16 @@
+.ingredients {
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+
+      .fridge-ingredients-trash {
+        &:hover {
+          color: red;
+        }
+      }
+    }
+  }
+}

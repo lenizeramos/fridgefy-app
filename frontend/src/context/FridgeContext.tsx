@@ -12,11 +12,14 @@ const FridgeReducer = (
 ): FridgeState => {
   switch (action.type) {
     case "addIngredient": {
-      return { ...state, ingredients: [...state.ingredients, action.payload] };
+      return { ...state, ingredients: [action.payload, ...state.ingredients] };
     }
     case "removeIngredient": {
       return {
         ...state,
+        ingredients: state.ingredients.filter(
+          (ingredient) => ingredient.id != action.payload
+        ),
       };
     }
     case "setIngredients": {
@@ -75,10 +78,45 @@ const addIngredientToFridge = async (
     }
 
     const result = await response.json();
+    //alert("Ingredient successfully added to the fridge!");
     dispatch({ type: "addIngredient", payload: result.response });
   } catch (err) {
     console.error((err as Error).message);
   }
 };
 
-export { FridgeProvider, useFridgeContext, addIngredientToFridge };
+const removeIngredientFromFridge = async (
+  id: string,
+  dispatch: React.Dispatch<FridgeAction>,
+  token: string | null
+) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/fridge/ingredient/remove/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage =
+        errorData.error || "An error occurred. Please try again.";
+      throw new Error(errorMessage);
+    }
+    //alert("Ingredient successfully removed from the fridge!");
+    dispatch({ type: "removeIngredient", payload: id });
+  } catch (err) {
+    console.error((err as Error).message);
+  }
+};
+export {
+  FridgeProvider,
+  useFridgeContext,
+  addIngredientToFridge,
+  removeIngredientFromFridge,
+};

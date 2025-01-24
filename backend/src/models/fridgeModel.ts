@@ -21,7 +21,7 @@ export const getIngredients = async (userId: string) => {
         userId: userId,
       },
       orderBy: {
-        createdAt: "asc",
+        createdAt: "desc",
       },
     });
 
@@ -29,5 +29,22 @@ export const getIngredients = async (userId: string) => {
   } catch (error) {
     console.error("Error fetching ingredients:", error);
     throw new Error("Failed to fetch ingredients.");
+  }
+};
+
+export const removeIngredient = async (id: string, userId: string) => {
+  try {
+    const deletedIngredient = await prisma.fridge.delete({
+      where: {
+        id,
+        userId
+      },
+    });
+    return deletedIngredient;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw new Error("Failed to delete ingredients.");
+  } finally {
+    await prisma.$disconnect();
   }
 };

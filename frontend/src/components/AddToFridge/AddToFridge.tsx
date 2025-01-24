@@ -5,6 +5,7 @@ import {
   useFridgeContext,
 } from "../../context/FridgeContext";
 import { useAuth } from "@clerk/clerk-react";
+import "../AddToFridge/AddToFridge.scss";
 
 const AddToFridge = () => {
   const { state } = useRecipesContext();
@@ -13,6 +14,10 @@ const AddToFridge = () => {
   const [expirationDate, setExpirationDate] = useState<string>("");
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const openModal = () => setShowModal(true);
+  const closeModal = () => setShowModal(false);
 
   const { dispatch: fridgeDispatch } = useFridgeContext();
   const { getToken } = useAuth();
@@ -38,24 +43,32 @@ const AddToFridge = () => {
     setExpirationDate(e.target.value);
   };
 
-  const today = new Date().toISOString();
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+  const minDate = `${tomorrow.getFullYear()}-${String(
+    tomorrow.getMonth() + 1
+  ).padStart(2, "0")}-${String(tomorrow.getDate()).padStart(2, "0")}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
     if (!ingredient) {
-      setError("Ingredient is required.");
+      setError("Ingredient is required!");
       return;
     }
 
     if (!expirationDate) {
-      setError("Expiry date is required.");
+      setError("Expiry date is required!");
       return;
     }
 
-    if (expirationDate <= today) {
-      setError("The date cannot be in the past.");
+    if (
+      new Date(expirationDate).setHours(0, 0, 0, 0) <
+      new Date().setHours(0, 0, 0, 0)
+    ) {
+      setError("The date cannot be today or in the past!");
       return;
     }
 
@@ -65,61 +78,101 @@ const AddToFridge = () => {
     };
 
     addIngredientToFridge(payload, fridgeDispatch, await getToken());
+    setIngredient("");
+    setExpirationDate("");
+    setShowModal(false);
   };
 
   return (
     <>
-      <div className="container mt-5">
-        <h2>Add to my fridge</h2>
-        <p>Enter item details you want to add to your fridge.</p>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="ingredient" className="form-label">
-              Name:
-            </label>
-            <input
-              type="text"
-              id="ingredient"
-              className="form-control"
-              value={ingredient}
-              onChange={handleSearchChange}
-              placeholder="Search for a ingredient"
-              autoComplete="off"
-            />
-            {searchResults.length > 0 && (
-              <ul className="list-group mt-2">
-                {searchResults.map((result, index) => (
-                  <li
-                    key={index}
-                    className="list-group-item list-group-item-action"
-                    onClick={() => handleIngredientSelect(result)}
+      <button type="button" className="btn" onClick={openModal}>
+        <i className="bx bxs-file-plus fs-4 addToFridgeIcon p-2"></i>
+      </button>
+      <div className="container">
+        {showModal && (
+          <div
+            className="modal fade show"
+            style={{ display: "block", backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            tabIndex={-1}
+            role="dialog"
+            aria-labelledby="modal"
+            aria-hidden="false"
+          >
+            <div className="modal-dialog modal-dialog-centered" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <div>
+                    <h3 className="modal-title">Add to my fridge</h3>
+                    <p>Enter item details you want to add to your fridge.</p>
+                  </div>
+                  <button
+                    type="button"
+                    className="btn-close modal-close-btn"
+                    onClick={closeModal}
+                    aria-label="Close"
                   >
-                    {result}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+                    <i className="bx"></i>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                      <label htmlFor="ingredient" className="form-label">
+                        Name:
+                      </label>
+                      <input
+                        type="text"
+                        id="ingredient"
+                        className="form-control"
+                        value={ingredient}
+                        onChange={handleSearchChange}
+                        placeholder="Search for a ingredient"
+                        autoComplete="off"
+                      />
+                      {searchResults.length > 0 && (
+                        <ul className="list-group mt-2">
+                          {searchResults.map((result, index) => (
+                            <li
+                              key={index}
+                              className="list-group-item list-group-item-action"
+                              onClick={() => handleIngredientSelect(result)}
+                            >
+                              {result}
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
 
-          <div className="mb-3">
-            <label htmlFor="expirationDate" className="form-label">
-              Expiry Date:
-            </label>
-            <input
-              type="date"
-              id="expirationDate"
-              className="form-control"
-              value={expirationDate}
-              onChange={handleExpirationDateChange}
-              min={today}
-            />
+                    <div className="mb-3">
+                      <label htmlFor="expirationDate" className="form-label">
+                        Expiry Date:
+                      </label>
+                      <input
+                        type="date"
+                        id="expirationDate"
+                        className="form-control"
+                        value={expirationDate}
+                        onChange={handleExpirationDateChange}
+                        min={minDate}
+                      />
+                    </div>
+                    <div className="modal-footer">
+                      <button type="submit" className="addToFridgeBtn">
+                        Add To Fridge
+                      </button>
+                      {error && (
+                        <div className="addToFridgeError text-center">
+                          <p className="text-danger mt-3">{error}</p>
+                        </div>
+                      )}
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <button type="submit" className="addToFridgeBtn">
-            Add To Fridge
-          </button>
-          {error && <p className="text-danger mt-3">{error}</p>}
-        </form>
+        )}
       </div>
     </>
   );
