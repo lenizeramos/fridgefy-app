@@ -1,13 +1,13 @@
 import { Request, Response, RequestHandler, NextFunction } from "express";
 import { fetchRecipes } from "../models/fetchModel";
-import { clerkClient, getAuth } from "@clerk/express";
+import { getAuth } from "@clerk/express";
 import { findUserByClerkId } from "../models/userModel";
 import { prisma } from "../prisma";
 
 const getRecipes = async (req: Request, res: Response) => {
   try {
     const data = await fetchRecipes();
-    res.json({ data });
+    res.status(200).json({ data });
   } catch (error) {
     console.log(`Error in getRecipes: ${error}`);
     res.status(500).send("Error fetching data");
@@ -42,7 +42,6 @@ const addRecipes = async (req: Request, res: Response) => {
         },
       },
     });
-
     if (existingUser && !existingRecipe) {
       await prisma.recipe.create({
         data: {
@@ -62,20 +61,13 @@ const addRecipes = async (req: Request, res: Response) => {
         },
       });
 
-      // const userWithRecipes = await prisma.user.findUnique({
-      //   where: { clerkId: userId as string},
-      //   include: { recipes: true },
-      // });
-      // if (userWithRecipes) {
-      //   await prisma.user.update({
-      //     where: { clerkId: userId as string},
-      //     data: { recipes: userWithRecipes.recipes},
-      //   });
-      // }
-
-      res.status(200).json({ message: "Recipe saved in the database" });
+      res
+        .status(200)
+        .json({ message: "Recipe saved in the database", status: 200 });
     } else {
-      res.status(400).json({ message: "Recipe already saved in the databe" });
+      res
+        .status(200)
+        .json({ message: "Recipe already saved in the databe", status: 400 });
     }
   } catch (error) {
     console.log("Error saving recipe to database: ", error);

@@ -1,18 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Recipes, useRecipesContext } from "../../context/RecipesContext";
 import { RecipeModal } from "../RecipeModal/RecipeModal";
 import "./Recipe.scss";
-import { SignedOut, useAuth, SignedIn } from "@clerk/clerk-react";
+import { SignedOut, SignedIn } from "@clerk/clerk-react";
 import { Link } from "react-router-dom";
 
 function Recipe({ recipe }: { recipe: Recipes }) {
   const { state, addFunction } = useRecipesContext();
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipes>();
-  const { getToken } = useAuth();
 
   const handleAddWishList = async (id: number) => {
     const foundRecipe = state.recipes.find((recipe) => recipe.id === id);
-    setSelectedRecipe(foundRecipe);
+    if (foundRecipe) {
+      try {
+        await addFunction(foundRecipe);
+      } catch (error) {
+        console.error((error as Error).message);
+      }
+    }
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -23,20 +27,6 @@ function Recipe({ recipe }: { recipe: Recipes }) {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
-
-  useEffect(() => {
-    if (selectedRecipe) {
-      const fetchRecipe = async () => {
-        try {
-          const token = await getToken();
-          addFunction(selectedRecipe, token);
-        } catch (error) {
-          console.error((error as Error).message);
-        }
-      };
-      fetchRecipe();
-    }
-  }, [selectedRecipe]);
 
   return (
     <>

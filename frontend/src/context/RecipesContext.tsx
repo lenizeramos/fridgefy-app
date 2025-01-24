@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import toast from "react-hot-toast";
+import { useAuthService } from "../services/userAuthService";
 
 export type Recipes = {
   id: number;
@@ -24,25 +25,28 @@ type RecipesState = {
   recipes: Recipes[];
   ingredients: string[];
   tags: string[];
+  recipesWishList: Recipes[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
-  | { type: "tagsArray"; payload: { tags: string | string[] }[] };
+  | { type: "tagsArray"; payload: { tags: string | string[] }[] }
+  | { type: "setRecipesWishList"; payload: Recipes[] };
 
 interface IRecipesContext {
   state: RecipesState;
   dispatch: React.Dispatch<RecipesAction>;
   fetchData: () => Promise<void>;
-  addFunction: (recipe: Recipes, token: string | null) => Promise<void>;
-  getRecipeUser: (token: string | null) => Promise<void>;
+  addFunction: (recipe: Recipes) => Promise<void>;
+  getRecipeUser: () => Promise<void>;
 }
 
 const initialState: RecipesState = {
   recipes: [],
   ingredients: [],
   tags: [],
+  recipesWishList: [],
 };
 
 const RecipesReducer = (
@@ -88,6 +92,12 @@ const RecipesReducer = (
         tags: uniqueTags,
       };
     }
+    case "setRecipesWishList": {
+      return {
+        ...state,
+        recipesWishList: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -99,6 +109,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(RecipesReducer, initialState);
+  const auth = useAuthService();
 
   const fetchData = async () => {
     try {
@@ -120,8 +131,9 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const addFunction = async (recipe: Recipes, token: string | null) => {
+  const addFunction = async (recipe: Recipes) => {
     try {
+      const token = await auth.getToken();
       const response = await fetch("http://localhost:3000/fetch/wishlist", {
         method: "POST",
         headers: {
@@ -144,24 +156,34 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         }),
       });
       if (!response.ok) {
-        toast.error(`${recipe.name} is already in your wish list`, {
-          position: "bottom-right",
-        });
+        throw new Error("Internal sever error");
       } else {
-        toast.success(
-          `Yeiii!!! ${recipe.name} has beed added to your wish list`,
-          {
+        const res = await response.json();
+        if (res.status === 400) {
+          toast.error(`${recipe.name} is already in your wish list`, {
             position: "bottom-right",
-          }
-        );
+          });
+        } else {
+          toast.success(
+            `Yeiii!!! ${recipe.name} has beed added to your wish list`,
+            {
+              position: "bottom-right",
+            }
+          );
+          dispatch({
+            type: "setRecipesWishList",
+            payload: [...state.recipesWishList, recipe],
+          });
+        }
       }
     } catch (error) {
       throw new Error("Error fetching data");
     }
   };
 
-  const getRecipeUser = async (token: string | null) => {
+  const getRecipeUser = async () => {
     try {
+      const token = await auth.getToken();
       const response = await fetch("http://localhost:3000/fetch/wishlist", {
         method: "GET",
         headers: {
@@ -172,13 +194,29 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
         console.log("Error fetching data");
       }
       const result = await response.json();
-      console.log(result);
+      dispatch({ type: "setRecipesWishList", payload: result });
+      // return result
     } catch (error) {
       throw new Error("Error fetching data");
     }
   };
   useEffect(() => {
-    fetchData();
+    const fetchWishlist = async () => {
+      try {
+        const token = await auth.getToken();
+        // console.log(token)
+        if (token) {
+          await getRecipeUser();
+          fetchData();
+        } else {
+          fetchData();
+        }
+      } catch (error) {
+        throw new Error("Error fetching data");
+      }
+    };
+
+    fetchWishlist();
   }, []);
 
   return (

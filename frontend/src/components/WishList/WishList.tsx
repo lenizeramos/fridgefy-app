@@ -1,32 +1,23 @@
 import { useRecipesContext } from "../../context/RecipesContext";
-import { useAuth } from "@clerk/clerk-react";
 import "./WishList.scss";
-import { useEffect } from "react";
 
 const WishList = () => {
-  const { state, getRecipeUser } = useRecipesContext();
-  const { getToken } = useAuth();
+  const { state } = useRecipesContext();
+  // console.log("from wishList", state.recipesWishList);
 
-  useEffect(() => {
-    const getRecipes = async () => {
-      try {
-        const token = await getToken();
-        getRecipeUser(token);
-      } catch (error) {
-        console.error((error as Error).message);
-      }
-    };
-    getRecipes();
-  },[]);
   return (
     <>
       <div className="myRecipesContainer">
         <h1>My Recipes</h1>
         <ul>
-          <li>
-            <img src="" alt="" />
-            <p></p>
-          </li>
+          {state.recipesWishList.map((recipe) => {
+            return (
+              <li key={recipe.id}>
+                <img src={recipe.image} alt={recipe.name} />
+                <p>{recipe.name}</p>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </>
