@@ -63,10 +63,13 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
       console.error("Failed to delete ingredient:", (err as Error).message);
     }
   };
-  const isExpired = (expirationDateStr: string) => {
-    const expirationDate = new Date(expirationDateStr);
+  const isExpired = (expirationDateStr: string): boolean => {
+    const expirationDate = new Date(expirationDateStr); 
     const currentDate = new Date();
-    return currentDate > expirationDate;
+    const currentDateOnly = new Date(currentDate.setHours(0, 0, 0, 0));
+    const expirationDateOnly = new Date(expirationDate.setHours(0, 0, 0, 0));
+  
+    return currentDateOnly > expirationDateOnly;
   };
 
   const ingredientsToDisplay = searchWord
@@ -84,7 +87,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
           {ingredientsToDisplay.map((ingredient) => (
             <li
               key={ingredient.id}
-              className="d-flex justify-content-between align-items-center"
+              className="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2"
             >
               <span
                 className={`me-2 ${

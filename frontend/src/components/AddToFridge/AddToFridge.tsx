@@ -43,7 +43,15 @@ const AddToFridge = () => {
     setExpirationDate(e.target.value);
   };
 
-  const today = new Date().toISOString();
+  //const today = new Date().toISOString();
+  const today = new Date();
+  const localDateTime = `${today.getFullYear()}-${String(
+    today.getMonth() + 1
+  ).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}T${String(
+    today.getHours()
+  ).padStart(2, "0")}:${String(today.getMinutes()).padStart(2, "0")}:${String(
+    today.getSeconds()
+  ).padStart(2, "0")}`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -59,7 +67,7 @@ const AddToFridge = () => {
       return;
     }
 
-    if (expirationDate < today) {
+    if (expirationDate < localDateTime) {
       setError("The date cannot be today or in the past!");
       return;
     }
@@ -146,7 +154,7 @@ const AddToFridge = () => {
                         className="form-control"
                         value={expirationDate}
                         onChange={handleExpirationDateChange}
-                        min={today}
+                        min={localDateTime}
                       />
                     </div>
                     <div className="modal-footer">

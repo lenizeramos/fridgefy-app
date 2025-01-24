@@ -49,8 +49,6 @@ export const getFridge = async (req: Request, res: Response) => {
   try {
     const ingredients = await getIngredients(userId);
 
-    //expiry -return 2 objects
-
     res.status(200).json(ingredients);
   } catch (error) {
     console.error("Error fetching fridge ingredients:", error);
