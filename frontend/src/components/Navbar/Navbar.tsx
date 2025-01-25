@@ -51,7 +51,12 @@ function Navbar() {
             </ul>
             <div className="buttonContainer">
               <SignedOut>
-                <NavLink to="/signin" className="button">
+                <NavLink
+                  to="/signin"
+                  className={({ isActive }) =>
+                    isActive ? "buttonActive" : "button"
+                  }
+                >
                   <button>Sign in</button>
                 </NavLink>
               </SignedOut>
