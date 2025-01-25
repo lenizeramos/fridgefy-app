@@ -39,12 +39,12 @@ function Navbar() {
               <SignedIn>
                 <li>
                   <NavLink
-                    to="/wish_list"
+                    to="/shopping-list"
                     className={({ isActive }) =>
                       isActive ? "active" : "noActive"
                     }
                   >
-                    Wish List
+                    Shopping List
                   </NavLink>
                 </li>
               </SignedIn>
