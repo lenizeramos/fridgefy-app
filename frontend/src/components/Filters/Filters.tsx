@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useRecipesContext } from "../../context/RecipiesContext";
+import { useRecipesContext } from "../../context/RecipesContext";
 import "./Filters.scss";
 
 function Filters({ onFilter }: { onFilter: (search: string) => void }) {
@@ -57,7 +57,7 @@ function Filters({ onFilter }: { onFilter: (search: string) => void }) {
         />
         <i className="bx bx-search-alt"></i>
         <div className="filters">
-          <div className="tags">
+          <div className="tagsSelect">
             <h4>Tags</h4>
             <select
               name="tags"
@@ -77,7 +77,7 @@ function Filters({ onFilter }: { onFilter: (search: string) => void }) {
               })}
             </select>
           </div>
-          <div className="types">
+          <div className="typesSelect">
             <h4>Meal Types</h4>
             <select
               name="mealsType"
@@ -97,7 +97,7 @@ function Filters({ onFilter }: { onFilter: (search: string) => void }) {
               })}
             </select>
           </div>
-          <div className="cuisine">
+          <div className="cuisineSelect">
             <h4>Cuisines</h4>
             <select
               name="cuisines"

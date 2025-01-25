@@ -1,4 +1,6 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
+import toast from "react-hot-toast";
+import { useAuthService } from "../services/userAuthService";
 
 export type Recipes = {
   id: number;
@@ -27,21 +29,24 @@ type RecipesState = {
   tags: string[];
   mealsType: string[];
   cuisines: string[];
+  recipesWishList: Recipes[];
 };
 
 type RecipesAction =
   | { type: "setRecipes"; payload: Recipes[] }
-  | { type: "findRecipes"; payload: number }
   | { type: "namesArray"; payload: { name: string | string[] }[] }
   | { type: "ingredientsArray"; payload: { ingredients: string | string[] }[] }
   | { type: "tagsArray"; payload: { tags: string | string[] }[] }
   | { type: "mealsTypeArray"; payload: { mealType: string | string[] }[] }
-  | { type: "cousinesArray"; payload: { cuisine: string | string[] }[] };
+  | { type: "cousinesArray"; payload: { cuisine: string | string[] }[] }
+  | { type: "setRecipesWishList"; payload: Recipes[] };
 
 interface IRecipesContext {
   state: RecipesState;
   dispatch: React.Dispatch<RecipesAction>;
   fetchData: () => Promise<void>;
+  addFunction: (recipe: Recipes) => Promise<void>;
+  fetchRecipesUser: () => Promise<void>;
 }
 
 const initialState: RecipesState = {
@@ -52,6 +57,7 @@ const initialState: RecipesState = {
   tags: [],
   mealsType: [],
   cuisines: [],
+  recipesWishList: [],
 };
 
 const RecipesReducer = (
@@ -59,19 +65,12 @@ const RecipesReducer = (
   action: RecipesAction
 ): RecipesState => {
   switch (action.type) {
-    case "setRecipes":
+    case "setRecipes": {
       return {
         ...state,
         recipes: action.payload,
       };
-    case "findRecipes":
-      const selectedRecipe = state.recipes.find(
-        (recipe) => recipe.id === action.payload
-      );
-      return {
-        ...state,
-        selectedRecipe: selectedRecipe || null,
-      };
+    }
     case "namesArray":
       const uniqueNames = Array.from(
         action.payload.reduce((acc, cur) => {
@@ -87,11 +86,11 @@ const RecipesReducer = (
         ...state,
         names: uniqueNames,
       };
-    case "ingredientsArray":
+    case "ingredientsArray": {
       const uniqueIngredients = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.ingredients)) {
-            cur.ingredients.forEach((item) => acc.add(item));
+            cur.ingredients.forEach((ingredient) => acc.add(ingredient));
           } else if (typeof cur.ingredients === "string") {
             acc.add(cur.ingredients);
           }
@@ -102,11 +101,12 @@ const RecipesReducer = (
         ...state,
         ingredients: uniqueIngredients,
       };
-    case "tagsArray":
+    }
+    case "tagsArray": {
       const uniqueTags = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.tags)) {
-            cur.tags.forEach((item) => acc.add(item));
+            cur.tags.forEach((tag) => acc.add(tag));
           } else if (typeof cur.tags === "string") {
             acc.add(cur.tags);
           }
@@ -117,6 +117,7 @@ const RecipesReducer = (
         ...state,
         tags: uniqueTags,
       };
+    }
     case "mealsTypeArray":
       const uniqueMealsType = Array.from(
         action.payload.reduce((acc, cur) => {
@@ -148,6 +149,12 @@ const RecipesReducer = (
         ...state,
         cuisines: uniqueCousines,
       };
+    case "setRecipesWishList": {
+      return {
+        ...state,
+        recipesWishList: action.payload,
+      };
+    }
     default:
       return state;
   }
@@ -159,6 +166,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(RecipesReducer, initialState);
+  const auth = useAuthService();
 
   const fetchData = async () => {
     try {
@@ -168,7 +176,6 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       }
       const result = await response.json();
       const data: Recipes[] = result.data;
-      console.log('data=> ',data);
       if (!Array.isArray(data)) {
         throw new Error("Unexpected response format");
       }
@@ -178,18 +185,104 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: "tagsArray", payload: data });
       dispatch({ type: "mealsTypeArray", payload: data });
       dispatch({ type: "cousinesArray", payload: data });
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+      throw new Error("Error fetching data");
+    }
+  };
 
+  const addFunction = async (recipe: Recipes) => {
+    try {
+      const token = await auth.getToken();
+      const response = await fetch("http://localhost:3000/fetch/wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          id: recipe.id,
+          name: recipe.name,
+          ingredients: recipe.ingredients,
+          instructions: recipe.instructions,
+          prepTimeMinutes: recipe.prepTimeMinutes,
+          cookTimeMinutes: recipe.cookTimeMinutes,
+          servings: recipe.servings,
+          difficulty: recipe.difficulty,
+          cuisine: recipe.cuisine,
+          tags: recipe.tags,
+          image: recipe.image,
+          mealType: recipe.mealType,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Internal sever error");
+      } else {
+        const res = await response.json();
+        if (res.status === 400) {
+          toast.error(`${recipe.name} is already in your wish list`, {
+            position: "bottom-right",
+          });
+        } else {
+          toast.success(
+            `Yeiii!!! ${recipe.name} has beed added to your wish list`,
+            {
+              position: "bottom-right",
+            }
+          );
+          dispatch({
+            type: "setRecipesWishList",
+            payload: [...state.recipesWishList, recipe],
+          });
+        }
+      }
     } catch (error) {
       throw new Error("Error fetching data");
     }
   };
 
+  const fetchRecipesUser = async () => {
+    try {
+      const token = await auth.getToken();
+      const response = await fetch("http://localhost:3000/fetch/wishlist", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (!response.ok) {
+        console.log("Error fetching data");
+      }
+      const result = await response.json();
+      dispatch({ type: "setRecipesWishList", payload: result });
+      // return result
+    } catch (error) {
+      throw new Error("Error fetching data");
+    }
+  };
   useEffect(() => {
-    fetchData();
+    const fetchWishlist = async () => {
+      try {
+        const token = await auth.getToken();
+        // console.log(token)
+        if (token) {
+          await fetchRecipesUser();
+          fetchData();
+        } else {
+          fetchData();
+        }
+      } catch (error) {
+        throw new Error(`Error fetching data: ${error}`);
+      }
+    };
+
+    fetchWishlist();
   }, []);
 
   return (
-    <RecipesContext.Provider value={{ state, dispatch, fetchData }}>
+    <RecipesContext.Provider
+      value={{ state, dispatch, fetchData, addFunction, fetchRecipesUser }}
+    >
       {children}
     </RecipesContext.Provider>
   );

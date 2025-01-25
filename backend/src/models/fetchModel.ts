@@ -1,3 +1,5 @@
+import { prisma } from "../prisma";
+
 interface IRecipes {
   id: number;
   name: string;
@@ -10,7 +12,6 @@ interface IRecipes {
   cuisine: string;
   caloriesPerServing: number;
   tags: string[];
-  userId: number;
   image: string;
   rating: number;
   reviewCount: number;
@@ -31,4 +32,38 @@ const fetchRecipes = async () => {
   }
 };
 
-export { fetchRecipes, IRecipes };
+const addRecipe = async (
+  userId: string,
+  recipeId: number,
+  name: string,
+  ingredients: string[],
+  instructions: string[],
+  prepTimeMinutes: number,
+  cookTimeMinutes: number,
+  servings: number,
+  difficulty: string,
+  cuisine: string,
+  tags: string[],
+  image: string,
+  mealType: string[]
+) => {
+  return await prisma.recipe.create({
+    data: {
+      userId,
+      recipeId,
+      name,
+      ingredients,
+      instructions,
+      prepTimeMinutes,
+      cookTimeMinutes,
+      servings,
+      difficulty,
+      cuisine,
+      tags,
+      image,
+      mealType,
+    },
+  });
+};
+
+export { fetchRecipes, IRecipes, addRecipe };

@@ -27,7 +27,6 @@
     .buttonContainer {
       border-radius: 1rem;
       display: flex;
-      justify-content: space-between;
       margin-top: 2em;
       .details,
       .icon {
@@ -40,7 +39,7 @@
       }
       .details {
         font-family: "Mystery Quest", serif;
-        width: 18rem;
+        width: 12rem;
         text-align: center;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
@@ -53,7 +52,7 @@
       }
       .icon {
         background-color: #fff5e1;
-        font-size: 1.2rem;
+        font-size: 1rem;
         border-left: 1px solid #8b5e3c;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -37,3 +39,6 @@ svg {
   height: auto;
   max-width: 100%;
 }
+
+$font-family-body: "Shadows Into Light", serif;
+$font-family-title: "Tangerine", serif;

@@ -5,10 +5,15 @@ import Landing from "./components/Landing/Landing.tsx";
 import { StrictMode } from "react";
 import Layout from "./layout/Layout.tsx";
 import { ProtectedRoute } from "./components/ProtectedRoute/ProtectedRoute.tsx";
-import { SignUp, ClerkProvider, SignIn } from "@clerk/clerk-react";
+import { ClerkProvider } from "@clerk/clerk-react";
 import Register from "./components/Register/Register.tsx";
-import Dashboard from "./components/Dashboard/Dashboard.tsx";
 import RecipesList from "./components/RecipesList/RecipesList.tsx";
+import RecipeDetails from "./components/RecipeDetails/RecipeDetails.tsx";
+import { RecipesProvider } from "./context/RecipesContext.tsx";
+import WishList from "./components/WishList/WishList.tsx";
+import SSOCallback from "./components/SSOCallback/SSOCallback.tsx";
+import SignInPage from "./components/Auth/SignInPage/SignInPage.tsx";
+import SignUpPage from "./components/Auth/SignUpPage/SignUpPage.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -27,20 +32,22 @@ const router = createBrowserRouter([
         element: <Landing />,
       },
       {
-        path: "login",
-        element: (
-          <SignIn path="/login" routing="path" redirectUrl="/register" />
-        ),
+        path: "signin",
+        element: <SignInPage />,
+      },
+      {
+        path: "signin/sso-callback",
+        element: <SSOCallback />,
       },
       {
         path: "signup",
-        element: <SignUp />,
+        element: <SignUpPage />,
       },
       {
-        path: "dashboard",
+        path: "wish_list",
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <WishList />
           </ProtectedRoute>
         ),
       },
@@ -54,7 +61,19 @@ const router = createBrowserRouter([
       },
       {
         path: "recipes",
-        element: <RecipesList />,
+        element: (
+          <RecipesProvider>
+            <RecipesList />
+          </RecipesProvider>
+        ),
+      },
+      {
+        path: "recipe/:id",
+        element: (
+          <RecipesProvider>
+            <RecipeDetails />
+          </RecipesProvider>
+        ),
       },
     ],
   },
@@ -63,7 +82,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ClerkProvider
       publishableKey={PUBLISHABLE_KEY}
-      signInUrl="/login"
+      signInUrl="/signin"
       signUpUrl="/signup"
       afterSignOutUrl="/"
     >

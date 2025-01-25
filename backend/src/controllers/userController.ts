@@ -4,7 +4,6 @@ import { findUserByClerkId, createUser } from "../models/userModel";
 
 export const registerUser = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
-  console.log(userId);
 
   if (!userId) {
     res.status(401).json({ error: "Unauthorized" });

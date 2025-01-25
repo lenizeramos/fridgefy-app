@@ -1,8 +1,12 @@
 import "./RecipesList.scss";
 import { useEffect, useState } from "react";
-import { useRecipesContext, Recipes } from "../../context/RecipiesContext";
+import { useRecipesContext, Recipes } from "../../context/RecipesContext";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
+import Fridge from "../Fridge/Fridge";
+import { SignedIn } from "@clerk/clerk-react";
+import { FridgeProvider } from "../../context/FridgeContext";
+import WishList from "../WishList/WishList";
 
 function RecipesList() {
   const { state, fetchData } = useRecipesContext();
@@ -38,7 +42,11 @@ function RecipesList() {
     <>
       <div className="mainContainer">
         <section className="fridge">
-          <div></div>
+          <SignedIn>
+            <FridgeProvider>
+              <Fridge />
+            </FridgeProvider>
+          </SignedIn>
         </section>
         <section className="recipes">
           <Filters onFilter={searchRecipes} />
@@ -55,7 +63,11 @@ function RecipesList() {
             )}
           </div>
         </section>
-        <section className="wishList"></section>
+        <section className="wishList">
+          <SignedIn>
+            <WishList />
+          </SignedIn>
+        </section>
       </div>
     </>
   );

@@ -124,3 +124,14 @@ $color-loader: #f6a193;
     background-position: 50% 36px;
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    .fridge {
+      margin: 2rem 0;
+      width: 70%;
+    }
+  }
+}
