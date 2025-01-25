@@ -3,11 +3,6 @@ import { useRecipesContext } from "../../context/RecipesContext";
 import "./Filters.scss";
 
 type FiltersProps = {
-  onFilter: (search: string) => void;
-  onClickSelectValue: (value: string[]) => void;
-};
-
-type FiltersProps1 = {
   filters: {
     searchTerm: string;
     tags: string;
@@ -18,13 +13,12 @@ type FiltersProps1 = {
   onFilterChange: (key: string, value: string) => void;
 };
 
-function Filters({ filters, onFilterChange }: FiltersProps1) {
+function Filters({ filters, onFilterChange }: FiltersProps) {
   const { state } = useRecipesContext();
   const [tagSize, setTagSize] = useState(1);
   const [mealTypeSize, setMealTypeSize] = useState(1);
   const [cuisineSize, setCuisineSize] = useState(1);
   // const [difficultySize, setDifficultySize] = useState(1);
-  const [searchRecipe, setSearchRecipes] = useState("");
 
   const handleSize = (
     setSizeFn: React.Dispatch<React.SetStateAction<number>>
@@ -39,17 +33,6 @@ function Filters({ filters, onFilterChange }: FiltersProps1) {
     // setDifficultySize(1);
   };
 
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   const searchTerm = event.target.value;
-  //   setSearchRecipes(searchTerm);
-  //   onFilter(searchTerm);
-  // };
-
-  // const handleSelectValue = (event: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const getValue = [event.target.name, event.target.value];
-  //   onClickSelectValue(getValue);
-  // };
-
   return (
     <>
       <div className="topContainer">
@@ -57,11 +40,9 @@ function Filters({ filters, onFilterChange }: FiltersProps1) {
           type="text"
           name=""
           id="searchRecipes"
-          // value={searchRecipe}
           value={filters.searchTerm}
           placeholder="Search Recipes"
           onChange={(e) => onFilterChange("searchTerm", e.target.value)}
-          // onChange={handleChange}
         />
         <i className="bx bx-search-alt"></i>
         <div className="filters">
@@ -75,7 +56,6 @@ function Filters({ filters, onFilterChange }: FiltersProps1) {
               onClick={() => handleSize(setTagSize)}
               onBlur={handleBlur}
               onChange={(e) => onFilterChange("tags", e.target.value)}
-              // onChange={handleSelectValue}
             >
               <option value="">All Tags</option>
               {state.tags.map((tag) => {
@@ -120,7 +100,6 @@ function Filters({ filters, onFilterChange }: FiltersProps1) {
               onClick={() => handleSize(setCuisineSize)}
               onBlur={handleBlur}
               onChange={(e) => onFilterChange("cuisines", e.target.value)}
-              // onChange={handleSelectValue}
             >
               <option value="">All Cuisines</option>
               {state.cuisines.map((cuisine) => {

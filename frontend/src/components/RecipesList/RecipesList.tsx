@@ -10,13 +10,6 @@ import WishList from "../WishList/WishList";
 
 function RecipesList() {
   const { state } = useRecipesContext();
-  const [filteredRecipes, setFilteredRecipes] = useState<Recipes[]>(
-    state.recipes
-  );
-  const [selectedValue, setSelectedValue] = useState<string[] | undefined>(
-    undefined
-  );
-console.log(state.recipes)
   const [filters, setFilters] = useState({
     searchTerm: "",
     tags: "",
@@ -50,27 +43,9 @@ console.log(state.recipes)
       matchesDifficulty
     );
   });
-  // console.log("select value from recipelist", selectedValue);
-
-  // const searchRecipes = (search: string) => {
-  //   const filtered = state.recipes.filter((recipe) =>
-  //     recipe.name.toLowerCase().includes(search.toLowerCase())
-  //   );
-  //   setFilteredRecipes(filtered);
-  // };
-
   const handleFilterChange = (key: string, value: string) => {
-    console.log(key, value)
     setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
-
-  // useEffect(() => {
-  //   if (state.recipes && state.recipes.length > 0) {
-  //     setFilteredRecipes(state.recipes);
-  //     console.clear();
-  //     console.log("filteredRecipes", filteredRecipes);
-  //   }
-  // }, [state.recipes]);
 
   return (
     <>
@@ -86,8 +61,6 @@ console.log(state.recipes)
           <Filters
             filters={filters}
             onFilterChange={handleFilterChange}
-            // onFilter={searchRecipes}
-            // onClickSelectValue={setSelectedValue}
           />
           <div className="recipeContainer">
             {filteresRecipes.length > 0 ? (
