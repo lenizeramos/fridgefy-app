@@ -144,7 +144,6 @@ const RecipesReducer = (
           return acc;
         }, new Set<string>())
       );
-      console.log('action=>',action.payload)
       return {
         ...state,
         cuisines: uniqueCousines,

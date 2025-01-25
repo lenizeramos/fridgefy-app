@@ -9,7 +9,12 @@ import { FridgeProvider } from "../../context/FridgeContext";
 import WishList from "../WishList/WishList";
 
 function RecipesList() {
-  const { state, fetchData } = useRecipesContext();
+  const { state } = useRecipesContext();
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(
+    undefined
+  );
+
+  console.log('select value from recipelist',selectedValue);
 
   // console.log("state from recipe list=>", state.recipes);
 
@@ -49,7 +54,10 @@ function RecipesList() {
           </SignedIn>
         </section>
         <section className="recipes">
-          <Filters onFilter={searchRecipes} />
+          <Filters
+            onFilter={searchRecipes}
+            onClickSelectValue={setSelectedValue}
+          />
           <div className="recipeContainer">
             {filteredRecipes.length > 0 ? (
               filteredRecipes.map((recipe) => {

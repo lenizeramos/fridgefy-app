@@ -3,7 +3,6 @@ import "./WishList.scss";
 
 const WishList = () => {
   const { state } = useRecipesContext();
-  console.log("from wishList", state.recipesWishList);
 
   return (
     <>
