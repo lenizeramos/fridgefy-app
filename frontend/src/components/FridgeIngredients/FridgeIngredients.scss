@@ -13,4 +13,17 @@
       }
     }
   }
+  .paginationBtn {
+    cursor: pointer;
+    border: none;
+    font-family: "Mystery Quest", serif;
+    text-align: center;
+    border-radius: 1rem;
+    background-color: #eddbc3;
+    color: #2b2b2a;
+    &:hover {
+      color: #a94d3c;
+      background-color: #fff5e1;
+    }
+  }
 }

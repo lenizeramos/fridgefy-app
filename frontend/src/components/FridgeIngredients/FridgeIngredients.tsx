@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   removeIngredientFromFridge,
   useFridgeContext,
 } from "../../context/FridgeContext";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuthService } from "../../services/userAuthService";
 import "../FridgeIngredients/FridgeIngredients.scss";
+import toast from "react-hot-toast";
 
 interface FridgeIngredientsProps {
   searchWord: string;
@@ -14,7 +15,9 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
   searchWord,
 }) => {
   const { state, dispatch } = useFridgeContext();
-  const { getToken } = useAuth();
+  const { getToken } = useAuthService();
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchIngredients = async () => {
@@ -57,8 +60,9 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
     }
     try {
       await removeIngredientFromFridge(id, dispatch, await getToken());
+      toast.success("Ingredient removed from your fridge!");
     } catch (err) {
-      console.error("Failed to delete ingredient:", (err as Error).message);
+      toast.error(`Failed to delete ingredient: ${(err as Error).message}`);
     }
   };
   const isExpired = (expirationDateStr: string): boolean => {
@@ -78,31 +82,67 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
       )
     : state.ingredients;
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentIngredients = ingredientsToDisplay.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+
+  const totalPages = Math.ceil(ingredientsToDisplay.length / itemsPerPage);
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
     <div className="ingredients">
-      {ingredientsToDisplay.length > 0 ? (
-        <ul className="list-unstyled">
-          {ingredientsToDisplay.map((ingredient) => (
-            <li
-              key={ingredient.id}
-              className="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2"
+      {currentIngredients.length > 0 ? (
+        <>
+          <ul className="list-unstyled">
+            {currentIngredients.map((ingredient) => (
+              <li
+                key={ingredient.id}
+                className="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2"
+              >
+                <span
+                  className={`me-2 ${
+                    isExpired(ingredient.expirationDate) ? "text-danger" : ""
+                  }`}
+                >
+                  {ingredient.ingredientName}
+                </span>
+                <button
+                  className="btn btn-sm"
+                  onClick={() => handleDelete(ingredient.id ?? "")}
+                >
+                  <i className="bx bx-trash fridge-ingredients-trash"></i>
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="d-flex justify-content-center align-items-center">
+            <button
+              className="btn btn-sm paginationBtn"
+              disabled={currentPage === 1}
+              onClick={() => handlePageChange(currentPage - 1)}
             >
-              <span
-                className={`me-2 ${
-                  isExpired(ingredient.expirationDate) ? "text-danger" : ""
-                }`}
-              >
-                {ingredient.ingredientName}
-              </span>
-              <button
-                className="btn btn-sm"
-                onClick={() => handleDelete(ingredient.id ?? "")}
-              >
-                <i className="bx bx-trash fridge-ingredients-trash"></i>
-              </button>
-            </li>
-          ))}
-        </ul>
+              Previous
+            </button>
+            <span className="mx-2">
+            {`Page ${currentPage} of ${totalPages}`}
+            </span>
+            <button
+              className="btn btn-sm paginationBtn"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              Next
+            </button>
+          </div>
+        </>
       ) : (
         <div>No ingredient in the fridge</div>
       )}
