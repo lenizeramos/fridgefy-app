@@ -4,7 +4,7 @@ import "./Filters.scss";
 
 type FiltersProps = {
   onFilter: (search: string) => void;
-  onClickSelectValue: (value: string) => void;
+  onClickSelectValue: (value: string[]) => void;
 };
 
 function Filters({ onFilter, onClickSelectValue }: FiltersProps) {
@@ -33,7 +33,7 @@ function Filters({ onFilter, onClickSelectValue }: FiltersProps) {
   };
 
   const handleSelectValue = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const getValue = event.target.value;
+    const getValue = [event.target.name, event.target.value];
     onClickSelectValue(getValue);
   };
 

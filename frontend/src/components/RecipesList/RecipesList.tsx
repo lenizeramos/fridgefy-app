@@ -10,19 +10,14 @@ import WishList from "../WishList/WishList";
 
 function RecipesList() {
   const { state } = useRecipesContext();
-  const [selectedValue, setSelectedValue] = useState<string | undefined>(
-    undefined
-  );
-
-  console.log('select value from recipelist',selectedValue);
-
-  // console.log("state from recipe list=>", state.recipes);
-
   const [filteredRecipes, setFilteredRecipes] = useState<Recipes[]>(
     state.recipes
   );
+  const [selectedValue, setSelectedValue] = useState<string[] | undefined>(
+    undefined
+  );
 
-  // console.log("filter", filteredRecipes);
+  console.log("select value from recipelist", selectedValue);
 
   const searchRecipes = (search: string) => {
     const filtered = state.recipes.filter((recipe) =>
@@ -38,10 +33,6 @@ function RecipesList() {
       console.log("filteredRecipes", filteredRecipes);
     }
   }, [state.recipes]);
-
-  // const filterhRecipes = (value: string, filter: string) => {
-
-  // }
 
   return (
     <>
