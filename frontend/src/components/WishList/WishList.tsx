@@ -13,8 +13,8 @@ const WishList = () => {
           {state.recipesWishList.map((recipe) => {
             return (
               <li key={recipe.id}>
-                <img src={recipe.image} alt={recipe.name} />
-                <p>{recipe.name}</p>
+                <img src={recipe.image} alt={recipe.name} className="image" />
+                <p className="text">{recipe.name}</p>
               </li>
             );
           })}
