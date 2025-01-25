@@ -29,6 +29,7 @@ type RecipesState = {
   tags: string[];
   mealsType: string[];
   cuisines: string[];
+  difficulty: string[];
   recipesWishList: Recipes[];
 };
 
@@ -39,6 +40,7 @@ type RecipesAction =
   | { type: "tagsArray"; payload: { tags: string | string[] }[] }
   | { type: "mealsTypeArray"; payload: { mealType: string | string[] }[] }
   | { type: "cousinesArray"; payload: { cuisine: string | string[] }[] }
+  | { type: "difficultyArray"; payload: { difficulty: string }[] }
   | { type: "setRecipesWishList"; payload: Recipes[] };
 
 interface IRecipesContext {
@@ -57,6 +59,7 @@ const initialState: RecipesState = {
   tags: [],
   mealsType: [],
   cuisines: [],
+  difficulty: [],
   recipesWishList: [],
 };
 
@@ -71,7 +74,7 @@ const RecipesReducer = (
         recipes: action.payload,
       };
     }
-    case "namesArray":
+    case "namesArray": {
       const uniqueNames = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.name)) {
@@ -86,6 +89,7 @@ const RecipesReducer = (
         ...state,
         names: uniqueNames,
       };
+    }
     case "ingredientsArray": {
       const uniqueIngredients = Array.from(
         action.payload.reduce((acc, cur) => {
@@ -118,7 +122,7 @@ const RecipesReducer = (
         tags: uniqueTags,
       };
     }
-    case "mealsTypeArray":
+    case "mealsTypeArray": {
       const uniqueMealsType = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.mealType)) {
@@ -133,7 +137,8 @@ const RecipesReducer = (
         ...state,
         mealsType: uniqueMealsType,
       };
-    case "cousinesArray":
+    }
+    case "cousinesArray": {
       const uniqueCousines = Array.from(
         action.payload.reduce((acc, cur) => {
           if (Array.isArray(cur.cuisine)) {
@@ -148,6 +153,19 @@ const RecipesReducer = (
         ...state,
         cuisines: uniqueCousines,
       };
+    }
+    case "difficultyArray": {
+      const difficulties = Array.from(
+        action.payload.reduce((acc, cur) => {
+          acc.add(cur.difficulty);
+          return acc;
+        }, new Set<string>())
+      );
+      return {
+        ...state,
+        difficulty: difficulties,
+      };
+    }
     case "setRecipesWishList": {
       return {
         ...state,
@@ -184,6 +202,7 @@ const RecipesProvider: React.FC<{ children: React.ReactNode }> = ({
       dispatch({ type: "tagsArray", payload: data });
       dispatch({ type: "mealsTypeArray", payload: data });
       dispatch({ type: "cousinesArray", payload: data });
+      dispatch({ type: "difficultyArray", payload: data });
     } catch (error) {
       console.error("Error fetching recipes:", error);
       throw new Error("Error fetching data");

@@ -16,23 +16,61 @@ function RecipesList() {
   const [selectedValue, setSelectedValue] = useState<string[] | undefined>(
     undefined
   );
+console.log(state.recipes)
+  const [filters, setFilters] = useState({
+    searchTerm: "",
+    tags: "",
+    mealsType: "",
+    cuisines: "",
+    difficulty: "",
+  });
 
-  console.log("select value from recipelist", selectedValue);
+  const filteresRecipes = state.recipes.filter((recipe) => {
+    const matchesSearchTerm = recipe.name
+      .toLowerCase()
+      .includes(filters.searchTerm.toLowerCase());
+    const matchesTags = filters.tags
+      ? recipe.tags.some((tag) => tag === filters.tags)
+      : true;
+    const matchesMealsType = filters.mealsType
+      ? recipe.mealType.some((type) => type === filters.mealsType)
+      : true;
+    const matchesCuisines = filters.cuisines
+      ? recipe.cuisine === filters.cuisines
+      : true;
+    const matchesDifficulty = filters.difficulty
+      ? recipe.difficulty === filters.difficulty
+      : true;
 
-  const searchRecipes = (search: string) => {
-    const filtered = state.recipes.filter((recipe) =>
-      recipe.name.toLowerCase().includes(search.toLowerCase())
+    return (
+      matchesSearchTerm &&
+      matchesTags &&
+      matchesMealsType &&
+      matchesCuisines &&
+      matchesDifficulty
     );
-    setFilteredRecipes(filtered);
+  });
+  // console.log("select value from recipelist", selectedValue);
+
+  // const searchRecipes = (search: string) => {
+  //   const filtered = state.recipes.filter((recipe) =>
+  //     recipe.name.toLowerCase().includes(search.toLowerCase())
+  //   );
+  //   setFilteredRecipes(filtered);
+  // };
+
+  const handleFilterChange = (key: string, value: string) => {
+    console.log(key, value)
+    setFilters((prevFilters) => ({ ...prevFilters, [key]: value }));
   };
 
-  useEffect(() => {
-    if (state.recipes && state.recipes.length > 0) {
-      setFilteredRecipes(state.recipes);
-      console.clear();
-      console.log("filteredRecipes", filteredRecipes);
-    }
-  }, [state.recipes]);
+  // useEffect(() => {
+  //   if (state.recipes && state.recipes.length > 0) {
+  //     setFilteredRecipes(state.recipes);
+  //     console.clear();
+  //     console.log("filteredRecipes", filteredRecipes);
+  //   }
+  // }, [state.recipes]);
 
   return (
     <>
@@ -46,12 +84,14 @@ function RecipesList() {
         </section>
         <section className="recipes">
           <Filters
-            onFilter={searchRecipes}
-            onClickSelectValue={setSelectedValue}
+            filters={filters}
+            onFilterChange={handleFilterChange}
+            // onFilter={searchRecipes}
+            // onClickSelectValue={setSelectedValue}
           />
           <div className="recipeContainer">
-            {filteredRecipes.length > 0 ? (
-              filteredRecipes.map((recipe) => {
+            {filteresRecipes.length > 0 ? (
+              filteresRecipes.map((recipe) => {
                 return <Recipe key={recipe.id} recipe={recipe} />;
               })
             ) : (
