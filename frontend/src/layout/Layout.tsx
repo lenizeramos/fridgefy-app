@@ -4,6 +4,7 @@ import "./Layout.scss";
 import { RecipesProvider } from "../context/RecipesContext";
 import { Toaster } from "react-hot-toast";
 import Footer from "../components/Footer/Footer";
+import { FridgeProvider } from "../context/FridgeContext";
 
 function Layout() {
   return (
@@ -11,7 +12,9 @@ function Layout() {
       <Navbar />
       <main>
         <RecipesProvider>
-          <Outlet />
+          <FridgeProvider>
+            <Outlet />
+          </FridgeProvider>
         </RecipesProvider>
         <Toaster position="bottom-right" reverseOrder={false} />
       </main>

@@ -4,7 +4,8 @@ import {
   addIngredientToFridge,
   useFridgeContext,
 } from "../../context/FridgeContext";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuthService } from "../../services/userAuthService";
+//import { useAuth } from "@clerk/clerk-react";
 import "../AddToFridge/AddToFridge.scss";
 import toast from "react-hot-toast";
 
@@ -21,7 +22,7 @@ const AddToFridge = () => {
   const closeModal = () => setShowModal(false);
 
   const { dispatch: fridgeDispatch } = useFridgeContext();
-  const { getToken } = useAuth();
+  const { getToken } = useAuthService();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;

@@ -3,7 +3,7 @@ import {
   removeIngredientFromFridge,
   useFridgeContext,
 } from "../../context/FridgeContext";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuthService } from "../../services/userAuthService";
 import "../FridgeIngredients/FridgeIngredients.scss";
 import toast from "react-hot-toast";
 
@@ -15,7 +15,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
   searchWord,
 }) => {
   const { state, dispatch } = useFridgeContext();
-  const { getToken } = useAuth();
+  const { getToken } = useAuthService();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
