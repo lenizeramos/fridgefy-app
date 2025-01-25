@@ -1,6 +1,6 @@
 import "./RecipesList.scss";
-import { useEffect, useState } from "react";
-import { useRecipesContext, Recipes } from "../../context/RecipesContext";
+import { useState } from "react";
+import { useRecipesContext } from "../../context/RecipesContext";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
 import Fridge from "../Fridge/Fridge";
