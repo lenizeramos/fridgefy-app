@@ -3,10 +3,9 @@ import { useState } from "react";
 import { useRecipesContext } from "../../context/RecipesContext";
 import Recipe from "../Recipe/Recipe";
 import Filters from "../Filters/Filters";
-import Fridge from "../Fridge/Fridge";
 import { SignedIn } from "@clerk/clerk-react";
-import { FridgeProvider } from "../../context/FridgeContext";
 import WishList from "../WishList/WishList";
+import MyFridgeComponent from "../MyFridgeComponent/MyFridgeComponent";
 
 function RecipesList() {
   const { state } = useRecipesContext();
@@ -50,13 +49,7 @@ function RecipesList() {
   return (
     <>
       <div className="mainContainer">
-        <section className="fridge">
-          <SignedIn>
-            <FridgeProvider>
-              <Fridge />
-            </FridgeProvider>
-          </SignedIn>
-        </section>
+        <MyFridgeComponent />
         <section className="recipes">
           <Filters
             filters={filters}

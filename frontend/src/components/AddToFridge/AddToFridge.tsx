@@ -4,8 +4,10 @@ import {
   addIngredientToFridge,
   useFridgeContext,
 } from "../../context/FridgeContext";
-import { useAuth } from "@clerk/clerk-react";
+import { useAuthService } from "../../services/userAuthService";
+//import { useAuth } from "@clerk/clerk-react";
 import "../AddToFridge/AddToFridge.scss";
+import toast from "react-hot-toast";
 
 const AddToFridge = () => {
   const { state } = useRecipesContext();
@@ -20,7 +22,7 @@ const AddToFridge = () => {
   const closeModal = () => setShowModal(false);
 
   const { dispatch: fridgeDispatch } = useFridgeContext();
-  const { getToken } = useAuth();
+  const { getToken } = useAuthService();
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value;
@@ -77,10 +79,15 @@ const AddToFridge = () => {
       expirationDate,
     };
 
-    addIngredientToFridge(payload, fridgeDispatch, await getToken());
-    setIngredient("");
-    setExpirationDate("");
-    setShowModal(false);
+    try {
+      await addIngredientToFridge(payload, fridgeDispatch, await getToken());
+      toast.success("Ingredient added to your fridge!");
+      setIngredient("");
+      setExpirationDate("");
+      setShowModal(false);
+    } catch (err) {
+      toast.error(`Failed to add ingredient: ${(err as Error).message}`);
+    }
   };
 
   return (

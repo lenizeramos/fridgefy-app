@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+.footerContainer {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: #faebd7;
+  color: #535351;
+  flex-wrap: wrap;
+  .logoFooterContainer {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 4rem;
+      height: auto;
+    }
+  }
+  p {
+    font-family: "Tangerine", serif;
+    font-weight: 400;
+    font-size: 2rem;
+    text-shadow: 1px 2px 1px #813224;
+  }
+}
