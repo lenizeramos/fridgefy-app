@@ -107,19 +107,18 @@ const AddToFridge = () => {
           >
             <div className="modal-dialog modal-dialog-centered" role="document">
               <div className="modal-content">
-                <div className="modal-header">
-                  <div>
-                    <h3 className="modal-title">Add to my fridge</h3>
-                    <p>Enter item details you want to add to your fridge.</p>
-                  </div>
                   <button
                     type="button"
-                    className="btn-close modal-close-btn"
+                    className="modal-close"
                     onClick={closeModal}
                     aria-label="Close"
-                  >
-                    <i className="bx"></i>
+                  >×
                   </button>
+                <div className="modal-header">
+                  <div>
+                    <h2 className="modal-title">Add to my fridge</h2>
+                    <p>Enter item details you want to add to your fridge.</p>
+                  </div>
                 </div>
                 <div className="modal-body">
                   <form onSubmit={handleSubmit}>
