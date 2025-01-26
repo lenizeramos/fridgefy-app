@@ -51,10 +51,7 @@ function RecipesList() {
       <div className="mainContainer">
         <MyFridgeComponent />
         <section className="recipes">
-          <Filters
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
+          <Filters filters={filters} onFilterChange={handleFilterChange} />
           <div className="recipeContainer">
             {filteresRecipes.length > 0 ? (
               filteresRecipes.map((recipe) => {
