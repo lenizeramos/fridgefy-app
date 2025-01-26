@@ -12,7 +12,6 @@ interface IRecipes {
   cuisine: string;
   caloriesPerServing: number;
   tags: string[];
-  userId: number;
   image: string;
   rating: number;
   reviewCount: number;
@@ -36,33 +35,33 @@ const fetchRecipes = async () => {
 const addRecipe = async (
   userId: string,
   recipeId: number,
-  recipeName: string,
-  recipeIngredients: string[],
-  recipeInstructions: string[],
-  recipePrepTimeMinutes: number,
-  recipeCcokTimeMinutes: number,
-  recipeServings: number,
-  recipeDifficulty: string,
-  recipeCuisine: string,
-  recipeTags: string[],
-  recipeImage: string,
-  recipeMealType: string[]
+  name: string,
+  ingredients: string[],
+  instructions: string[],
+  prepTimeMinutes: number,
+  cookTimeMinutes: number,
+  servings: number,
+  difficulty: string,
+  cuisine: string,
+  tags: string[],
+  image: string,
+  mealType: string[]
 ) => {
   return await prisma.recipe.create({
     data: {
       userId,
       recipeId,
-      recipeName,
-      recipeIngredients,
-      recipeInstructions,
-      recipePrepTimeMinutes,
-      recipeCcokTimeMinutes,
-      recipeServings,
-      recipeDifficulty,
-      recipeCuisine,
-      recipeTags,
-      recipeImage,
-      recipeMealType,
+      name,
+      ingredients,
+      instructions,
+      prepTimeMinutes,
+      cookTimeMinutes,
+      servings,
+      difficulty,
+      cuisine,
+      tags,
+      image,
+      mealType,
     },
   });
 };

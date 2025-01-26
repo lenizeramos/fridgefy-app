@@ -33,22 +33,29 @@
       margin-bottom: 1rem;
     }
     select {
-      width: 10rem;
+      width: 100%;
       color: #642f09;
       padding: 0.2rem 0.5rem;
       border-radius: 0.5rem;
       border: 1px solid #642f09;
+      cursor: pointer;
+      position: absolute;
+      z-index: 1;
+      option:hover {
+        background-color: #faead7;
+        color: #642f09;
+      }
+      option:checked {
+        background-color: saddlebrown;
+        color: white;
+      }
     }
-    .tags {
+    .tagsSelect,
+    .typesSelect,
+    .cuisineSelect,
+    .difficultySelect {
       position: relative;
       width: 10rem;
-
-    #tags-select {
-      position: absolute;
-      overflow-y: auto;
-      max-height: 150px;
-      // z-index: 1;
     }
-    } 
   }
 }

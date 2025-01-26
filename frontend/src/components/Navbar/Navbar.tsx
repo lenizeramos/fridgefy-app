@@ -33,7 +33,7 @@ function Navbar() {
                     isActive ? "active" : "noActive"
                   }
                 >
-                  Recipies
+                  Recipes
                 </NavLink>
               </li>
               <li>
@@ -49,19 +49,24 @@ function Navbar() {
               <SignedIn>
                 <li>
                   <NavLink
-                    to="/wish_list"
+                    to="/shopping-list"
                     className={({ isActive }) =>
                       isActive ? "active" : "noActive"
                     }
                   >
-                    Wish List
+                    Shopping List
                   </NavLink>
                 </li>
               </SignedIn>
             </ul>
             <div className="buttonContainer">
               <SignedOut>
-                <NavLink to="/signin" className="button">
+                <NavLink
+                  to="/signin"
+                  className={({ isActive }) =>
+                    isActive ? "buttonActive" : "button"
+                  }
+                >
                   <button>Sign in</button>
                 </NavLink>
               </SignedOut>

@@ -6,10 +6,9 @@ export const useAuthService = () => {
   const getCurrentToken = async () => {
     try {
       const token = await getToken();
-      console.log('Token:', token);
       return token;
     } catch (error) {
-      console.error('Error getting token:', error);
+      console.error("Error getting token:", error);
       return null;
     }
   };
