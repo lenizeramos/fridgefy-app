@@ -3,7 +3,6 @@
 .fridge-container {
   margin-top: 2rem;
   width: 100%;
-  padding-left: 1rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -19,9 +18,10 @@
 
   .fridge-search-container {
     position: relative;
+    padding-left: 1rem;
     #searchFridge {
       width: 100%;
-      padding: 0.5rem 2rem 0.5rem 2.7rem;
+      padding: 0.5rem 0 0.5rem 1.7rem;
       border-radius: 1rem;
       outline: none;
       border: 1px solid variables.$color2-text-highlight;
@@ -33,7 +33,7 @@
       position: absolute;
       font-size: 1.5rem;
       top: 20%;
-      left: 1rem;
+      left: 1.1rem;
       color: variables.$color2-text-highlight;
     }
   }

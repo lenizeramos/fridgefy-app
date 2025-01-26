@@ -31,6 +31,7 @@
       margin-top: 2em;
       justify-content: center;
       .details,
+      .detailsHome,
       .icon {
         padding: 1rem 2rem;
         cursor: pointer;
@@ -39,9 +40,9 @@
         background-color: transparent;
         transition: all 0.5s ease-in-out;
       }
-      .details {
+      .details,
+      .detailsHome {
         font-family: variables.$font-family-highlight;
-        width: 20vw;
         text-align: center;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
@@ -52,6 +53,12 @@
           background-color: variables.$background-light-button;
           border: 0.5px solid variables.$color-border-button-hover;
         }
+      }
+      .details {
+        width: 20vw;
+      }
+      .detailsHome {
+        width: 10rem;
       }
       .icon {
         background-color: variables.$background-light-button;

@@ -1,6 +1,7 @@
 @use "../../public/sass/variables";
 
 .ingredients {
+  padding-left: 1rem;
   ul {
     list-style: none;
     padding: 0;
@@ -22,6 +23,7 @@
     span {
       font-family: variables.$font-family-modal;
       font-size: 1vw;
+      text-align: center;
     }
     .paginationBtn {
       cursor: pointer;

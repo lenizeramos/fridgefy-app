@@ -1,7 +1,18 @@
+@use "../../public/sass/variables";
+
 .error-container {
-  background-color: #f8f9fa;
-  color: #333;
-}
-.emoji {
-  font-size: 8rem;
+  background-color: variables.$background-containers;
+  color: variables.$color-text-list;
+  h1 {
+    font-family: variables.$font-family-highlight;
+    font-size: 15rem;
+    color: variables.$color2-text-highlight;
+  }
+  .emoji {
+    font-size: 15rem;
+  }
+  p {
+    font-family: variables.$font-family-modal;
+    font-size: 5rem;
+  }
 }

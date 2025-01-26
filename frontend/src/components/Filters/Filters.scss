@@ -34,7 +34,8 @@
       font-family: variables.$font-family-body;
       color: variables.$color2-text-highlight;
       margin-bottom: 1rem;
-      // position: relative;
+      font-size: 1.2rem;
+      padding-left: 1rem;
     }
     select {
       width: 100%;
@@ -43,7 +44,6 @@
       border-radius: 0.5rem;
       border: 1px solid variables.$color-text-filter;
       cursor: pointer;
-      // position: absolute;
       z-index: 1;
       option:hover {
         background-color: variables.$color1-text-shadow;

@@ -39,7 +39,7 @@ function Recipe({ recipe }: { recipe: Recipes }) {
           <div className="buttonContainer">
             <SignedOut>
               <Link to="/signin">
-                <button className="details">DETAILS</button>
+                <button className="detailsHome">DETAILS</button>
               </Link>
               <Link to="/signin">
                 <button className="icon" aria-label="Add to wishlist">
