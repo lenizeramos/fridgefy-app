@@ -38,7 +38,7 @@ export const RecipeModal: FC<RecipeModalProps> = ({ isOpen, onClose, recipe }) =
           </div>
           <div className="recipe-tags">
             {recipe.tags.map((tag, index) => (
-              <span key={index} className="tag">{tag}</span>
+              <span key={index} className="tag">#{tag}</span>
             ))}
           </div>
           <button className="view-full-recipe" onClick={handleViewFullRecipe}>

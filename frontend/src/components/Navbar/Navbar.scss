@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+@use "../../public/sass/variables";
 
 .navContainer {
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
-  background-color: #faebd7;
-  color: #535351;
+  background-color: variables.$color1-text-shadow;
+  color: variables.$color-text-name;
   flex-wrap: wrap;
   .logoContainer {
     display: flex;
@@ -18,10 +18,10 @@
       height: auto;
     }
     h1 {
-      font-family: "Tangerine", serif;
+      font-family: variables.$font-family-title;
       font-weight: 400;
       font-size: 3rem;
-      text-shadow: 1px 2px 1px #813224;
+      text-shadow: 1px 2px 1px variables.$color-shadow;
     }
   }
   .linksContainer {
@@ -36,22 +36,22 @@
       font-size: 1.5rem;
       .active {
         text-decoration: none;
-        color: #4d2f0a;
-        font-family: "Shadows Into Light", serif;
-        border-bottom: 1px solid #4d2f0a;
+        color: variables.$color-active;
+        font-family: variables.$font-family-body;
+        border-bottom: 1px solid variables.$color-active;
         font-weight: bolder;
       }
       .noActive {
         text-decoration: none;
-        color: #535351;
-        font-family: "Shadows Into Light", serif;
+        color: variables.$color-noActive;
+        font-family: variables.$font-family-body;
       }
     }
     .buttonContainer {
       .button {
         text-decoration: none;
-        color: #4d2f0a;
-        font-family: "Shadows Into Light", serif;
+        color: variables.$color-active;
+        font-family: variables.$font-family-body;
         font-weight: bolder;
         button {
           padding: 0.5rem 1rem;
@@ -60,30 +60,30 @@
           cursor: pointer;
           outline: none;
           transition: all 0.3s ease;
-          border: 1px solid #4d2f0a;
+          border: 1px solid variables.$color-active;
         }
         &:hover {
           color: #393737;
           button {
-            background-color: #dac1aa;
+            background-color: variables.$color-button-navbar;
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 8px variables.$box-shadow;
           }
         }
       }
       .buttonActive {
         text-decoration: none;
         color: #393737;
-        font-family: "Shadows Into Light", serif;
+        font-family: variables.$font-family-body;
         font-weight: bolder;
         button {
           padding: 0.5rem 1rem;
           border-radius: 1rem;
-          background-color: #dac1aa;
+          background-color: variables.$color-button-navbar;
           transform: scale(1.05);
-          border: 1px solid #4d2f0a;
+          border: 1px solid variables.$color-active;
           outline: none;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 8px variables.$box-shadow;
           cursor: default;
         }
       }

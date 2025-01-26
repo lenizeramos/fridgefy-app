@@ -51,10 +51,7 @@ function RecipesList() {
       <div className="mainContainer">
         <MyFridgeComponent />
         <section className="recipes">
-          <Filters
-            filters={filters}
-            onFilterChange={handleFilterChange}
-          />
+          <Filters filters={filters} onFilterChange={handleFilterChange} />
           <div className="recipeContainer">
             {filteresRecipes.length > 0 ? (
               filteresRecipes.map((recipe) => {
@@ -62,7 +59,7 @@ function RecipesList() {
               })
             ) : (
               <div className="tryAgain">
-                <h2 className="noFound">No recipes found</h2>
+                <h2 className="notFound">No recipes found</h2>
                 <span className="loader"></span>
               </div>
             )}

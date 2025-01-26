@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+@use "../../public/sass/variables";
 
 .recipeBox {
-  background-color: #ffe5c4;
+  background-color: variables.$background-containers;
   border-radius: 1rem;
   .recipeImg {
     height: 15rem;
@@ -17,17 +17,19 @@
   .recipeName {
     padding: 2rem;
     h3 {
-      font-family: "Shadows Into Light", serif;
+      font-family: variables.$font-family-body;
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: #535351;
-      text-shadow: -1px -1px 2px #faead7, 2px 2px 4px #2b2b2a;
+      color: variables.$color-text-name;
+      text-shadow: -1px -1px 2px variables.$color1-text-shadow,
+        2px 2px 4px variables.$color2-text-shadow;
       text-align: center;
     }
     .buttonContainer {
       border-radius: 1rem;
       display: flex;
       margin-top: 2em;
+      justify-content: center;
       .details,
       .icon {
         padding: 1rem 2rem;
@@ -38,28 +40,30 @@
         transition: all 0.5s ease-in-out;
       }
       .details {
-        font-family: "Mystery Quest", serif;
+        font-family: variables.$font-family-highlight;
         width: 12rem;
         text-align: center;
         border-top-left-radius: 1rem;
         border-bottom-left-radius: 1rem;
-        background-color: #eddbc3;
-        color: #2b2b2a;
+        background-color: variables.$background-dark-button;
+        color: variables.$color2-text-shadow;
         &:hover {
-          color: #a94d3c;
-          background-color: #fff5e1;
+          color: variables.$color-text-highlight;
+          background-color: variables.$background-light-button;
+          border: 0.5px solid variables.$color-border-button-hover;
         }
       }
       .icon {
-        background-color: #fff5e1;
+        background-color: variables.$background-light-button;
         font-size: 1rem;
-        border-left: 1px solid #8b5e3c;
+        border-left: 1px solid variables.$color-border-button-hover;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
-        color: #a94d3c;
+        color: variables.$color-text-highlight;
         &:hover {
-          background-color: #eddbc3;
-          color: #2b2b2a;
+          background-color: variables.$background-dark-button;
+          color: variables.$color2-text-shadow;
+          border: 0.5px solid variables.$color-border-button-hover;
         }
       }
     }

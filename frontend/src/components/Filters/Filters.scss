@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+@use "../../public/sass/variables";
 
 .topContainer {
-  width: 100%;
+  width: 50vw;
   padding: 1rem 3rem;
   display: flex;
   flex-direction: column;
@@ -12,16 +12,16 @@
     padding: 0.5rem 4rem;
     border-radius: 1rem;
     outline: none;
-    border: 1px solid saddlebrown;
-    color: #642f09;
-    font-family: "Shadows Into Light", serif;
+    border: 1px solid variables.$color2-text-highlight;
+    color: variables.$color2-text-highlight;
+    font-family: variables.$font-family-body;
   }
   i {
     position: absolute;
     font-size: 1.5rem;
     top: 1.5rem;
     padding-left: 1rem;
-    color: saddlebrown;
+    color: variables.$color2-text-highlight;
   }
   .filters {
     display: flex;
