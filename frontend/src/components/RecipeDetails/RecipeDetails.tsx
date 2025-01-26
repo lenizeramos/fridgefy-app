@@ -24,13 +24,22 @@ const RecipeDetails: FC = () => {
     return <div className="loading">{!removeLoading && <Loading />}</div>;
   }
 
+  const handleCloseDetails = () => {
+    navigate("/recipes");
+  };
+  
   return (
     <>
       <div className="mainContainer">
         <MyFridgeComponent />
         <div className="recipe-details">
+          <i
+            className="bx bx-x-circle"
+            id="close"
+            onClick={handleCloseDetails}
+          ></i>
           <div className="recipe-info-grid">
-          <h1>{recipe.name}</h1>
+            <h1>{recipe.name}</h1>
             <div className="recipe-details-header">
               <img src={recipe.image} alt={recipe.name} />
               <div className="info-card">
@@ -95,7 +104,6 @@ const RecipeDetails: FC = () => {
                 ))}
               </ol>
             </section>
-
           </div>
         </div>
         <section className="wishList">

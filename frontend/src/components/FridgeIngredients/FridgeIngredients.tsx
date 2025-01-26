@@ -123,7 +123,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
               </li>
             ))}
           </ul>
-          <div className="d-flex justify-content-center align-items-center">
+          <div className="d-flex justify-content-center align-items-center" id="paginationContainer">
             <button
               className="btn btn-sm paginationBtn"
               disabled={currentPage === 1}

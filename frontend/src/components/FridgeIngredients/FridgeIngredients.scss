@@ -1,3 +1,5 @@
+@use "../../public/sass/variables";
+
 .ingredients {
   ul {
     list-style: none;
@@ -5,25 +7,33 @@
 
     li {
       margin-bottom: 0.5rem;
-
+      span {
+        font-family: variables.$font-family-body;
+        font-size: 1.1rem;
+      }
       .fridge-ingredients-trash {
         &:hover {
-          color: red;
+          color: variables.$color3-text-highlight;
         }
       }
     }
   }
-  .paginationBtn {
-    cursor: pointer;
-    border: none;
-    font-family: "Mystery Quest", serif;
-    text-align: center;
-    border-radius: 1rem;
-    background-color: #eddbc3;
-    color: #2b2b2a;
-    &:hover {
-      color: #a94d3c;
-      background-color: #fff5e1;
+  #paginationContainer {
+    span {
+      font-family: variables.$font-family-modal;
+
+    }
+    .paginationBtn {
+      cursor: pointer;
+      border: none;
+      font-family: variables.$font-family-highlight;
+      text-align: center;
+      border-radius: 0.3rem;
+      background-color: variables.$background-containers;
+      color: variables.$color2-text-highlight;
+      &:hover {
+        background-color: variables.$backgound-button
+      }
     }
   }
 }

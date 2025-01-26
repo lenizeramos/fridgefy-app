@@ -7,8 +7,9 @@ $font-family-modal: "Bad Script", serif;
 
 $color-loader: #f6a193;
 $color-text-highlight: #a94d3c;
-$color2-text-highlight: saddlebrown;
-$color3-text-highlight: brown;
+$color2-text-highlight: #8b4513;
+$color3-text-highlight: #a52a2a;
+$color4-text-highlight: #8b7456;
 $color-text-name: #535351;
 $color-text-modal: #666;
 $color1-text-shadow: #faead7;
@@ -17,16 +18,27 @@ $color-text-button-modal: #4b3621;
 $color-text-button-modal-hover: #755535;
 $color-line: #f9d3b8;
 $color-text-list: #666;
+$color-shadow: #813224;
+$color-border-button-hover: #8b5e3c;
+$color-active: #4d2f0a;
+$color-noActive: #535351;
+$color-button-navbar: #dac1aa;
+
+
+$box-shadow: #00000033;
+$box-shadow-svg: #0000004d;
+$box-shadow-svg-hover: #00000080;
 
 $background-containers: #f8f3ee;
 $background-dark-button: #f1e5d699;
 $background-light-button: #e4e0d696;
 $background-overly: #000000b3;
 $backgound-close: #d2b49c99;
-$backgound-close-hover: #5d514999;
-$backgound-close-hover2: #ac958199;
+$backgound-close-hover: #8c8c89;
+$backgound-close-hover2: #b79e8999;
+$backgound-button: #ead5c1;
+$backgound-button-hover: #393737;
 
-$color-border-button-hover: #8b5e3c;
 
 $shadow-soft: 4px 4px 8px #00000033,
   -4px -4px 8px #ffffff80;
