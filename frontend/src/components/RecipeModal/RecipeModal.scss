@@ -14,7 +14,7 @@
   padding: 1rem;
 
   .modal-content {
-    background: variables.$background-modal;
+    background: variables.$background-containers;
     border-radius: 8px;
     max-width: 38rem;
     width: 100%;
@@ -79,7 +79,7 @@
         p {
           font-family: variables.$font-family-body;
           margin: 0;
-          color: #666;
+          color: variables.$color-text-list;
           font-size: 1.2rem;
           strong {
             font-weight: bold;

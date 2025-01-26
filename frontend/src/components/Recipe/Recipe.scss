@@ -1,7 +1,7 @@
 @use "../../public/sass/variables";
 
 .recipeBox {
-  background-color: variables.$background-recipe;
+  background-color: variables.$background-containers;
   border-radius: 1rem;
   .recipeImg {
     height: 15rem;
@@ -49,18 +49,20 @@
         &:hover {
           color: variables.$color-text-highlight;
           background-color: variables.$background-light-button;
+          border: 0.5px solid variables.$color-border-button-hover;
         }
       }
       .icon {
         background-color: variables.$background-light-button;
         font-size: 1rem;
-        border-left: 1px solid #8b5e3c;
+        border-left: 1px solid variables.$color-border-button-hover;
         border-top-right-radius: 1rem;
         border-bottom-right-radius: 1rem;
         color: variables.$color-text-highlight;
         &:hover {
           background-color: variables.$background-dark-button;
           color: variables.$color2-text-shadow;
+          border: 0.5px solid variables.$color-border-button-hover;
         }
       }
     }
