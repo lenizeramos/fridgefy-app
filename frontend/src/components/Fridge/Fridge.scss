@@ -1,21 +1,32 @@
+@use "../../public/sass/variables";
 
 .fridge-container {
+  margin-top: 2rem;
   width: 100%;
-  padding: 1rem;
+  padding-left: 1rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 0.5rem;
+
+  h1 {
+    font-family: variables.$font-family-title;
+    border-top: 1px solid variables.$color2-text-highlight;
+    border-bottom: 1px solid variables.$color2-text-highlight;
+    text-align: center;
+    font-weight: bold;
+    color: variables.$color2-text-highlight;
+  }
 
   .fridge-search-container {
     position: relative;
     #searchFridge {
       width: 100%;
-      padding: 0.5rem 4rem;
+      padding: 0.5rem 2rem 0.5rem 2.7rem;
       border-radius: 1rem;
       outline: none;
-      border: 1px solid saddlebrown;
-      color: #642f09;
-      font-family: "Shadows Into Light", serif;
+      border: 1px solid variables.$color2-text-highlight;
+      color: variables.$color2-text-highlight;
+      font-family: variables.$font-family-body;
     }
 
     .fridge-search-icon {
@@ -23,7 +34,7 @@
       font-size: 1.5rem;
       top: 20%;
       left: 1rem;
-      color: saddlebrown;
+      color: variables.$color2-text-highlight;
     }
   }
 }

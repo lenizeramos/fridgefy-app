@@ -2,6 +2,7 @@
 
 .mainContainer {
   display: flex;
+  gap: 2rem;
   .fridge {
     width: 15%;
   }
@@ -11,8 +12,8 @@
 
     .recipeContainer {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(20rem, 0.6fr));
+      gap: 3rem;
       padding: 2rem;
       width: 100%;
 

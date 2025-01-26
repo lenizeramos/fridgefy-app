@@ -21,7 +21,7 @@
   #paginationContainer {
     span {
       font-family: variables.$font-family-modal;
-
+      font-size: 1vw;
     }
     .paginationBtn {
       cursor: pointer;
@@ -31,6 +31,8 @@
       border-radius: 0.3rem;
       background-color: variables.$background-containers;
       color: variables.$color2-text-highlight;
+      font-size: 1vw;
+      padding: 0.5rem;
       &:hover {
         background-color: variables.$backgound-button
       }
