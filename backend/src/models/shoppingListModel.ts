@@ -1,9 +1,9 @@
 import { prisma } from "../prisma";
 import { ShoppingListResponse } from "../interfaces/shoppingListInterface";
 
-export const addItemToShoppingList = async (userId: string, ingredientName: string, quantity: number) => {
+export const addItemToShoppingList = async (userId: string, name: string, quantity: number) => {
   const existingItem = await prisma.shoppingList.findFirst({
-    where: { userId, ingredientName }
+    where: { userId, name }
   });
 
   if (existingItem) {
@@ -14,12 +14,12 @@ export const addItemToShoppingList = async (userId: string, ingredientName: stri
   }
 
   return await prisma.shoppingList.create({
-    data: { userId, ingredientName, quantity },
+    data: { userId, name, quantity },
   });
 };
 
-export const removeItemFromShoppingList = async (userId: string, ingredientName: string) => {
-  return await prisma.shoppingList.deleteMany({ where: { userId, ingredientName } });
+export const removeItemFromShoppingList = async (userId: string, name: string) => {
+  return await prisma.shoppingList.deleteMany({ where: { userId, name } });
 };
 
 export const getShoppingListModel = async (userId: string): Promise<ShoppingListResponse[]> => {
@@ -31,7 +31,7 @@ export const getShoppingListModel = async (userId: string): Promise<ShoppingList
 
   return shoppingList.map(item => ({
     userId: item.userId,
-    ingredientName: item.ingredientName,
+    name: item.name,
     quantity: item.quantity ?? 0,
   }));
 };

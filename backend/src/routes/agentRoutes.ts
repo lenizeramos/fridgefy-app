@@ -13,10 +13,55 @@ agentRouter.post("/chat/message", async (req, res) => {
       input: `${message} (for user: ${userId})`,
     });
 
-    res.json({ response: result.output });
+    let content = '';
+    let itemsAdded = null;
+
+    console.log("result agent", result);
+
+    if (result) {
+      try {
+        const outputStr = result.output.toString();
+        
+        const [readableMessage, dataString] = outputStr.split('[');
+        content = readableMessage.trim();
+        
+        if (dataString) {
+          const cleanDataString = dataString.replace(']', '');
+          
+          const ingredientMatch = cleanDataString.match(/name: "([^"]+)"/);
+          const quantityMatch = cleanDataString.match(/quantity: (\d+)/);
+          const userIdMatch = cleanDataString.match(/userId: "([^"]+)"/);
+
+          if (ingredientMatch && quantityMatch) {
+            itemsAdded = JSON.stringify([{
+              id: ingredientMatch[1],
+              name: ingredientMatch[1],
+              quantity: parseInt(quantityMatch[1]),
+              userId: userIdMatch ? userIdMatch[1] : null
+            }]);
+          }
+        }
+      } catch (error) {
+        console.log("Error parsing response:", error);
+        content = result.output.toString();
+      }
+    }
+
+    res.json({ 
+      success: true,
+      message: {
+        role: 'agent',
+        content,
+        userId: 'assistant1'
+      },
+      itemsAdded
+    });
   } catch (error) {
     console.error("Agent error:", error);
-    res.status(500).json({ error: "Failed to process request" });
+    res.status(500).json({ 
+      success: false,
+      error: "Failed to process request" 
+    });
   }
 });
 

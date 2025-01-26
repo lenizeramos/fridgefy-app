@@ -7,12 +7,12 @@ import { AgentProvider } from "../../context/AgentContext";
 
 function ShoppingList() {
   return (
-    <AgentProvider>
-      <ShoppingListProvider>
+    <ShoppingListProvider>
+      <AgentProvider>
         <div className="shopping-list-container">
           <div className="fridge-container">Fridge</div>
-          <div className="recipe-container">
-            <RecipeDetail />
+            <div className="recipe-container">
+              <RecipeDetail />
           </div>
           <div>
             <div className="agent-container">
@@ -23,8 +23,8 @@ function ShoppingList() {
             </div>
           </div>
         </div>
-      </ShoppingListProvider>
-    </AgentProvider>
+      </AgentProvider>
+    </ShoppingListProvider>
   );
 }
 

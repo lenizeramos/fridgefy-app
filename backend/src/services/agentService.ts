@@ -19,31 +19,73 @@ export class AgentService {
     const tools = [
       new DynamicTool({
         name: "AddToShoppingList",
-        description: "Add an item to the shopping list. Input format: ingredientName,quantity,userId",
+        description: "Add an item to the shopping list. When a user says something like 'add X item' or 'I want Y items', format it as: itemName,quantity,userId. For example, if user says 'add 2 apples', you should call this with 'apples,2,userId'. Always include these three values separated by commas. If the item already exists in the list, its quantity will be increased by 1 or the quantity specified by the user. After using this tool, return FINAL ANSWER with the response.",
         func: async (input: string) => {
           try {
-            const [ingredientName, quantity, userId] = input.split(",").map(s => s.trim());
+            const [name, quantity, userId] = input.split(",").map(s => s.trim());
+
+            console.log("quantity item ====", quantity);
             
-            const item = await prisma.shoppingList.create({
-              data: {
+            if (!name || !quantity || !userId) {
+              throw new Error("Missing required parameters");
+            }
+
+            const existingItem = await prisma.shoppingList.findFirst({
+              where: {
                 userId,
-                ingredientName,
-                quantity: parseFloat(quantity),
-              },
+                name: {
+                  equals: name,
+                  mode: 'insensitive' 
+                }
+              }
             });
+
+            let item;
+            if (existingItem) {
+              const totalQuantity = (existingItem.quantity ?? 0) + parseFloat(quantity);
+              
+              item = await prisma.shoppingList.update({
+                where: { id: existingItem.id },
+                data: {
+                  quantity: totalQuantity
+                }
+              });
+
+            } else {
+              item = await prisma.shoppingList.create({
+                data: {
+                  userId,
+                  name,
+                  quantity: parseFloat(quantity),
+                }
+              });
+            }
             
-            return `Successfully added ${quantity} ${ingredientName}(s) to shopping list`;
+            const response = await this.llm.invoke(
+              `You just added ${quantity} ${name} to the user's shopping list. Respond naturally and friendly to confirm this action in less than 20 words.`
+            );
+            
+            return JSON.stringify({
+              response: response.content + `[name: "${name}", quantity: ${quantity}, userId: "${userId}"]`
+            });
           } catch (error) {
-            return `Failed to add item to shopping list: ${error}`;
+            return JSON.stringify({
+              response: `I couldn't add that to your shopping list. Please try saying something like "add 2 apples" or "I need 1 bread".`
+            });
           }
         },
       }),
+
       new DynamicTool({
         name: "GeneralConversation",
-        description: "Handle general conversation and greetings",
+        description: "Use this tool for all general conversation, greetings, and responses that don't involve adding items to the shopping list.",
         func: async (input: string) => {
-          const response = await this.llm.invoke(input);
-          return response;
+          const response = await this.llm.invoke(
+            `Respond to: "${input}"\nProvide a friendly response in less than 20 words. If the user is trying to add items to a list, suggest using clearer language.`
+          );
+          return JSON.stringify({
+            response: response.content
+          });
         },
       }),
     ];
@@ -52,6 +94,8 @@ export class AgentService {
       agentType: "chat-conversational-react-description",
       verbose: true,
       handleParsingErrors: true,
+      maxIterations: 2,
+      returnIntermediateSteps: false,
     });
 
     return executor;

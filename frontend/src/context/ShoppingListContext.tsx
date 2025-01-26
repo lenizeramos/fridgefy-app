@@ -81,11 +81,14 @@ const ShoppingListProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       const userId = auth.getUserId();
       const response = await shoppingListService.getItems({ userId: userId ? userId : "user not logged in" });
       
-      const items = Array.isArray(response) ? response.map(item => ({
-        id: item.id,
-        name: item.ingredientName,
-        quantity: item.quantity
-      })) : [];
+      const items = Array.isArray(response) ? response.map(item => {
+
+        return {
+          id: item.id,
+          name: item.name,
+          quantity: item.quantity
+        };
+      }) : [];
 
       baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_ITEMS, payload: items });
     } catch (error) {

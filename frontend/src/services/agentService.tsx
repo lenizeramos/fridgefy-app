@@ -18,13 +18,16 @@ export const agentService = {
 
         const messageResponse: Message = {
             role: "agent",
-            content: data.response,
+            content: data.message.content,
             userId: "assistant1",
         }
+
+        console.log("messageResponse agent", data.itemsAdded);
 
         const apiResponse: ApiMessageResponse = {
             success: true,
             message: messageResponse,
+            itemsAdded: data.itemsAdded
         }
 
         return apiResponse;

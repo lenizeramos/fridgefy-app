@@ -1,12 +1,12 @@
 export interface ItemParams {
     userId: string;
-    ingredientName: string;
+    name: string;
     quantity: number;
   }
   
   export interface ShoppingListResponse {
     userId: string;
-    ingredientName: string;
+    name: string;
     quantity: number;
   }
   

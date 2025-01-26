@@ -1,3 +1,5 @@
+import { Item } from "./RecipiesTypes";
+
 export interface Message {
     role: string;
     userId: string | null;
@@ -6,6 +8,7 @@ export interface Message {
 
 export interface AgentState {
     messages: Message[];
+    itemsAdded: Item | null;
 }
 
 export interface AgentSendMessageRequest {
@@ -16,4 +19,5 @@ export interface AgentSendMessageRequest {
 export interface ApiMessageResponse {
     success: boolean;
     message?: Message;
+    itemsAdded?: string;
 }

@@ -40,7 +40,7 @@ model ShoppingList {
   id             String   @id @default(auto()) @map("_id") @db.ObjectId
   user           User     @relation(fields: [userId], references: [clerkId])
   userId         String
-  ingredientName String
+  name String
   quantity      Float?
   addedAt       DateTime @default(now())
 
