@@ -1,7 +1,7 @@
 @use "../../public/sass/variables";
 
 .topContainer {
-  width: 50vw;
+  width: 100%;
   padding: 1rem 3rem;
   display: flex;
   flex-direction: column;
@@ -13,7 +13,7 @@
     border-radius: 1rem;
     outline: none;
     border: 1px solid variables.$color2-text-highlight;
-    color: variables.$color2-text-highlight;
+    color: variables.$color-text-filter;
     font-family: variables.$font-family-body;
   }
   i {
@@ -24,29 +24,33 @@
     color: variables.$color2-text-highlight;
   }
   .filters {
-    display: flex;
-    gap: 5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 0.5fr));
+    gap: 2rem;
+    justify-content: center;
+    align-content: center;
 
-    h4 {
-      font-family: "Shadows Into Light", serif;
-      color: saddlebrown;
+    label {
+      font-family: variables.$font-family-body;
+      color: variables.$color2-text-highlight;
       margin-bottom: 1rem;
+      // position: relative;
     }
     select {
       width: 100%;
-      color: #642f09;
+      color: variables.$color-text-filter;
       padding: 0.2rem 0.5rem;
       border-radius: 0.5rem;
-      border: 1px solid #642f09;
+      border: 1px solid variables.$color-text-filter;
       cursor: pointer;
-      position: absolute;
+      // position: absolute;
       z-index: 1;
       option:hover {
-        background-color: #faead7;
-        color: #642f09;
+        background-color: variables.$color1-text-shadow;
+        color: variables.$color-text-filter;
       }
       option:checked {
-        background-color: saddlebrown;
+        background-color: variables.$color2-text-highlight;
         color: white;
       }
     }
@@ -55,7 +59,6 @@
     .cuisineSelect,
     .difficultySelect {
       position: relative;
-      width: 10rem;
     }
   }
 }
