@@ -1,16 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+@use "../../public/sass/variables";
 
 .myRecipesContainer {
   margin-top: 2rem;
   width: 15%;
   position: fixed;
   h1 {
-    border-top: 1px solid saddlebrown;
-    border-bottom: 1px solid saddlebrown;
-    font-family: "Tangerine", serif;
+    border-top: 1px solid variables.$color2-text-highlight;
+    border-bottom: 1px solid variables.$color2-text-highlight;
+    font-family: variables.$font-family-title;
     text-align: center;
     font-weight: bold;
-    color: saddlebrown;
+    color: variables.$color2-text-highlight;
   }
   ul {
     list-style: none;
@@ -19,25 +19,25 @@
     li {
       width: 100%;
       padding: 0.5rem;
-      border-bottom: 1px solid #f9d3b8;
+      border-bottom: 1px solid variables.$color-line;
       display: flex;
       align-items: center;
       gap: 1rem;
       .image {
         width: 4rem;
         height: auto;
-        border: 1px solid brown;
+        border: 1px solid variables.$color3-text-highlight;
         border-radius: 2rem;
       }
       .text {
-        font-family: "Shadows Into Light", serif;
+        font-family: variables.$font-family-body;
         font-size: 1.1rem;
         font-weight: 600;
-        color: brown;
+        color: variables.$color3-text-highlight;
         margin: 0;
       }
       &:hover {
-        background-color: #f9d3b8;
+        background-color: variables.$color-line;
         cursor: pointer;
       }
     }

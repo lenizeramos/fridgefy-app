@@ -62,7 +62,7 @@ function RecipesList() {
               })
             ) : (
               <div className="tryAgain">
-                <h2 className="noFound">No recipes found</h2>
+                <h2 className="notFound">No recipes found</h2>
                 <span className="loader"></span>
               </div>
             )}
