@@ -114,9 +114,41 @@ const removeIngredientFromFridge = async (
   }
 };
 
+const fetchIngredients = async (
+  dispatch: React.Dispatch<FridgeAction>,
+  token: string | null
+) => {
+  try {
+    const response = await fetch(
+      "http://localhost:3000/fridge/ingredients",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage =
+        errorData.message || "Failed to fetch ingredients.";
+      throw new Error(errorMessage);
+    }
+
+    const result = await response.json();
+    dispatch({ type: "setIngredients", payload: result });
+  } catch (err) {
+    console.error((err as Error).message);
+    throw err;
+  }
+};
+
 export {
   FridgeProvider,
   useFridgeContext,
   addIngredientToFridge,
   removeIngredientFromFridge,
+  fetchIngredients,
 };
