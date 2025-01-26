@@ -3,9 +3,9 @@
 .addToFridgeIcon {
   transition: color 0.3s ease;
   border-radius: 30%;
-
+  color: variables.$color2-text-highlight;
   &:hover {
-    color: variables.$color2-text-highlight;
+    color: variables.$color4-text-highlight;
   }
 }
 
