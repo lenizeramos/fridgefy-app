@@ -36,16 +36,6 @@ function Navbar() {
                   Recipes
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/shopping-list"
-                  className={({ isActive }) =>
-                    isActive ? "active" : "noActive"
-                  }
-                >
-                  Shopping List
-                </NavLink>
-              </li>
               <SignedIn>
                 <li>
                   <NavLink

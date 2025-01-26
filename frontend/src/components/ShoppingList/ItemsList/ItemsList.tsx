@@ -1,10 +1,9 @@
 import { useShoppingListContext } from "../../../context/ShoppingListContext";
+import "./ItemList.scss";
 
 function ItemsList() {
   const { state } = useShoppingListContext();
   const { items } = state;
-
-  console.log(items);
 
   return <div className="items-list-container">
     <div className="items-list-title">Items to buy</div>
@@ -15,7 +14,7 @@ function ItemsList() {
             className="items-list-item" 
             key={item.id || `item-${index}`}
           >
-            {item.name} ({item.quantity})
+            <span className="item-quantity">{item.quantity}</span> {item.name}
           </div>
         ))
       ) : (

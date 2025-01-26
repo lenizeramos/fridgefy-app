@@ -22,8 +22,6 @@ export const agentService = {
             userId: "assistant1",
         }
 
-        console.log("messageResponse agent", data.itemsAdded);
-
         const apiResponse: ApiMessageResponse = {
             success: true,
             message: messageResponse,

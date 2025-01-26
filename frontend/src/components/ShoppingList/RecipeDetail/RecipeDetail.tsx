@@ -1,28 +1,15 @@
-import { useRecipesContext } from "../../../context/RecipiesContext";
-import { useEffect } from "react";
 import { Accordion } from "react-bootstrap";
 import "./RecipeDetail.scss";
 import { useShoppingListContext } from "../../../context/ShoppingListContext";
 import { SHOPPING_LIST_ACTIONS } from "../../../interfaces/ShoppingListInterface";
+import { useRecipesContext } from "../../../context/RecipesContext";
 
 function RecipeDetail() {
-  const { state, fetchData } = useRecipesContext();
+  const { state } = useRecipesContext();
   const { dispatch: shoppingListDispatch } = useShoppingListContext();
 
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        await fetchData();
-      } catch (error) {
-        console.error("Error fetching recipe data:", error);
-      }
-    };
-
-    loadData();
-  }, []); 
-
   const handleAddToShoppingList = async (recipeId: number) => {
-    const recipe = state.recipes.find((recipe) => recipe.id === recipeId);
+    const recipe = state.recipesWishList.find((recipe) => recipe.id === recipeId);
     if (recipe) {
       recipe.ingredients.forEach((ingredient) => {
         shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.ADD_ITEM, payload: { id: ingredient, name: ingredient, quantity: 1 } });
@@ -32,7 +19,7 @@ function RecipeDetail() {
 
   return (
     <Accordion>
-      {state.recipes.map((recipe, index) => (
+      {state.recipesWishList.map((recipe, index) => (
         <Accordion.Item key={recipe.id} eventKey={index.toString()}>
           <Accordion.Header>{recipe.name}</Accordion.Header>
           <Accordion.Body>

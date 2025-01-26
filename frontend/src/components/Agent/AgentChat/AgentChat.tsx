@@ -45,6 +45,7 @@ function AgentChat() {
       
       <div className="agent-chat-input">
         <input 
+          placeholder="Add 3 apples to my shopping list"
           type="text" 
           value={message}
           onChange={(e) => setMessage(e.target.value)}
