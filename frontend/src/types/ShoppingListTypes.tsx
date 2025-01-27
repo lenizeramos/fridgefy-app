@@ -1,9 +1,10 @@
-import { Item } from "./RecipiesTypes";
+import { Item, Recipes } from "./RecipiesTypes";
 
 export interface ShoppingListState {
   items: Item[];
   isLoading: boolean;
   error: string | null;
+  recipesWishList: Recipes[];
 }
 
 export interface AddItemRequest {
@@ -20,4 +21,9 @@ export interface RemoveItemRequest {
 
 export interface GetItemsRequest {
   userId: string;
+}
+
+export interface RemoveRecipeRequest {
+  userId: string;
+  recipeId: number;
 }

@@ -25,7 +25,7 @@ export const agentService = {
         const apiResponse: ApiMessageResponse = {
             success: true,
             message: messageResponse,
-            itemsAdded: data.itemsAdded
+            agentActionResponse: data.agentActionResponse
         }
 
         return apiResponse;

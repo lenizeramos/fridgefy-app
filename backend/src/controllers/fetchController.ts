@@ -94,4 +94,34 @@ const getUser = async (req: Request, res: Response) => {
   }
 };
 
-export { getRecipes, addRecipes, getUser };
+const removeRecipe = async (req: Request, res: Response): Promise<void> => {
+  try {
+    const { userId, recipeId } = req.body;
+    
+    const result = await prisma.recipe.deleteMany({
+      where: { userId, recipeId: recipeId }
+    });
+
+    if (result.count === 0) {
+      res.status(404).json({
+        message: "Recipe not found or you don't have permission to delete it",
+        status: 404
+      });
+      return;
+    }
+
+    res.status(200).json({
+      message: "Recipe successfully deleted",
+      status: 200,
+      data: result
+    });
+  } catch (error) {
+    console.error("Error removing recipe:", error);
+    res.status(500).json({
+      message: "Internal server error while removing recipe",
+      status: 500
+    });
+  }
+};
+
+export { getRecipes, addRecipes, getUser, removeRecipe };

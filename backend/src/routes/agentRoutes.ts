@@ -14,14 +14,11 @@ agentRouter.post("/chat/message", async (req, res) => {
     });
 
     let content = '';
-    let itemsAdded = null;
-
-    console.log("result agent", result);
+    let agentActionResponse = null;
 
     if (result) {
       try {
         const outputStr = result.output.toString();
-        
         const [readableMessage, dataString] = outputStr.split('[');
         content = readableMessage.trim();
         
@@ -31,13 +28,15 @@ agentRouter.post("/chat/message", async (req, res) => {
           const ingredientMatch = cleanDataString.match(/name: "([^"]+)"/);
           const quantityMatch = cleanDataString.match(/quantity: (\d+)/);
           const userIdMatch = cleanDataString.match(/userId: "([^"]+)"/);
+          const actionMatch = cleanDataString.match(/action: "([^"]+)"/);
 
           if (ingredientMatch && quantityMatch) {
-            itemsAdded = JSON.stringify([{
+            agentActionResponse = JSON.stringify([{
               id: ingredientMatch[1],
               name: ingredientMatch[1],
               quantity: parseInt(quantityMatch[1]),
-              userId: userIdMatch ? userIdMatch[1] : null
+              userId: userIdMatch ? userIdMatch[1] : null,
+              action: actionMatch ? actionMatch[1] : null
             }]);
           }
         }
@@ -54,7 +53,7 @@ agentRouter.post("/chat/message", async (req, res) => {
         content,
         userId: 'assistant1'
       },
-      itemsAdded
+      agentActionResponse
     });
   } catch (error) {
     console.error("Agent error:", error);

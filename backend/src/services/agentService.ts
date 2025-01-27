@@ -23,8 +23,6 @@ export class AgentService {
         func: async (input: string) => {
           try {
             const [name, quantity, userId] = input.split(",").map(s => s.trim());
-
-            console.log("quantity item ====", quantity);
             
             if (!name || !quantity || !userId) {
               throw new Error("Missing required parameters");
@@ -66,11 +64,63 @@ export class AgentService {
             );
             
             return JSON.stringify({
-              response: response.content + `[name: "${name}", quantity: ${quantity}, userId: "${userId}"]`
+              response: response.content + `[name: "${name}", quantity: ${quantity}, userId: "${userId}", action: "add"]`
             });
           } catch (error) {
             return JSON.stringify({
               response: `I couldn't add that to your shopping list. Please try saying something like "add 2 apples" or "I need 1 bread".`
+            });
+          }
+        },
+      }),
+
+      new DynamicTool({
+        name: "RemoveFromShoppingList",
+        description: "Remove an item from the shopping list. When a user says something like 'remove X item' or 'I don't want Y items', format it as: itemName,quantity,userId. For example, if user says 'remove 2 apples', you should call this with 'apples,2,userId'. Always include these three values separated by commas. If the item already exists in the list, its quantity will be decreased by 1 or the quantity specified by the user. After using this tool, return FINAL ANSWER with the response.",
+        func: async (input: string) => {
+          try {
+            const [name, quantity, userId] = input.split(",").map(s => s.trim());
+
+            if (!name || !quantity || !userId) {
+              throw new Error("Missing required parameters");
+            }
+
+            const existingItem = await prisma.shoppingList.findFirst({
+              where: {
+                userId,
+                name: {
+                  equals: name,
+                  mode: 'insensitive' 
+                }
+              }
+            });
+
+            let item;
+            if (existingItem) {
+              const totalQuantity = (existingItem.quantity ?? 0) - parseFloat(quantity);
+              
+              item = await prisma.shoppingList.update({
+                where: { id: existingItem.id },
+                data: {
+                  quantity: totalQuantity
+                }
+              });
+
+              const response = await this.llm.invoke(
+                `You just removed ${quantity} ${name} from the user's shopping list. Respond naturally and friendly to confirm this action in less than 20 words.`
+              );
+              
+              return JSON.stringify({
+                response: response.content + `[name: "${name}", quantity: ${quantity}, userId: "${userId}", action: "add"]`
+              });
+            } else {
+              return JSON.stringify({
+                response: `I couldn't find ${name} in your shopping list.`
+              });
+            }
+          } catch (error) {
+            return JSON.stringify({
+              response: `I couldn't remove that from your shopping list. Please try saying something like "remove 2 apples" or "I don't want 1 bread".`
             });
           }
         },

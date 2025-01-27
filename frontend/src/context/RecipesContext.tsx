@@ -4,6 +4,7 @@ import { useAuthService } from "../services/userAuthService";
 
 export type Recipes = {
   id: number;
+  recipeId: number;
   name: string;
   ingredients: string[];
   instructions: string[];

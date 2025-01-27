@@ -14,6 +14,7 @@ function RecipeDetail() {
   const { getToken } = useAuthService();
   const { state } = useRecipesContext();
   const { dispatch: shoppingListDispatch } = useShoppingListContext();
+  const { dispatch: recipesDispatch } = useRecipesContext();
 
   useEffect(() => {
     refreshIngredients();
@@ -40,6 +41,17 @@ function RecipeDetail() {
       recipe.ingredients.forEach((ingredient) => {
         shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.ADD_ITEM, payload: { id: ingredient, name: ingredient, quantity: 1 } });
       });
+    }
+  };
+
+  const handleRemoveRecipe = (recipeId: number) => {
+    const recipe = state.recipesWishList.find((recipe) => recipe.id === recipeId);
+    if (recipe) {
+        shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.REMOVE_RECIPE, payload: recipe.recipeId });
+        recipesDispatch({
+          type: "setRecipesWishList",
+          payload: [...state.recipesWishList, recipe],
+        });
     }
   };
 
@@ -82,7 +94,7 @@ function RecipeDetail() {
                 <div className="recipe-buttons-container">
                   <button className="recipe-button recipe-button-add" onClick={() => handleAddToShoppingList(recipe.id)}>Add to Shopping List</button>
                   <button className="recipe-button recipe-button-view" onClick={() => handleOpenModal(recipe.id)}>View Recipe</button>
-                  <button className="recipe-button recipe-button-remove">Remove Recipe</button>
+                  <button className="recipe-button recipe-button-remove" onClick={() => handleRemoveRecipe(recipe.id)}>Remove Recipe</button>
                 </div>
               </div>
               <div className="recipe-note-container">

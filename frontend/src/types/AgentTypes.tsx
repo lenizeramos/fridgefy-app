@@ -8,7 +8,7 @@ export interface Message {
 
 export interface AgentState {
     messages: Message[];
-    itemsAdded: Item | null;
+    agentActionResponse: Item | null;
 }
 
 export interface AgentSendMessageRequest {
@@ -19,5 +19,5 @@ export interface AgentSendMessageRequest {
 export interface ApiMessageResponse {
     success: boolean;
     message?: Message;
-    itemsAdded?: string;
+    agentActionResponse?: string;
 }

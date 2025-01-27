@@ -11,13 +11,15 @@ import { useAuthService } from "../services/userAuthService";
 const initialState: ShoppingListState = {
   items: [],
   isLoading: false,
-  error: null
+  error: null,
+  recipesWishList: []
 };
 
 const ShoppingListReducer = (
   state: ShoppingListState, 
   action: ShoppingListAction
 ): ShoppingListState => {
+
   switch (action.type) {
     case SHOPPING_LIST_ACTIONS.ADD_ITEM:
         if (state.items.find((item) => item.name === action.payload.name)) {
@@ -25,7 +27,7 @@ const ShoppingListReducer = (
                 ...state,
                 items: state.items.map((item) => 
                     item.name === action.payload.name 
-                        ? { ...item, quantity: item.quantity + 1 } 
+                        ? { ...item, quantity: item.quantity + (action.payload.quantity || 1) } 
                         : item
                 ),
             };
@@ -35,18 +37,16 @@ const ShoppingListReducer = (
         items: [...state.items, action.payload],
       };
     case SHOPPING_LIST_ACTIONS.REMOVE_ITEM:
-      const itemToRemove = state.items.find((item) => item.name === action.payload);
-      if (itemToRemove) {
-        return {
-          ...state,
-          items: state.items.map((item) => 
-            item.name === action.payload 
-              ? { ...item, quantity: item.quantity - 1 } 
+      return {
+        ...state,
+        items: state.items
+          .map((item) => 
+            item.name === action.payload.name 
+              ? { ...item, quantity: Math.max(0, item.quantity - (action.payload.quantity || 1)) }
               : item
-          ).filter(item => item.quantity > 0),
-        };
-      }
-      return state;
+          )
+          .filter(item => item.quantity > 0),
+      };
     case SHOPPING_LIST_ACTIONS.SET_ITEMS:
       return {
         ...state,
@@ -61,6 +61,21 @@ const ShoppingListReducer = (
       return {
         ...state,
         error: action.payload,
+      };
+    case SHOPPING_LIST_ACTIONS.REMOVE_RECIPE:
+      const recipeToRemove = state.recipesWishList.find(recipe => recipe.id === action.payload);
+      if (!recipeToRemove) {
+        return state;
+      }
+      
+      const updatedItems = state.items.filter(item => 
+        !recipeToRemove.ingredients.includes(item.name)
+      );
+
+      return {
+        ...state,
+        items: updatedItems,
+        recipesWishList: state.recipesWishList.filter((recipe) => recipe.id !== action.payload),
       };
     default:
       return state;
@@ -112,8 +127,9 @@ const ShoppingListProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_LOADING, payload: true });
         baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_ERROR, payload: null });
 
+        const userId = auth.getUserId();
         await shoppingListService.addItem({
-          userId: "user_2ryFjzChZAt3sR0XgDOfAYLEA4w",
+          userId: userId ? userId : "user not logged in",
           ingredient: action.payload.name,
           quantity: action.payload.quantity || 1
         });
@@ -132,13 +148,33 @@ const ShoppingListProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_LOADING, payload: true });
         baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_ERROR, payload: null });
 
+        const userId = auth.getUserId();
         await shoppingListService.removeItem({
-          userId: "user_2ryFjzChZAt3sR0XgDOfAYLEA4w",
-          ingredient: action.payload,
-          quantity: 1
+          userId: userId ? userId : "user not logged in",
+          ingredient: action.payload.name,
+          quantity: action.payload.quantity || 1
         });
 
         await fetchItems();
+      } catch (error) {
+        baseDispatch({ 
+          type: SHOPPING_LIST_ACTIONS.SET_ERROR, 
+          payload: error instanceof Error ? error.message : 'An unknown error occurred'
+        });
+      } finally {
+        baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_LOADING, payload: false });
+      }
+    } else if (action.type === SHOPPING_LIST_ACTIONS.REMOVE_RECIPE) {
+      try {
+        baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_LOADING, payload: true });
+        baseDispatch({ type: SHOPPING_LIST_ACTIONS.SET_ERROR, payload: null });
+
+        const userId = auth.getUserId();
+        await shoppingListService.removeRecipe({
+          userId: userId ? userId : "user not logged in",
+          recipeId: action.payload
+        });
+
       } catch (error) {
         baseDispatch({ 
           type: SHOPPING_LIST_ACTIONS.SET_ERROR, 

@@ -12,7 +12,7 @@ import { shoppingListService } from "../services/shoppingListServices";
 
 const initialState: AgentState = {
     messages: [],
-    itemsAdded: null,
+    agentActionResponse: null,
 };
 
 const AgentReducer = (state: AgentState, action: AgentAction | ShoppingListAction): AgentState => {
@@ -22,7 +22,7 @@ const AgentReducer = (state: AgentState, action: AgentAction | ShoppingListActio
         case AGENT_ACTIONS.SEND_MESSAGE:
             return { ...state, messages: [...state.messages, action.payload as Message] };
         case SHOPPING_LIST_ACTIONS.ADD_ITEM:
-            return { ...state, itemsAdded: action.payload as Item };
+            return { ...state, agentActionResponse: action.payload as Item };
         default:
             return state;
     }
@@ -53,6 +53,8 @@ const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                 userId: userMessage.userId, 
                 message 
             });
+
+            console.log("response ¡¡¡¡¡", response);
             
             if (response.success && response.message) {
                 dispatch({ 
@@ -60,7 +62,8 @@ const AgentProvider: React.FC<{ children: React.ReactNode }> = ({ children }) =>
                     payload: response.message
                 });
 
-                if (response.itemsAdded) {
+                if (response.agentActionResponse) {
+                    console.log("response.agentActionResponse", response.agentActionResponse);
                     await shoppingListDispatch({ 
                         type: SHOPPING_LIST_ACTIONS.SET_LOADING, 
                         payload: true 
