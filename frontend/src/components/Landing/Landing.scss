@@ -61,3 +61,26 @@
     width: fit-content;
   }
 }
+
+@media only screen and (max-width: 870px) {
+  .landingContainer {
+    margin: 2rem;
+    .description {
+      width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .landingContainer {
+    flex-direction: column;
+    gap: 0;
+    .description {
+      width: 100%;
+      margin-top: 3rem;
+    }
+    .image {
+      width: 20rem;
+    }
+  }
+}
