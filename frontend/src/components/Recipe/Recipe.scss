@@ -76,3 +76,15 @@
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+.recipeBox {
+  .recipeName {
+    .buttonContainer {
+      .details {
+        width: 15rem;
+      }
+    }
+  }
+}
+}
