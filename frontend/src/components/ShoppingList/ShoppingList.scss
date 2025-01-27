@@ -19,14 +19,16 @@
     padding: 0;
     margin: 0;
     flex: 2;
-    width: 72%;
+    width: 15vw;
   }
 
   .recipe-container {
     flex: 6;
     text-align: center;
   }
-
+  .agent-container {
+    width: 21vw;
+  }
   .items-container {
     flex: 3;
     width: 100%;
@@ -52,15 +54,4 @@
       }
     }
   }
-
-  .recipe-container {
-    .recipe-title {
-      font-family: variables.$font-family-body;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #535351;
-      text-align: center;
-    }
-  }
 }
-
