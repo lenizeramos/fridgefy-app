@@ -36,7 +36,20 @@
       font-size: 1vw;
       padding: 0.5rem;
       &:hover {
-        background-color: variables.$backgound-button
+        background-color: variables.$backgound-button;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .ingredients {
+    #paginationContainer {
+      span {
+        font-size: 1rem;
+      }
+      .paginationBtn {
+        font-size: 1rem;
       }
     }
   }
