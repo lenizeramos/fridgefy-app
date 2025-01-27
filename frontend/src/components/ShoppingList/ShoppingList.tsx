@@ -17,9 +17,10 @@ function ShoppingList() {
               <MyFridgeComponent />
             </div>
             <div className="recipe-container">
+              <h1>My Recipes</h1>
               <RecipeDetail />
             </div>
-            <div>
+            <div className="chatItemContainer">
               <div className="agent-container">
                 <AgentChat />
               </div>

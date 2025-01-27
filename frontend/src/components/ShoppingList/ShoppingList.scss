@@ -25,17 +25,27 @@
   .recipe-container {
     flex: 6;
     text-align: center;
+
+    h1 {
+      display: none;
+      border-top: 1px solid variables.$color2-text-highlight;
+      border-bottom: 1px solid variables.$color2-text-highlight;
+      font-family: variables.$font-family-title;
+      text-align: center;
+      font-weight: bold;
+      color: variables.$color2-text-highlight;
+    }
   }
   .agent-container {
-    width: 21vw;
+    width: 25vw;
   }
   .items-container {
     flex: 3;
-    width: 100%;
+    width: 25vw;
     padding: 0.5rem 0.5rem;
     border-radius: 1rem;
     outline: none;
-    border: 1px solid saddlebrown;
+    border: 1px solid variables.$color2-text-highlight;
     color: #642f09;
     font-family: variables.$font-family-body;
     background-color: #fff;
@@ -51,6 +61,46 @@
         margin-bottom: 1rem;
         color: #535351;
         text-align: center;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .shopping-list-container {
+    flex-direction: column;
+    .fridge-container {
+      width: 100%;
+    }
+    .recipe-container {
+      h1 {
+        display: block;
+        margin: 2rem 0;
+      }
+    }
+    .chatItemContainer {
+      display: flex;
+      gap: 2rem;
+      .agent-container,
+      .items-container {
+        width: 40vw;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 530px) {
+  .shopping-list-container {
+    .fridge-container {
+      margin-top: 2rem;
+    }
+    .chatItemContainer {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .agent-container,
+      .items-container {
+        width: 80%;
       }
     }
   }
