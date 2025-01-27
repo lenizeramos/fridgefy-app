@@ -1,4 +1,4 @@
-@use '../../public/sass/variables';
+@use "../../public/sass/variables";
 
 .mainContainer {
   display: flex;
@@ -9,7 +9,15 @@
   .recipes {
     margin: 2rem 0;
     width: 60vw;
-
+    h1 {
+      border-top: 1px solid variables.$color2-text-highlight;
+      border-bottom: 1px solid variables.$color2-text-highlight;
+      font-family: variables.$font-family-title;
+      text-align: center;
+      font-weight: bold;
+      color: variables.$color2-text-highlight;
+      display: none;
+    }
     .recipeContainer {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -38,12 +46,15 @@
           border-top: 5px solid #fff;
           border-bottom: 5px solid #fff;
           position: relative;
-          background: linear-gradient(variables.$color-loader 30px, transparent 0)
+          background: linear-gradient(
+              variables.$color-loader 30px,
+              transparent 0
+            )
             no-repeat;
           background-size: 2px 40px;
           background-position: 50% 0px;
           animation: spinx 5s linear infinite;
-          
+
           &:before,
           &:after {
             content: "";
@@ -60,7 +71,7 @@
             background-position: 0 0;
             animation: lqt 5s linear infinite;
           }
-          
+
           &:after {
             top: auto;
             bottom: 0;
@@ -79,29 +90,44 @@
 @keyframes lqt {
   0%,
   100% {
-    background-image: linear-gradient(variables.$color-loader 40px, transparent 0);
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
     background-position: 0 0;
   }
 
   50% {
-    background-image: linear-gradient(variables.$color-loader 40px, transparent 0);
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
     background-position: 0 40px;
   }
 
   50.1% {
-    background-image: linear-gradient(variables.$color-loader 40px, transparent 0);
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
     background-position: 0 -40px;
   }
 }
 
 @keyframes lqb {
   0% {
-    background-image: linear-gradient(variables.$color-loader 40px, transparent 0);
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
     background-position: 0 40px;
   }
 
   100% {
-    background-image: linear-gradient(variables.$color-loader 40px, transparent 0);
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
     background-position: 0 -40px;
   }
 }
@@ -129,11 +155,24 @@
   .mainContainer {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 0;
     .fridge {
       margin: 2rem 0;
-      width: 70%;
+      width: 100%;
+      padding: 0 2rem;
     }
     .recipes {
+      width: 100%;
+      margin: 0;
+      padding: 0 2rem;
+      h1 {
+        display: block;
+        margin-bottom: 2rem;
+      }
+    }
+    .wishList {
+      padding: 0 2rem;
       width: 100%;
     }
   }
