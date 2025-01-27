@@ -12,9 +12,8 @@ import RecipeModal from "../../RecipeModal/RecipeModal";
 function RecipeDetail() {
   const { state: fridgeState, dispatch: fridgeDispatch } = useFridgeContext();
   const { getToken } = useAuthService();
-  const { state } = useRecipesContext();
+  const { state, dispatch: recipesDispatch, fetchRecipesUser } = useRecipesContext();
   const { dispatch: shoppingListDispatch } = useShoppingListContext();
-  const { dispatch: recipesDispatch } = useRecipesContext();
 
   useEffect(() => {
     refreshIngredients();
@@ -44,14 +43,11 @@ function RecipeDetail() {
     }
   };
 
-  const handleRemoveRecipe = (recipeId: number) => {
+  const handleRemoveRecipe = async (recipeId: number) => {
     const recipe = state.recipesWishList.find((recipe) => recipe.id === recipeId);
     if (recipe) {
-        shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.REMOVE_RECIPE, payload: recipe.recipeId });
-        recipesDispatch({
-          type: "setRecipesWishList",
-          payload: [...state.recipesWishList, recipe],
-        });
+        await shoppingListDispatch({ type: SHOPPING_LIST_ACTIONS.REMOVE_RECIPE, payload: recipe.recipeId });
+        await fetchRecipesUser();
     }
   };
 

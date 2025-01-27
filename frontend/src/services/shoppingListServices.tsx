@@ -82,8 +82,6 @@ export const shoppingListService = {
         throw new Error('Failed to remove recipe');
       }
 
-      console.log("response", response);
-
       toast.success(
         `Yeiii!!! the recipe has been removed from your wish list`,
         {
