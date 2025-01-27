@@ -25,7 +25,9 @@ function ItemsList() {
               )
           )
         ) : (
-          <div className="items-list-item">No items in the shopping list</div>
+          <div className="items-list-item">
+            <p>No items in the shopping list</p>
+          </div>
         )}
       </div>
     </div>

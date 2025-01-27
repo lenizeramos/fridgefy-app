@@ -16,7 +16,12 @@
     flex-direction: column;
     gap: 10px;
     padding: 10px;
-
+    p {
+      font-family: variables.$font-family-title;
+      font-size: 2rem;
+      text-align: center;
+      margin: 0;
+    }
     .items-list-item {
       border: 1px solid #642f09;
       border-radius: 8px;
