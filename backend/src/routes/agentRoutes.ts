@@ -21,6 +21,8 @@ agentRouter.post("/chat/message", async (req, res) => {
         const outputStr = result.output.toString();
         const [readableMessage, dataString] = outputStr.split('[');
         content = readableMessage.trim();
+
+        console.log("dataString", dataString);
         
         if (dataString) {
           const cleanDataString = dataString.replace(']', '');
