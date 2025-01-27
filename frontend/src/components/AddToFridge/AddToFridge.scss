@@ -1,42 +1,102 @@
-.modal-close-btn {
-  position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+@use "../../public/sass/variables";
 
 .addToFridgeIcon {
   transition: color 0.3s ease;
-  background-color: #fff5e1;
   border-radius: 30%;
-
+  color: variables.$color2-text-highlight;
   &:hover {
-    color: #a94d3c;
-    background-color: #fff5e1;
-  }
-}
-.addToFridgeBtn {
-  padding: 1rem 2rem;
-  cursor: pointer;
-  border: none;
-  font-family: "Mystery Quest", serif;
-  width: 100%;
-  text-align: center;
-  border-radius: 1rem;
-  background-color: #eddbc3;
-  color: #2b2b2a;
-  &:hover {
-    color: #a94d3c;
-    background-color: #fff5e1;
+    color: variables.$color4-text-highlight;
   }
 }
 
 .addToFridgeError {
   width: 100%;
+}
+
+.container {
+  .modal-content {
+    background: variables.$background-containers;
+    border-radius: 8px;
+    max-width: 38rem;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: variables.$backgound-close;
+
+      &:hover {
+        background-color: variables.$backgound-close-hover2;
+        color: variables.$color-text-button-modal-hover;
+      }
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+      h2 {
+        font-size: 3rem;
+        color: variables.$color3-text-highlight;
+        font-family: variables.$font-family-title;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      p {
+        font-size: 1.5rem;
+        font-family: variables.$font-family-body;
+        margin: 0;
+      }
+    }
+
+    .modal-body {
+      label {
+        font-family: variables.$font-family-body;
+        font-size: 1.2rem;
+        color: variables.$color-text-highlight;
+      }
+      input,
+      li {
+        font-family: variables.$font-family-body;
+      }
+    }
+    .modal-footer {
+      .addToFridgeBtn {
+        padding: 0.875rem;
+        cursor: pointer;
+        border: none;
+        font-family: variables.$font-family-highlight;
+        width: 100%;
+        text-align: center;
+        border-radius: 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        background-color: variables.$backgound-close;
+        transition: background-color 0.2s ease-out;
+        color: variables.$color-text-button-modal;
+        &:hover {
+          color: variables.$color-text-button-modal-hover;
+          background-color: variables.$backgound-close-hover2;
+        }
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
 }

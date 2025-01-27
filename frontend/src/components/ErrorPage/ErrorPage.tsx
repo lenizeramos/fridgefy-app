@@ -6,7 +6,7 @@ const ErrorPage = () => {
       <h1 className="display-1 fw-bold">
         4<span className="emoji">😞</span>4
       </h1>
-      <p className="fs-4">Oops! The page you're looking for doesn't exist.</p>
+      <p>Oops! The page you're looking for doesn't exist.</p>
     </div>
   )
 }

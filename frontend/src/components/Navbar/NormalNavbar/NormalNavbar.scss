@@ -1,0 +1,67 @@
+@use "../../../public/sass/variables";
+
+.linksContainer {
+    display: flex;
+    align-items: center;
+    gap: 5rem;
+    flex-wrap: wrap;
+    ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      font-size: 1.5rem;
+      .active {
+        text-decoration: none;
+        color: variables.$color-active;
+        font-family: variables.$font-family-body;
+        border-bottom: 1px solid variables.$color-active;
+        font-weight: bolder;
+      }
+      .noActive {
+        text-decoration: none;
+        color: variables.$color-noActive;
+        font-family: variables.$font-family-body;
+      }
+    }
+    .buttonContainer {
+      .button {
+        text-decoration: none;
+        color: variables.$color-active;
+        font-family: variables.$font-family-body;
+        font-weight: bolder;
+        button {
+          padding: 0.5rem 1rem;
+          border-radius: 1rem;
+          background-color: transparent;
+          cursor: pointer;
+          outline: none;
+          transition: all 0.3s ease;
+          border: 1px solid variables.$color-active;
+        }
+        &:hover {
+          color: #393737;
+          button {
+            background-color: variables.$color-button-navbar;
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px variables.$box-shadow;
+          }
+        }
+      }
+      .buttonActive {
+        text-decoration: none;
+        color: #393737;
+        font-family: variables.$font-family-body;
+        font-weight: bolder;
+        button {
+          padding: 0.5rem 1rem;
+          border-radius: 1rem;
+          background-color: variables.$color-button-navbar;
+          transform: scale(1.05);
+          border: 1px solid variables.$color-active;
+          outline: none;
+          box-shadow: 0 4px 8px variables.$box-shadow;
+          cursor: default;
+        }
+      }
+    }
+  }

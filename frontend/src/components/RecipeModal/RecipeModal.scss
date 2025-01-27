@@ -37,10 +37,9 @@
       justify-content: center;
       border-radius: 50%;
       background-color: variables.$backgound-close;
-
       &:hover {
-        background-color: variables.$backgound-close-hover;
-        color: variables.$color1-text-shadow;
+        background-color: variables.$backgound-close-hover2;
+        color: variables.$color-text-button-modal-hover;
       }
     }
 

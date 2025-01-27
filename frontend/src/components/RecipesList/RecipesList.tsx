@@ -51,6 +51,7 @@ function RecipesList() {
       <div className="mainContainer">
         <MyFridgeComponent />
         <section className="recipes">
+          <h1>Recipes</h1>
           <Filters filters={filters} onFilterChange={handleFilterChange} />
           <div className="recipeContainer">
             {filteresRecipes.length > 0 ? (
