@@ -40,7 +40,6 @@
   padding: 10px 0;
 }
 
-
 .recipe-ingredients-list {
   list-style-type: none;
   text-align: left;
@@ -49,6 +48,7 @@
     margin-bottom: 10px;
     margin-left: 10px;
     color: variables.$color4-text-highlight;
+    font-family: variables.$font-family-body;
   }
 
   .recipe-ingredient-checkbox {
@@ -67,7 +67,7 @@
       background-color: variables.$color2-text-highlight;
 
       &::after {
-        content: '✓';
+        content: "✓";
         position: absolute;
         color: #fff6ec;
         font-size: 14px;
@@ -76,19 +76,18 @@
         transform: translate(-50%, -50%);
       }
     }
-
   }
 }
 
 .recipe-note-container {
-    text-align: left;
-    margin-left: 10px;
+  text-align: left;
+  margin-left: 10px;
   .recipe-note {
     color: variables.$color2-text-highlight;
-    font-size: 12px;
+    font-size: 0.8rem;
+    font-family: variables.$font-family-modal;
   }
 }
-
 
 .recipe-content-container {
   display: flex;
@@ -107,6 +106,7 @@
       border: 1px solid variables.$color-text-highlight;
       padding: 10px 20px;
       border-radius: 5px;
+      font-family: variables.$font-family-modal;
     }
 
     .recipe-button-add {
