@@ -38,6 +38,7 @@ function Filters({ filters, onFilterChange }: FiltersProps) {
     setDifferentSize(1);
   };
 
+
   return (
     <>
       <div className="topContainer">

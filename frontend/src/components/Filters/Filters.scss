@@ -36,6 +36,7 @@
       margin-bottom: 1rem;
       font-size: 1.2rem;
       padding-left: 1rem;
+      position: relative;
     }
     select {
       width: 100%;
@@ -59,6 +60,25 @@
     .cuisineSelect,
     .difficultySelect {
       position: relative;
+    }
+  }
+}
+
+@media only screen and (max-width: 670px) {
+  .topContainer{
+    
+    .filters {
+      grid-template-columns: repeat(2, minmax(8rem, 0.5fr));
+
+      select {
+        position: absolute;
+        top: 2rem;
+        left: 0;
+      }
+      .tagsSelect,
+      .typesSelect {
+        z-index: 10;
+      }
     }
   }
 }
