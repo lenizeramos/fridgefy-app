@@ -12,7 +12,7 @@
 
     .recipeContainer {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(15rem, 0.7fr));
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
       gap: 3rem;
       justify-content: center;
       padding: 2rem;
@@ -125,13 +125,19 @@
   }
 }
 
-// @media only screen and (max-width: 992px) {
-//   .mainContainer {
-//     display: flex;
-//     flex-direction: column;
-//     .fridge {
-//       margin: 2rem 0;
-//       width: 70%;
-//     }
-//   }
-// }
+@media only screen and (max-width: 900px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    .fridge {
+      margin: 2rem 0;
+      width: 70%;
+    }
+    .recipes {
+      width: 100%;
+      .recipeContainer {
+        // grid-template-columns: repeat(2, minmax(15rem, 0.7fr));
+      }
+    }
+  }
+}
