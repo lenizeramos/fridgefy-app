@@ -5,6 +5,7 @@ import {
   getIngredients,
   removeIngredient,
 } from "../models/fridgeModel";
+import { removeItemFromShoppingList } from "../models/shoppingListModel";
 
 export const addIngredientToFridge = async (req: Request, res: Response) => {
   const { userId } = getAuth(req);
@@ -28,6 +29,8 @@ export const addIngredientToFridge = async (req: Request, res: Response) => {
       ingredientName,
       expirationDate,
     );
+
+    await removeItemFromShoppingList(userId, ingredientName);
 
     res
       .status(200)

@@ -9,6 +9,10 @@ export const addToShoppingList = async (req: Request, res: Response) => {
 
 export const removeFromShoppingList = async (req: Request, res: Response) => {
   const { ingredient, userId } = req.body;
+  if (!userId) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
   const shoppingList = await removeItemFromShoppingList(userId, ingredient);
   res.json(shoppingList);
 };
