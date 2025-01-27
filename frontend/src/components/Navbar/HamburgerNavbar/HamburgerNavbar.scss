@@ -110,24 +110,21 @@
 }
 
 @media only screen and (max-width: 560px) {
-
-    .hamburger {
-        &.open .line:nth-child(1){
-            transform: rotate(-45deg) translateX(-25px);
-
-        }
-
-        &.open .line:nth-child(3) {
-            transform: rotate(-95deg) translateY(-15px) translateX(2px);
-
-        }
+  .hamburger {
+    &.open .line:nth-child(1) {
+      transform: rotate(-45deg) translateX(-25px);
     }
-    .menu {
-      padding-right: 1rem;
-        top: 6.3rem;
-        right:0rem;
-        flex-direction: row;
-        gap: 1rem;
-        text-align: center;
+
+    &.open .line:nth-child(3) {
+      transform: rotate(-95deg) translateY(-15px) translateX(2px);
     }
+  }
+  .menu {
+    padding-right: 1rem;
+    top: 6.3rem;
+    right: 0rem;
+    flex-direction: row;
+    gap: 1rem;
+    text-align: center;
+  }
 }
