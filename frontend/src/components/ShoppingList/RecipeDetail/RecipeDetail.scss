@@ -97,8 +97,9 @@
   .recipe-buttons-container {
     display: flex;
     flex-direction: column;
+    align-self: center;
     gap: 20px;
-    margin-right: 20px;
+    margin-right: 10px;
 
     .recipe-button {
       background-color: variables.$background-containers;
@@ -114,4 +115,8 @@
       color: #fff6ec;
     }
   }
+}
+
+@media only screen and (max-width: 500px) {
+
 }
