@@ -117,6 +117,19 @@
   }
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 520px) {
+  .recipe-content-container {
+    flex-direction: column;
+    .recipe-buttons-container {
+      flex-direction: row;
+      font-size: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
 
+@media only screen and (max-width: 375px) { 
+  .recipe-ingredients-list {
+    padding-left: 0;
+  }
 }
