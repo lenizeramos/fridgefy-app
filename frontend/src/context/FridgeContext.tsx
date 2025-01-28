@@ -1,6 +1,7 @@
 import { createContext, useContext, useReducer } from "react";
 import { FridgeAction, IFridgeContext } from "../interfaces/FridgeInterface";
 import { FridgeState, Ingredient } from "../types/FridgeTypes";
+import { ShoppingListAction } from "../interfaces/ShoppingListInterface";
 
 const initialState: FridgeState = {
   ingredients: [],
@@ -55,6 +56,7 @@ const useFridgeContext = (): IFridgeContext => {
 const addIngredientToFridge = async (
   ingredient: Ingredient,
   dispatch: React.Dispatch<FridgeAction>,
+  dispatchShoppingList: React.Dispatch<ShoppingListAction>,
   token: string | null
 ) => {
   try {
@@ -80,6 +82,7 @@ const addIngredientToFridge = async (
     const result = await response.json();
 
     dispatch({ type: "addIngredient", payload: result.response });
+    dispatchShoppingList({ type: "SET_ITEMS", payload: [] });
   } catch (err) {
     console.error((err as Error).message);
   }

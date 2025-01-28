@@ -7,6 +7,7 @@ import {
 import { useAuthService } from "../../services/userAuthService";
 import "../AddToFridge/AddToFridge.scss";
 import toast from "react-hot-toast";
+import { useShoppingListContext } from "../../context/ShoppingListContext";
 
 const AddToFridge = () => {
   const { state } = useRecipesContext();
@@ -55,6 +56,8 @@ const AddToFridge = () => {
     setExpirationDate(e.target.value);
   };
 
+  const { dispatch: dispatchShoppingList } = useShoppingListContext();
+
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
@@ -90,7 +93,7 @@ const AddToFridge = () => {
     };
 
     try {
-      await addIngredientToFridge(payload, fridgeDispatch, await getToken());
+      await addIngredientToFridge(payload, fridgeDispatch, dispatchShoppingList, await getToken());
       toast.success("Ingredient added to your fridge!");
       setIngredient("");
       setExpirationDate("");

@@ -144,7 +144,7 @@ const FridgeIngredients: React.FC<FridgeIngredientsProps> = ({
           </div>
         </>
       ) : (
-        <div>No ingredient in the fridge</div>
+        <div><p>No ingredient in the fridge</p></div>
       )}
     </div>
   );
