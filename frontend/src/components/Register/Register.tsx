@@ -14,7 +14,7 @@ const Register = () => {
         });
 
         if (response.ok) {
-          navigate("/recipes");
+          navigate("/home");
           setRemoveLoading(true)
         } else {
           console.error("Failed to fetch user");

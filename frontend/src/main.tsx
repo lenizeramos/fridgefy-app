@@ -17,6 +17,7 @@ import SSOCallback from "./components/SSOCallback/SSOCallback.tsx";
 import SignInPage from "./components/Auth/SignInPage/SignInPage.tsx";
 import SignUpPage from "./components/Auth/SignUpPage/SignUpPage.tsx";
 import ErrorPage from "./components/ErrorPage/ErrorPage.tsx";
+import Home from "./components/Home/Home.tsx";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignUpPage />,
+      },
+      {
+        path: 'home',
+        element: <Home />,
       },
       {
         path: "wish_list",

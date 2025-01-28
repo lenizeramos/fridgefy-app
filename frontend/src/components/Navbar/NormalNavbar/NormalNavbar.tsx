@@ -22,6 +22,16 @@ function NormalNavbar() {
               </NavLink>
             </li>
           </SignedOut>
+          <SignedIn >
+          <li>
+              <NavLink
+                to="/home"
+                className={({ isActive }) => (isActive ? "active" : "noActive")}
+              >
+                Home
+              </NavLink>
+            </li>
+          </SignedIn>
           <li>
             <NavLink
               to="/recipes"
