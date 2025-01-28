@@ -13,7 +13,7 @@ function Home() {
           </h1>
           <h3>Your kitchen adventure starts here!</h3>
           <p>
-            Unleash the magic in your kitchen with effortless recipes, creative meal planning, and smart pantry management. <br /><br />From discovering new dishes to mastering your culinary skills, we're here to make every moment in your kitchen a masterpiece. 
+            Unleash the magic in your kitchen with effortless recipes, creative meal planning, and smart pantry management. <br />From discovering new dishes to mastering your culinary skills, we're here to make every moment in your kitchen a masterpiece. 
           </p>
           <button>
             <NavLink to="/recipes" className={'button'}>Explore Recipes</NavLink>
