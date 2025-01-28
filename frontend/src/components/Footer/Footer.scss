@@ -1,0 +1,27 @@
+@use "../../public/sass/variables";
+
+.footerContainer {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: center;
+  background-color: variables.$color1-text-shadow;
+  color: variables.$color-text-name;
+  flex-wrap: wrap;
+  .logoFooterContainer {
+    display: flex;
+    gap: 1rem;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: 4rem;
+      height: auto;
+    }
+  }
+  p {
+    font-family: variables.$font-family-title;
+    font-weight: 400;
+    font-size: 2rem;
+    text-shadow: 1px 1px 1px variables.$color-shadow;
+  }
+}

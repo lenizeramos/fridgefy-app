@@ -1,0 +1,90 @@
+@use "../../public/sass/variables";
+
+.recipeBox {
+  background-color: variables.$background-containers;
+  border-radius: 1rem;
+  .recipeImg {
+    height: 15rem;
+    overflow: hidden;
+    position: relative;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    img {
+      position: absolute;
+      width: 100%;
+    }
+  }
+  .recipeName {
+    padding: 2rem;
+    h3 {
+      font-family: variables.$font-family-body;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: variables.$color-text-name;
+      text-shadow: -1px -1px 2px variables.$color1-text-shadow,
+        2px 2px 4px variables.$color2-text-shadow;
+      text-align: center;
+    }
+    .buttonContainer {
+      border-radius: 1rem;
+      display: flex;
+      margin-top: 2em;
+      justify-content: center;
+      .details,
+      .detailsHome,
+      .icon {
+        padding: 1rem 2rem;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background-color: transparent;
+        transition: all 0.5s ease-in-out;
+      }
+      .details,
+      .detailsHome {
+        font-family: variables.$font-family-highlight;
+        text-align: center;
+        border-top-left-radius: 1rem;
+        border-bottom-left-radius: 1rem;
+        background-color: variables.$background-dark-button;
+        color: variables.$color2-text-shadow;
+        &:hover {
+          color: variables.$color-text-highlight;
+          background-color: variables.$background-light-button;
+          border: 0.5px solid variables.$color-border-button-hover;
+        }
+      }
+      .details {
+        width: 20vw;
+      }
+      .detailsHome {
+        width: 10rem;
+      }
+      .icon {
+        background-color: variables.$background-light-button;
+        font-size: 1rem;
+        border-left: 1px solid variables.$color-border-button-hover;
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+        color: variables.$color-text-highlight;
+        &:hover {
+          background-color: variables.$background-dark-button;
+          color: variables.$color2-text-shadow;
+          border: 0.5px solid variables.$color-border-button-hover;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+.recipeBox {
+  .recipeName {
+    .buttonContainer {
+      .details {
+        width: 15rem;
+      }
+    }
+  }
+}
+}

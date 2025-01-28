@@ -1,0 +1,135 @@
+@use "../../../public/sass/variables";
+
+.recipe-image-container {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  border: 1px solid variables.$color1-text-shadow;
+}
+
+.recipe-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.accordion-button {
+  background-color: variables.$background-containers;
+  color: #642f09;
+  font-family: variables.$font-family-title;
+  font-size: 2rem;
+  &:focus {
+    box-shadow: 0 4px 8px #642f0933, 0 0 0 2px #fff6ec;
+  }
+
+  &:not(.collapsed) {
+    background-color: variables.$color1-text-shadow;
+    font-size: 2.5rem;
+    color: variables.$color3-text-highlight;
+  }
+}
+
+.recipe-divider {
+  color: variables.$color2-text-highlight;
+  margin: 10px 0;
+  margin-top: 30px;
+  padding: 10px 0;
+}
+
+.recipe-ingredients-list {
+  list-style-type: none;
+  text-align: left;
+
+  .recipe-ingredient-label {
+    margin-bottom: 10px;
+    margin-left: 10px;
+    color: variables.$color4-text-highlight;
+    font-family: variables.$font-family-body;
+  }
+
+  .recipe-ingredient-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid variables.$color2-text-highlight;
+    border-radius: 4px;
+    background-color: variables.$background-containers;
+    position: relative;
+    vertical-align: middle;
+    margin-right: 8px;
+
+    &:checked {
+      background-color: variables.$color2-text-highlight;
+
+      &::after {
+        content: "✓";
+        position: absolute;
+        color: #fff6ec;
+        font-size: 14px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}
+
+.recipe-note-container {
+  text-align: left;
+  margin-left: 10px;
+  .recipe-note {
+    color: variables.$color2-text-highlight;
+    font-size: 0.8rem;
+    font-family: variables.$font-family-modal;
+  }
+}
+
+.recipe-content-container {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+
+  .recipe-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    gap: 20px;
+    margin-right: 10px;
+
+    .recipe-button {
+      background-color: variables.$background-containers;
+      color: variables.$color-text-highlight;
+      border: 1px solid variables.$color-text-highlight;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-family: variables.$font-family-modal;
+    }
+
+    .recipe-button-add {
+      background-color: variables.$color2-text-highlight;
+      color: #fff6ec;
+    }
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .recipe-content-container {
+    flex-direction: column;
+    .recipe-buttons-container {
+      flex-direction: row;
+      font-size: 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) { 
+  .recipe-ingredients-list {
+    padding-left: 0;
+  }
+}

@@ -1,0 +1,84 @@
+@use "../../public/sass/variables";
+
+.topContainer {
+  width: 100%;
+  padding: 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  #searchRecipes {
+    width: 100%;
+    padding: 0.5rem 4rem;
+    border-radius: 1rem;
+    outline: none;
+    border: 1px solid variables.$color2-text-highlight;
+    color: variables.$color-text-filter;
+    font-family: variables.$font-family-body;
+  }
+  i {
+    position: absolute;
+    font-size: 1.5rem;
+    top: 1.5rem;
+    padding-left: 1rem;
+    color: variables.$color2-text-highlight;
+  }
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 0.5fr));
+    gap: 2rem;
+    justify-content: center;
+    align-content: center;
+
+    label {
+      font-family: variables.$font-family-body;
+      color: variables.$color2-text-highlight;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+    select {
+      width: 100%;
+      color: variables.$color-text-filter;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.5rem;
+      border: 1px solid variables.$color-text-filter;
+      cursor: pointer;
+      z-index: 1;
+      option:hover {
+        background-color: variables.$color1-text-shadow;
+        color: variables.$color-text-filter;
+      }
+      option:checked {
+        background-color: variables.$color2-text-highlight;
+        color: white;
+      }
+    }
+    .tagsSelect,
+    .typesSelect,
+    .cuisineSelect,
+    .difficultySelect {
+      position: relative;
+    }
+  }
+}
+
+@media only screen and (max-width: 1178px) {
+  .topContainer{
+    
+    .filters {
+      grid-template-columns: repeat(2, minmax(8rem, 0.5fr));
+
+      select {
+        position: absolute;
+        top: 2rem;
+        left: 0;
+      }
+      .tagsSelect,
+      .typesSelect {
+        z-index: 10;
+      }
+    }
+  }
+}

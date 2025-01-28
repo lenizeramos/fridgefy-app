@@ -1,0 +1,180 @@
+@use "../../public/sass/variables";
+
+.mainContainer {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.3rem;
+  .fridge {
+    width: 15vw;
+  }
+  .recipes {
+    margin: 2rem 0;
+    width: 60vw;
+    h1 {
+      border-top: 1px solid variables.$color2-text-highlight;
+      border-bottom: 1px solid variables.$color2-text-highlight;
+      font-family: variables.$font-family-title;
+      text-align: center;
+      font-weight: bold;
+      color: variables.$color2-text-highlight;
+      display: none;
+    }
+    .recipeContainer {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      gap: 3rem;
+      justify-content: center;
+      padding: 2rem;
+      width: 100%;
+
+      .tryAgain {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 6rem 2rem;
+        gap: 3rem;
+        .notFound {
+          font-family: variables.$font-family-highlight;
+          font-size: 5rem;
+          color: variables.$color-text-highlight;
+        }
+        .loader {
+          box-sizing: border-box;
+          display: inline-block;
+          width: 50px;
+          height: 80px;
+          border-top: 5px solid #fff;
+          border-bottom: 5px solid #fff;
+          position: relative;
+          background: linear-gradient(
+              variables.$color-loader 30px,
+              transparent 0
+            )
+            no-repeat;
+          background-size: 2px 40px;
+          background-position: 50% 0px;
+          animation: spinx 5s linear infinite;
+
+          &:before,
+          &:after {
+            content: "";
+            width: 40px;
+            height: 35px;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e2e2e1;
+            border-radius: 0 0 20px 20px;
+            background-size: 100% auto;
+            background-repeat: no-repeat;
+            background-position: 0 0;
+            animation: lqt 5s linear infinite;
+          }
+
+          &:after {
+            top: auto;
+            bottom: 0;
+            border-radius: 20px 20px 0 0;
+            animation: lqb 5s linear infinite;
+          }
+        }
+      }
+    }
+  }
+}
+.wishList {
+  width: 20vw;
+}
+
+@keyframes lqt {
+  0%,
+  100% {
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
+    background-position: 0 0;
+  }
+
+  50% {
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
+    background-position: 0 40px;
+  }
+
+  50.1% {
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
+    background-position: 0 -40px;
+  }
+}
+
+@keyframes lqb {
+  0% {
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
+    background-position: 0 40px;
+  }
+
+  100% {
+    background-image: linear-gradient(
+      variables.$color-loader 40px,
+      transparent 0
+    );
+    background-position: 0 -40px;
+  }
+}
+
+@keyframes spinx {
+  0%,
+  49% {
+    transform: rotate(0deg);
+    background-position: 50% 36px;
+  }
+
+  51%,
+  98% {
+    transform: rotate(180deg);
+    background-position: 50% 4px;
+  }
+
+  100% {
+    transform: rotate(360deg);
+    background-position: 50% 36px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    .fridge {
+      margin: 2rem 0;
+      width: 100%;
+      padding: 0 2rem;
+    }
+    .recipes {
+      width: 100%;
+      margin: 0;
+      padding: 0 2rem;
+      h1 {
+        display: block;
+        margin-bottom: 2rem;
+      }
+    }
+    .wishList {
+      padding: 0 2rem;
+      width: 100%;
+    }
+  }
+}

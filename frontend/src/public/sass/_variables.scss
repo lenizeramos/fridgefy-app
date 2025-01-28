@@ -1,0 +1,53 @@
+@import url("https://fonts.googleapis.com/css2?family=Bad+Script&family=Mystery+Quest&family=Shadows+Into+Light&family=Tangerine:wght@400;700&display=swap");
+
+$font-family-body: "Shadows Into Light", serif;
+$font-family-title: "Tangerine", serif;
+$font-family-highlight: "Mystery Quest", serif;
+$font-family-modal: "Bad Script", serif;
+
+$color-loader: #f6a193;
+$color-text-highlight: #a94d3c;
+$color2-text-highlight: #8b4513;
+$color3-text-highlight: #a52a2a;
+$color4-text-highlight: #8b7456;
+$color-text-name: #535351;
+$color-text-modal: #666;
+$color1-text-shadow: #faead7;
+$color2-text-shadow: #2b2b2a;
+$color-text-button-modal: #4b3621;
+$color-text-button-modal-hover: #755535;
+$color-line: #f9d3b8;
+$color-text-list: #666;
+$color-shadow: #813224;
+$color-border-button-hover: #8b5e3c;
+$color-active: #4d2f0a;
+$color-noActive: #535351;
+$color-button-navbar: #dac1aa;
+$color-text-filter: #642f09;
+
+$box-shadow: #00000033;
+$box-shadow-svg: #0000004d;
+$box-shadow-svg-hover: #00000080;
+
+$background-containers: #f8f3ee;
+$background-dark-button: #f1e5d699;
+$background-light-button: #e4e0d696;
+$background-overly: #000000b3;
+$backgound-close: #edd6c399;
+$backgound-close-hover: #d5d4d2;
+$backgound-close-hover2: #b79e8999;
+$backgound-button: #ead5c1;
+$backgound-button-hover: #393737;
+
+
+$shadow-soft: 4px 4px 8px #00000033,
+  -4px -4px 8px #ffffff80;
+$shadow-deep: 8px 8px 16px #0000004d,
+  -8px -8px 16px #ffffff80;
+$shadow-sharp: 2px 2px 4px #3b393966,
+  -2px -2px 4px #3d3a3ab3;
+$shadow-inset: inset 4px 4px 8px rgba(0, 0, 0, 0.2),
+  inset -4px -4px 8px #ffffff80;
+$shadow-floating: 12px 12px 24px #00000033,
+  -6px -6px 16px #ffffffb3;
+

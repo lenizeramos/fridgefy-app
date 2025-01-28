@@ -1,0 +1,100 @@
+@use "../../public/sass/variables";
+
+.homeContainer {
+  position: relative;
+  margin: 6.7rem 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+
+  .description {
+    width: 40%;
+
+    h1 {
+      font-family: variables.$font-family-body;
+      font-size: 3rem;
+      color: variables.$color3-text-highlight;
+
+      span {
+        font-size: 3.5rem;
+        font-family: variables.$font-family-highlight;
+        color: variables.$color4-text-highlight;
+      }
+    }
+
+    h3 {
+      text-align: start;
+      font-family: variables.$font-family-body;
+      font-size: 2rem;
+      color: variables.$color3-text-highlight;
+    }
+
+    p {
+      font-size: 1.7rem;
+      margin-top: 1.5rem;
+      text-align: justify;
+      font-family: variables.$font-family-body;
+      line-height: 1.8;
+    }
+
+    button {
+      margin: 2rem 0 0 0;
+      padding: 0.7rem 1.5rem;
+      border-radius: 1rem;
+      background-color: variables.$backgound-button;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease;
+      border: 1px solid variables.$color-active;
+
+      .button {
+        text-decoration: none;
+        color: variables.$color-active;
+        font-family: variables.$font-family-highlight;
+      }
+
+      &:hover {
+        background-color: #eaccb0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px variables.$box-shadow;
+        .button {
+          color: variables.$backgound-button-hover;
+        }
+      }
+    }
+  }
+
+  .image {
+    position: relative;
+    perspective: 1000px;
+    width: fit-content;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+  }
+}
+
+@media only screen and (max-width: 870px) {
+  .homeContainer {
+    margin: 2rem;
+
+    .description {
+      width: 60%;
+    }
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .homeContainer {
+    flex-direction: column;
+    gap: 0;
+
+    .description {
+      width: 100%;
+      margin-top: 3rem;
+    }
+
+    .image {
+      width: 18rem;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@use "../../public/sass/variables";
+
+.myRecipesContainer {
+  margin-top: 2rem;
+  width: 100%;
+  h1 {
+    border-top: 1px solid variables.$color2-text-highlight;
+    border-bottom: 1px solid variables.$color2-text-highlight;
+    font-family: variables.$font-family-title;
+    text-align: center;
+    font-weight: bold;
+    color: variables.$color2-text-highlight;
+  }
+  ul {
+    list-style: none;
+    width: 100%;
+    padding: 0;
+    li {
+      width: 100%;
+      padding: 0.5rem;
+      border-bottom: 1px solid variables.$color-line;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      .image {
+        width: 4rem;
+        height: auto;
+        border: 1px solid variables.$color3-text-highlight;
+        border-radius: 2rem;
+      }
+      .text {
+        font-family: variables.$font-family-body;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: variables.$color3-text-highlight;
+        margin: 0;
+      }
+      &:hover {
+        background-color: variables.$color-line;
+        cursor: pointer;
+      }
+    }
+  }
+}

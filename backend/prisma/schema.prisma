@@ -1,0 +1,70 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  clerkId      String         @id @map("_id")
+  email        String
+  createdAt    DateTime       @default(now())
+  fridge       Fridge[]
+  shoppingList ShoppingList[]
+  recipes      Recipe[]
+
+  @@map("user")
+}
+
+model Fridge {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user           User     @relation(fields: [userId], references: [clerkId])
+  userId         String
+  ingredientName String
+  quantity      Float?
+  createdAt     DateTime @default(now())
+  expirationDate DateTime
+
+  @@map("fridge")
+}
+
+model ShoppingList {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  user           User     @relation(fields: [userId], references: [clerkId])
+  userId         String
+  name String
+  quantity      Float?
+  addedAt       DateTime @default(now())
+
+  @@map("shopping_list")
+}
+
+model Recipe {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  user            User     @relation(fields: [userId], references: [clerkId])
+  userId          String
+  recipeId        Int
+  name            String
+  ingredients     String[]
+  instructions    String[]
+  prepTimeMinutes Int
+  cookTimeMinutes Int
+  servings        Int
+  difficulty      String
+  cuisine         String
+  tags            String[]
+  image           String
+  mealType        String[]
+  savedAt         DateTime @default(now())
+
+  @@unique([userId, recipeId])
+  @@map("recipe")
+}

@@ -1,0 +1,49 @@
+@use "../../../public/sass/variables";
+
+.items-list-container {
+  .items-list-title {
+    margin: 0;
+    p {
+      font-family: variables.$font-family-title;
+      font-size: 3rem;
+      color: variables.$color2-text-highlight;
+      margin: 0;
+    }
+  }
+
+  .items-list-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    font-family: variables.$font-family-title;
+    .ingredient-name {
+      font-family: variables.$font-family-body;
+    }
+    p {
+      font-family: variables.$font-family-title;
+      font-size: 2rem;
+      text-align: center;
+      margin: 0;
+    }
+    .items-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid #642f09;
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: variables.$color2-text-highlight;
+      font-size: 1.2rem;
+      transition: all 0.2s ease;
+      text-align: left;
+      background-color: variables.$background-containers;
+      font-family: variables.$font-family-body;
+
+      &:hover {
+        background-color: #fff6ec;
+        transform: translateX(5px);
+      }
+    }
+  }
+}

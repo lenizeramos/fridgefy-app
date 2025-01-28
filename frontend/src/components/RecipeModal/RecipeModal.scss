@@ -1,0 +1,127 @@
+@use "../../public/sass/variables";
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: variables.$background-overly;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+
+  .modal-content {
+    background: variables.$background-containers;
+    border-radius: 8px;
+    max-width: 38rem;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: variables.$backgound-close;
+      &:hover {
+        background-color: variables.$backgound-close-hover2;
+        color: variables.$color-text-button-modal-hover;
+      }
+    }
+
+    .modal-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+
+      h2 {
+        font-size: 3rem;
+        color: variables.$color3-text-highlight;
+        font-family: variables.$font-family-title;
+        font-weight: 600;
+      }
+
+      img {
+        width: 50%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+        border: 0.5px groove #5d514999;
+        box-shadow: variables.$shadow-soft;
+        transition: all 1s ease;
+        &:hover {
+          transform: scale(1.1);
+          box-shadow: variables.$shadow-deep;
+        }
+      }
+    }
+
+    .modal-body {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      .recipe-info {
+        margin-bottom: 0.5rem;
+        p {
+          font-family: variables.$font-family-body;
+          margin: 0;
+          color: variables.$color-text-list;
+          font-size: 1.2rem;
+          strong {
+            font-weight: bold;
+            font-family: variables.$font-family-modal;
+            color: variables.$color2-text-highlight;
+          }
+        }
+      }
+
+      .recipe-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+
+        .tag {
+          background-color: variables.$background-dark-button;
+          padding: 0.25rem 0.75rem;
+          border-radius: 16px;
+          font-size: 0.875rem;
+          color: variables.$color-text-modal;
+        }
+      }
+
+      .view-full-recipe {
+        width: 100%;
+        padding: 0.875rem;
+        background-color: variables.$backgound-close;
+        color: variables.$color-text-button-modal;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 500;
+        transition: background-color 0.2s ease-out;
+        &:hover {
+          background-color: variables.$backgound-close-hover2;
+          color: variables.$color-text-button-modal-hover;
+        }
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+}
